@@ -408,7 +408,7 @@ public class Sandbox {
     fuelInfo.add(SBML.FUEL_INFO_FIRST_LINE);
     for (Module module : alone) {
       if (module.hasFuel()) {
-        fuelInfo.add(String.format(Locale.US, SBML.FUEL_INFO_FORMAT, module.getSaveId(),
+        fuelInfo.add(String.format(Locale.US, SBML.FUEL_INFO_FORMAT, module.getPartId(),
           module.getMainFuelCapacity(), module.getThtFuelCapacity()));
       }
     }
