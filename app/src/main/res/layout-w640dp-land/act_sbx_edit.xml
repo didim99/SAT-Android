@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/actSbxEdit_layoutHMargin"
+      android:orientation="vertical"
+      android:layout_weight="1">
+
+      <CheckBox
+        android:id="@+id/sectionHide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionHide_enabled"
+        android:text="@string/actSbxEdit_section_hide"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <RadioGroup
+        android:id="@+id/rgHideMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin"
+        android:orientation="horizontal">
+
+        <RadioButton
+          android:id="@+id/hideModeHide"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/actSbxEdit_layoutHMargin"
+          android:layout_marginRight="@dimen/actSbxEdit_layoutHMargin"
+          android:enabled="@bool/default_sectionHide_enabled"
+          android:text="@string/actSbxEdit_hide_hide"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"
+          android:checked="true"/>
+
+        <RadioButton
+          android:id="@+id/hideModeShow"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionHide_enabled"
+          android:text="@string/actSbxEdit_hide_show"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+      </RadioGroup>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+      <CheckBox
+        android:id="@+id/sectionAlpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionAlpha_enabled"
+        android:text="@string/actSbxEdit_section_alpha"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_alpha_value"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etAlpha"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_sectionAlpha_enabled"
+          android:ems="5"
+          android:inputType="number"/>
+      </LinearLayout>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+      <CheckBox
+        android:id="@+id/refreshCargo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/actSbxEdit_refresh_cargo"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <CheckBox
+        android:id="@+id/refreshFuel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/actSbxEdit_refresh_fuel"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <CheckBox
+        android:id="@+id/sectionExtendFuel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionExtendFuel_enabled"
+        android:text="@string/actSbxEdit_extend_fuel"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_extend_fuel_in"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etExtendFuel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginRight="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_sectionExtendFuel_enabled"
+          android:ems="5"
+          android:inputType="numberDecimal"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_extend_fuel_fact"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+      </LinearLayout>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+      <CheckBox
+        android:id="@+id/sectionSaveId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionSaveId_enabled"
+        android:text="@string/actSbxEdit_section_saveId"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_saveId_start"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etStartSaveId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_sectionSaveId_enabled"
+          android:hint="@string/actSbxEdit_saveId_auto"
+          android:ems="5"
+          android:inputType="number"/>
+      </LinearLayout>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+      <CheckBox
+        android:id="@+id/sectionPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionPosition_enabled"
+        android:text="@string/actSbxEdit_section_move"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <TextView
+        android:id="@+id/tvEnterOffset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin"
+        android:text="@string/diaStaCopy_tvText_enterOffset"
+        android:textSize="@dimen/actSbxEdit_textSize_main"
+        android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/positionX"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etPositionX"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionPosition_enabled"
+          android:ems="5"
+          android:inputType="numberSigned|numberDecimal"
+          android:imeOptions="actionNext"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/positionY"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etPositionY"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionPosition_enabled"
+          android:ems="5"
+          android:inputType="numberSigned|numberDecimal"/>
+      </LinearLayout>
+
+      <RadioGroup
+        android:id="@+id/rgMoveMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <RadioButton
+          android:id="@+id/moveModeOffset"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/actSbxEdit_layoutHMargin"
+          android:layout_marginRight="@dimen/actSbxEdit_layoutHMargin"
+          android:enabled="@bool/default_sectionPosition_enabled"
+          android:text="@string/diaStaCopy_rbText_modeOffset"
+          android:textSize="@dimen/actSbx_textSizeMain"
+          android:textColor="@color/actSbxEdit_colorSubSection"
+          android:checked="true"/>
+
+        <RadioButton
+          android:id="@+id/moveModeNewCenter"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionPosition_enabled"
+          android:text="@string/diaStaCopy_rbText_modeNewCenter"
+          android:textSize="@dimen/actSbx_textSizeMain"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+      </RadioGroup>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+    </LinearLayout>
+
+    <ImageView
+      android:layout_width="@dimen/actSbxEdit_divHeight"
+      android:layout_height="match_parent"
+      android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+      android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+      app:srcCompat="@color/infoDialog_divider"
+      tools:ignore="ContentDescription"/>
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/actSbxEdit_layoutHMargin"
+      android:orientation="vertical"
+      android:layout_weight="1">
+
+      <CheckBox
+        android:id="@+id/sectionRotate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionRotate_enabled"
+        android:text="@string/actSbxEdit_section_rotate"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_rotate_value"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etRotateAngle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_sectionRotate_enabled"
+          android:ems="5"
+          android:inputType="numberSigned|numberDecimal"/>
+      </LinearLayout>
+
+      <CheckBox
+        android:id="@+id/rotationCommonBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:enabled="@bool/default_sectionRotate_enabled"
+        android:checked="@bool/default_rotate_commonBase"
+        android:text="@string/actSbxEdit_rotate_commonBase"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <CheckBox
+        android:id="@+id/rotationCustomBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="@bool/default_sectionRotate_enabled"
+        android:checked="@bool/default_sectionRotate_enabled"
+        android:text="@string/actSbxEdit_rotate_base"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/positionX"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etRotationBaseX"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionRotate_enabled"
+          android:ems="5"
+          android:hint="@string/actSbxEdit_saveId_auto"
+          android:inputType="numberSigned|numberDecimal"
+          android:imeOptions="actionNext"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/positionY"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etRotationBaseY"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionRotate_enabled"
+          android:ems="5"
+          android:hint="@string/actSbxEdit_saveId_auto"
+          android:inputType="numberSigned|numberDecimal"/>
+      </LinearLayout>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+      <CheckBox
+        android:id="@+id/sectionMovement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@bool/default_sectionMovement_enabled"
+        android:text="@string/actSbxEdit_section_movement"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <RadioGroup
+        android:id="@+id/rgMovementMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin"
+        android:orientation="horizontal">
+
+        <RadioButton
+          android:id="@+id/movementModeStop"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/actSbxEdit_layoutHMargin"
+          android:layout_marginRight="@dimen/actSbxEdit_layoutHMargin"
+          android:enabled="@bool/default_sectionMovement_enabled"
+          android:text="@string/actSbxEdit_movement_mode_stop"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <RadioButton
+          android:id="@+id/movementModeEdit"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:enabled="@bool/default_sectionMovement_enabled"
+          android:text="@string/actSbxEdit_movement_mode_edit"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"
+          android:checked="true"/>
+      </RadioGroup>
+
+      <CheckBox
+        android:id="@+id/changeMovementDirection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="@bool/default_changeMovementDirection_enabled"
+        android:checked="@bool/default_changeMovementDirection_enabled"
+        android:text="@string/actSbxEdit_movement_changeDirection"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_movement_direction"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etMovementDirection"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_changeMovementDirection_enabled"
+          android:ems="5"
+          android:inputType="numberDecimal"/>
+      </LinearLayout>
+
+      <CheckBox
+        android:id="@+id/changeMovementSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="@bool/default_changeMovementSpeed_enabled"
+        android:checked="@bool/default_changeMovementSpeed_enabled"
+        android:text="@string/actSbxEdit_movement_changeSpeed"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_movement_speed"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etMovementSpeed"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_changeMovementSpeed_enabled"
+          android:ems="5"
+          android:inputType="numberDecimal"/>
+      </LinearLayout>
+
+      <CheckBox
+        android:id="@+id/changeMovementRotation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="@bool/default_changeMovementRotation_enabled"
+        android:checked="@bool/default_changeMovementRotation_enabled"
+        android:text="@string/actSbxEdit_movement_changeRotation"
+        android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/actSbxEdit_subSectionMargin"
+        android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="bottom"
+          android:text="@string/actSbxEdit_movement_rotation"
+          android:textSize="@dimen/actSbxEdit_textSize_main"
+          android:textColor="@color/actSbxEdit_colorSubSection"/>
+
+        <EditText
+          android:id="@+id/etMovementRotation"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:enabled="@bool/default_changeMovementRotation_enabled"
+          android:ems="5"
+          android:inputType="numberSigned|numberDecimal"/>
+      </LinearLayout>
+
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actSbxEdit_divHeight"
+        android:layout_marginTop="@dimen/actSbxEdit_divVMargin"
+        android:layout_marginBottom="@dimen/actSbxEdit_divVMargin"
+        app:srcCompat="@color/infoDialog_divider"
+        tools:ignore="ContentDescription"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</ScrollView>

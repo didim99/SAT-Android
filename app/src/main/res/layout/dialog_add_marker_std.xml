@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="@dimen/dialogView_Padding"
+              android:paddingBottom="@dimen/dialogView_Padding"
+              android:paddingLeft="@dimen/dialogView_PaddingLarge"
+              android:paddingRight="@dimen/dialogView_PaddingLarge">
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/diaAddMarker_selectName"
+    android:textSize="@dimen/dialogView_textSizeMain"/>
+
+  <Spinner
+    android:id="@+id/markerSelector"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dialogView_Padding"
+    android:layout_marginRight="@dimen/dialogView_Padding"/>
+
+</LinearLayout>

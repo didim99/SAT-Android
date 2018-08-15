@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+    android:id="@+id/action_sbxInfo"
+    android:icon="@drawable/ic_info_outline_24dp"
+    android:orderInCategory="1"
+    android:title="@string/mTitle_actionSbxInfo"
+    app:showAsAction="ifRoom"/>
+
+  <item
+    android:id="@+id/action_nav"
+    android:icon="@drawable/ic_nav_24dp"
+    android:orderInCategory="2"
+    android:title="@string/mTitle_actionNav"
+    app:showAsAction="ifRoom"/>
+
+  <item
+    android:id="@+id/action_add"
+    android:icon="@drawable/ic_add_24dp"
+    android:orderInCategory="3"
+    android:title="@string/mTitle_actionAddObject"
+    app:showAsAction="ifRoom"
+    android:visible="false">
+
+    <menu>
+      <item
+        android:id="@+id/action_addShuttle"
+        android:orderInCategory="1"
+        android:title="@string/mTitle_actionAdd_shuttle"
+        app:showAsAction="never"/>
+
+      <item
+        android:id="@+id/action_addSpy"
+        android:orderInCategory="2"
+        android:title="@string/mTitle_actionAdd_spy"
+        app:showAsAction="never"/>
+
+      <item
+        android:id="@+id/action_addModule"
+        android:orderInCategory="3"
+        android:title="@string/mTitle_actionAdd_module"
+        app:showAsAction="never"/>
+
+      <item
+        android:id="@+id/action_addText"
+        android:orderInCategory="4"
+        android:title="@string/mTitle_actionAdd_text"
+        app:showAsAction="never"/>
+
+      <item
+        android:id="@+id/action_addAll"
+        android:orderInCategory="4"
+        android:title="@string/mTitle_actionAdd_all"
+        app:showAsAction="never"
+        android:visible="false"/>
+
+      <item
+        android:id="@+id/action_addAllFont"
+        android:orderInCategory="5"
+        android:title="@string/mTitle_actionAdd_allFont"
+        app:showAsAction="never"
+        android:visible="false"/>
+    </menu>
+  </item>
+
+  <item
+    android:id="@+id/action_optimize"
+    android:icon="@drawable/ic_optimize_24dp"
+    android:orderInCategory="4"
+    android:title="@string/mTitle_actionOptimize"
+    app:showAsAction="ifRoom"/>
+
+  <item
+    android:id="@+id/action_save"
+    android:icon="@drawable/ic_save_24dp"
+    android:orderInCategory="5"
+    android:title="@string/mTitle_actionSave"
+    app:showAsAction="always"/>
+
+  <item
+    android:id="@+id/action_devTools"
+    android:orderInCategory="6"
+    android:title="@string/mTitle_actionDevTools"
+    app:showAsAction="never"
+    android:visible="false">
+
+    <menu>
+      <item
+        android:id="@+id/action_fuelInfo"
+        android:orderInCategory="1"
+        android:title="@string/mTitle_actionFuelInfo"
+        app:showAsAction="never"/>
+    </menu>
+  </item>
+
+  <item
+    android:id="@+id/action_partInfo"
+    android:orderInCategory="6"
+    android:title="@string/mTitle_actionPartInfo"
+    app:showAsAction="never"
+    android:visible="false"/>
+
+</menu>

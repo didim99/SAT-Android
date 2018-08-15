@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dialogView_Padding">
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      android:id="@+id/tvPower"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:drawableLeft="@drawable/ic_power_yellow_24dp"
+      android:drawableStart="@drawable/ic_power_yellow_24dp"
+      android:drawablePadding="@dimen/HelpDialog_iconPadding"
+      android:textSize="@dimen/HelpDialog_textSize_main"/>
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/HelpDialog_itemVMargin"
+      android:drawableLeft="@drawable/ic_fuel_yellow_24dp"
+      android:drawableStart="@drawable/ic_fuel_yellow_24dp"
+      android:drawablePadding="@dimen/HelpDialog_iconPadding"
+      android:text="@string/HelpDialog_fuel"
+      android:textSize="@dimen/HelpDialog_textSize_main"/>
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/HelpDialog_itemVMargin"
+      android:drawableLeft="@drawable/ic_cargo_yellow_24dp"
+      android:drawableStart="@drawable/ic_cargo_yellow_24dp"
+      android:drawablePadding="@dimen/HelpDialog_iconPadding"
+      android:text="@string/HelpDialog_cargo"
+      android:textSize="@dimen/HelpDialog_textSize_main"/>
+
+    <TextView
+      android:id="@+id/tvSaveCargo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="36dp"
+      android:layout_marginStart="36dp"
+      android:textSize="@dimen/HelpDialog_textSize_main"/>
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/HelpDialog_itemVMargin"
+      android:drawableLeft="@drawable/ic_nav_yellow_24dp"
+      android:drawableStart="@drawable/ic_nav_yellow_24dp"
+      android:drawablePadding="@dimen/HelpDialog_iconPadding"
+      android:text="@string/HelpDialog_nav"
+      android:textSize="@dimen/HelpDialog_textSize_main"/>
+
+  </LinearLayout>
+
+</ScrollView>

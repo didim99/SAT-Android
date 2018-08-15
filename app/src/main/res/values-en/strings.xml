@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Application level -->
+  <string name="actLabel_dirPicker">Choose directory</string>
+  <string name="actLabel_filePicker">Choose file</string>
+  <string name="actLabel_pickModule">Choose module</string>
+  <!-- Общее -->
+  <string name="dialogButtonCancel">Cancel</string>
+  <string name="dialogButtonNow">Just now</string>
+  <string name="dialogButtonAlways">Always</string>
+  <string name="dialogButtonSave">Save</string>
+  <string name="dialogButtonEdit">Edit</string>
+  <string name="dialogButtonExit">Exit</string>
+  <string name="distanceTo_M">%.2fM to %s</string>
+  <string name="distanceTo_K">%.2fK to %s</string>
+  <string name="distanceTo_U">%.2f to %s</string>
+  <string name="diaTitle_warning">Warning</string>
+  <string name="downloadingStarted">Download started</string>
+  <string name="noAskMore">Don\'t ask again</string>
+  <string name="needDB">Need DB</string>
+  <string name="downloadAgain">Download again</string>
+  <string name="notUse">Stop use</string>
+  <string name="continueAnyway">Continue anyway</string>
+  <!-- Системные сообщения -->
+  <string name="oops">Oops!</string>
+  <string name="restartRequired">Restart application to apply settings.</string>
+  <string name="diaTitle_useInternalExplorer">Use internal explorer</string>
+  <string name="diaMsg_useInternalExplorer">Many unsuccessful attempts to load file from external explorer have been detected. Do you want to use built-in by default?</string>
+  <string name="saveBeforeExit">Sandbox contains unsaved changes. Save it?</string>
+  <string name="unsupportedScheme">The file could not be loaded.\nTry to use another file manager</string>
+  <string name="diaTitle_sendFailure">No any applications found that can save/send Sandbox. Use internal file manager to select the storage location?</string>
+  <string name="databaseDamaged">The database is corrupt or incompatible with the current version of the application. You can download it again or stop using it.</string>
+  <!-- Системные ошибки-->
+  <string name="systemErr_cacheDirsNotCreated">Failed to create temporary directories. There may not be enough free space on the device. Try to free up space and restart the application.</string>
+  <!-- Текст экранных элементов (StartActivity) -->
+  <string name="actStart_btnText_create">Create new sandbox</string>
+  <string name="actStart_btnText_sbxEdit">Edit sandbox</string>
+  <string name="actStart_btnText_sbxConvert">Encrypt/decrypt sandbox</string>
+  <string name="actStart_btnText_resEdit">Pack/unpack textures</string>
+  <string name="createSandbox_tvText_name">Sandbox name</string>
+  <string name="createSandbox_edHint_uid">For experienced users</string>
+  <string name="createSandbox_addStdMarkers">Add standard NaviComp markers</string>
+  <string name="sandboxNameIsEmpty">Sandbox name is empty</string>
+  <string name="sandboxNameInvalid">Invalid sandbox name</string>
+  <string name="diaTitle_needDB">Need modules database</string>
+  <string name="diaMsg_needDB">To fully function the application, a database of modules characteristics is required. Do you want to download it now? (This can also be done later in the application settings)</string>
+  <!-- Текст экранных элементов (SbxConvertActivity) -->
+  <string name="noVersionSelected">Version not selected</string>
+  <!-- Содержимое текстовых полей и подписей кнопок (Layout: act_res_converter) -->
+  <string name="tvContent_insertPath">Enter start path:</string>
+  <string name="btnText_btnPack">Pack</string>
+  <string name="btnText_btnUnpack">Unpack</string>
+  <string name="contDesc_preview">Preview</string>
+  <string name="swText_selectMode">Multiple files</string>
+  <string name="resProcessing_packing">Packing…</string>
+  <string name="resProcessing_unpacking">Unpacking…</string>
+  <string name="resProcessing_packingCnt">Packing (%d/%d)…</string>
+  <string name="resProcessing_unpackingCnt">Unpacking (%d/%d)…</string>
+  <!-- Текст экранных элементов (layout: act_sbx_edit) -->
+  <string name="actSbxEdit_section_hide">Hide/show station</string>
+  <string name="actSbxEdit_hide_hide">Hide</string>
+  <string name="actSbxEdit_hide_show">Show</string>
+  <string name="actSbxEdit_section_alpha">Change modules transparency</string>
+  <string name="actSbxEdit_alpha_value">transparency (in %)</string>
+  <string name="actSbxEdit_refresh_cargo">Refresh cargo</string>
+  <string name="actSbxEdit_refresh_fuel">Refresh fuel</string>
+  <string name="actSbxEdit_extend_fuel">Extend fuel tanks capacity</string>
+  <string name="actSbxEdit_extend_fuel_in">Extend in</string>
+  <string name="actSbxEdit_extend_fuel_fact">times</string>
+  <string name="actSbxEdit_section_saveId">Change SAVE ID</string>
+  <string name="actSbxEdit_saveId_start">New start SAVE ID</string>
+  <string name="actSbxEdit_saveId_auto">Auto</string>
+  <string name="actSbxEdit_section_move">Move station</string>
+  <string name="actSbxEdit_section_rotate">Rotate station</string>
+  <string name="actSbxEdit_rotate_value">Rotation angle (in &#176;)</string>
+  <string name="actSbxEdit_rotate_commonBase">Common rotation base point</string>
+  <string name="actSbxEdit_rotate_base">Custom rotation base point</string>
+  <string name="actSbxEdit_section_movement">Change movement parameters</string>
+  <string name="actSbxEdit_movement_mode_stop">Stop station</string>
+  <string name="actSbxEdit_movement_mode_edit">Correct movement</string>
+  <string name="actSbxEdit_movement_changeDirection">Change direction</string>
+  <string name="actSbxEdit_movement_changeSpeed">Change speed</string>
+  <string name="actSbxEdit_movement_changeRotation">Change rotation</string>
+  <string name="actSbxEdit_movement_direction">Direction of movement</string>
+  <string name="actSbxEdit_movement_speed">Movement speed</string>
+  <string name="actSbxEdit_movement_rotation">Rotation speed</string>
+  <plurals name="chooseEditMode">
+    <item quantity="one">Replace the original station or create a copy?</item>
+    <item quantity="other">Replace original objects or create copies of them?</item>
+  </plurals>
+  <plurals name="editMode_createNew">
+    <item quantity="one">Create copy</item>
+    <item quantity="other">Create copies</item>
+  </plurals>
+  <string name="editMode_replace">Replace</string>
+  <string name="exitFromEditing">Exit from editing mode?</string>
+  <!-- Текст ошибок (layout: act_sbx_edit) -->
+  <string name="actSbxEdit_alpha_isEmpty">Transparency value not defined</string>
+  <string name="actSbxEdit_alpha_incorrect">Transparency value incorrect</string>
+  <string name="actSbxEdit_extend_fuel_isEmpty">Fuel tanks extension factor not defined</string>
+  <string name="actSbxEdit_extend_fuel_incorrect">НFuel tanks extension factor incorrect</string>
+  <string name="actSbxEdit_rotate_emptyAngle">Rotation angle not defined</string>
+  <string name="actSbxEdit_rotate_incorrectAngle">Rotation angle incorrect</string>
+  <string name="actSbxEdit_rotate_emptyBase">Rotation base point not defined</string>
+  <string name="actSbxEdit_rotate_incorrectBase">Rotation base point incorrect</string>
+  <string name="actSbxEdit_movement_direction_isEmpty">Movement direction not defined</string>
+  <string name="actSbxEdit_movement_direction_incorrect">Movement direction incorrect</string>
+  <string name="actSbxEdit_movement_speed_isEmpty">Movement speed not defined</string>
+  <string name="actSbxEdit_movement_speed_incorrect">Movement speed incorrect</string>
+  <string name="actSbxEdit_movement_rotation_isEmpty">Rotation speed not defined</string>
+  <string name="actSbxEdit_movement_rotation_incorrect">Rotation speed incorrect</string>
+  <!-- Содержимое текстовых полей и подписей кнопок (Layoact_dir_pickercker) -->
+  <string name="dirPicker_dirUnreadable">Access denied</string>
+  <string name="dirPicker_fsRootUnreadable">Can\'t open root directory, open sdcard</string>
+  <string name="tvText_dirPicker_empty">No item</string>
+  <string name="btnText_dirPicker_back">Back</string>
+  <string name="btnText_dirPicker_go">Choose</string>
+  <!-- Текст экранных элементов (layout: act_sbx_converter) -->
+  <string name="actSbxConv_tvContent_insertPath">Enter start path:</string>
+  <string name="actSbxConv_btnText_btnCompress">Encrypt</string>
+  <string name="actSbxConv_btnText_btnUncompress">Decrypt</string>
+  <string name="actSbxConv_btnText_btnEdit">Open in editor</string>
+  <string name="actSbxConv_tvContent_selectVersion">Choose version (only for encryption)</string>
+  <string name="actSbxConv_rBtnText_verCode21">v1.5.0 or newer</string>
+  <!-- Текст экранных элементов (layodialog_sandbox_savedbox) -->
+  <string name="diaSbxSave_title">Save sandbox</string>
+  <string name="diaSbxSave_cbText_Overwrite">Overwrite original file</string>
+  <string name="diaSbxSave_cbText_Compress">Encrypt sandbox</string>
+  <string name="diaSbxSave_tvContent_selectVersion">Select version:</string>
+  <!-- Текст экранных элементов (layout: dialog_sandbox_info) -->
+  <string name="diaTitle_staInfo">Station info</string>
+  <string name="diaTitle_groupInfo">Group info</string>
+  <string name="diaTitle_textInfo">Text info</string>
+  <string name="diaSbxInfo_minVer">Min SA version</string>
+  <string name="diaSbxInfo_modCount">Modules total</string>
+  <string name="diaSbxInfo_objCount">Objects total</string>
+  <string name="diaSbxInfo_stationCount">Stations</string>
+  <string name="diaSbxInfo_aloneCount">Alone modules</string>
+  <string name="diaSbxInfo_markerCount">NaviComp markers</string>
+  <string name="diaSbxInfo_saveIdRange">SAVE ID range</string>
+  <string name="diaSbxInfo_centerPosition">Center position</string>
+  <string name="diaSbxInfo_size">Size</string>
+  <string name="diaSbxInfo_movement">Movement</string>
+  <!-- Текст экранных элементов (layout: dialog_station_copy) -->
+  <string name="diaTitle_multipleCopy">Copy multiple objects</string>
+  <string name="diaTitle_staCopy">Copy station</string>
+  <string name="diaTitle_groupCopy">Copy group</string>
+  <string name="diaTitle_textCopy">Copy text</string>
+  <string name="diaStaCopy_tvText_enterOffset">Enter offset</string>
+  <string name="diaStaCopy_tvText_enterCenterPos">Enter center position</string>
+  <string name="diaStaCopy_rbText_modeOffset">Offset</string>
+  <string name="diaStaCopy_rbText_modeNewCenter">Center position</string>
+  <!-- Текст экранных элементов (dialog_add_moddialog_add_all_modules_all) -->
+  <string name="diaTitle_addModule">Add module</string>
+  <string name="diaTitle_addAll">Add all modules</string>
+  <string name="diaAddModule_enterPosition">Position</string>
+  <string name="diaAddModule_enterPositionFirst">First module position</string>
+  <string name="diaAddModule_multiple">Multiple Modules</string>
+  <string name="diaAddModule_enterCount">Number of modules</string>
+  <string name="diaAddModule_advanced">Advanced settings</string>
+  <string name="diaAddModule_distance">Pitch of modules (NCU)</string>
+  <string name="diaAddModule_inLine">Modules in line</string>
+  <string name="diaAddModule_selectVersion">SA version</string>
+  <string name="diaTitle_addText">Add text</string>
+  <string name="diaAddText_enterText">Text</string>
+  <string name="diaAddText_enterPosition">Position (upper left corner)</string>
+  <string name="diaAddText_selectAlign">Text alignment</string>
+  <string-array name="diaAddText_alignValues">
+    <item>Left side</item>
+    <item>Center</item>
+    <item>Right side</item>
+  </string-array>
+  <string name="diaAddText_margin">Letter spacing (in \"dots\")</string>
+  <string name="diaTitle_addAllFont">Add all pixel font</string>
+  <string name="diaAddAllFont_inLine">Symbols in line</string>
+  <string name="diaOptimize_optSaveId">Optimize SAVE ID</string>
+  <!-- NaviCompActivity -->
+  <string name="diaTitle_markerInfo">Marker info</string>
+  <string name="diaTitle_markerEdit">Edit marker</string>
+  <!-- Текст экранных элементов (dialog_add_marker) -->
+  <string name="diaTitle_markerAddStd">Add standard marker</string>
+  <string name="diaTitle_markerAddCustom">Add custom marker</string>
+  <string name="diaTitle_markerExists">Marker %s already exists. Replace it?</string>
+  <string name="diaAddMarker_enterLabel">Label</string>
+  <string name="diaAddMarker_enterPosition">Position</string>
+  <string name="diaAddMarker_enterObjRadius">Object radius</string>
+  <string name="diaAddMarker_enterOrbRadius">Orbit radius</string>
+  <string name="diaAddMarker_enterRescaleRadius">Rescale radius</string>
+  <string name="diaAddMarker_enterScale">Scale factor</string>
+  <string name="diaAddMarker_selectName">Marker label</string>
+  <!-- Названия элементов меню (menu_start) -->
+  <string name="mTitle_actionPartInfo">Parts info</string>
+  <string name="mTitle_actionSettings">Settings</string>
+  <!-- Названия элементов меню (menu_sandbox) -->
+  <string name="mTitle_actionSbxInfo">Sandbox info</string>
+  <string name="mTitle_actionNav">NaviComp markers</string>
+  <string name="mTitle_actionOptimize">Optimize sandbox</string>
+  <string name="mTitle_actionAddObject">Add object</string>
+  <string name="mTitle_actionAdd_shuttle">Shuttle</string>
+  <string name="mTitle_actionAdd_spy">Spy Satellite</string>
+  <string name="mTitle_actionAdd_module">Other module</string>
+  <string name="mTitle_actionAdd_text">Text</string>
+  <string name="mTitle_actionAdd_all">All modules</string>
+  <string name="mTitle_actionAdd_allFont">All pixel font</string>
+  <string name="mTitle_actionSave">Save</string>
+  <string name="mTitle_actionDevTools">Developer tools</string>
+  <string name="mTitle_actionFuelInfo">Fuel info</string>
+  <!-- Названия элементов меню (menu_sbx_edit) -->
+  <string name="mTitle_actionDone">Done</string>
+  <string name="mTitle_actionHelp">Help</string>
+  <string name="mTitle_actionSort">Sort by</string>
+  <!-- Названия элементов меню (menu_navicomp -->
+  <string name="mTitle_actionAdd">Add</string>
+  <string name="mTitle_actionAddStdMarker">Standard marker</string>
+  <string name="mTitle_actionAddAllMarkers">All standard markers</string>
+  <string name="mTitle_actionAddCustomMarker">Custom marker</string>
+  <!-- Названия элементов меню (ctx_menu_station) -->
+  <string name="ctxMenuTitle_actionInfo">Station info</string>
+  <string name="ctxMenuTitle_actionCopy">Copy</string>
+  <string name="ctxMenuTitle_actionEdit">Edit</string>
+  <string name="ctxMenuTitle_actionDelete">Delete</string>
+  <!-- ActionMode (station list) -->
+  <string name="amStationList_selectedCount">Selected: %d</string>
+  <string name="amStationList_selectAll">Select all</string>
+  <!-- Описание ошибок (SbxConverter) -->
+  <string name="emptyPath">Start path is empty</string>
+  <string name="fileNotExist">No such file or directory</string>
+  <string name="fileIsDir">The file is a directory</string>
+  <string name="fileIsNotDir">The file is not a directory</string>
+  <string name="fileNotReadable">File not readable</string>
+  <string name="fileNotWritable">File not writable</string>
+  <string name="error">Error: %s</string>
+  <!-- События sandbox'а -->
+  <string name="deleteMultiple">Delete selected objects?</string>
+  <string name="deleteStation">Delete station?</string>
+  <string name="deleteGroup">Delete group?</string>
+  <string name="deleteText">Delete text?</string>
+  <plurals name="deleteMarker">
+    <item quantity="one">Delete marker %s?</item>
+    <item quantity="other">Delete selected markers?</item>
+  </plurals>
+  <!-- ошибки редактирования sandbox'а -->
+  <plurals name="sbxProcessing_moduleAdd_success">
+    <item quantity="one">Module added</item>
+    <item quantity="other">Modules added</item>
+  </plurals>
+  <string name="sbxProcessing_station">Station %s</string>
+  <string name="sbxProcessing_group">Group %s</string>
+  <string name="sbxProcessing_copy_success">copied</string>
+  <string name="sbxProcessing_edit_success">edited</string>
+  <string name="sbxProcessing_delete_success">deleted</string>
+  <string name="sbxProcessing_textAdd_success">Text added</string>
+  <string name="sbxProcessing_textCopy_success">Text copied</string>
+  <string name="sbxProcessing_textEdit_success">Text edited</string>
+  <string name="sbxProcessing_textDelete_success">Text deleted</string>
+  <string name="sbxProcessing_multipleCopy_success">Selected objects copied</string>
+  <string name="sbxProcessing_multipleEdit_success">Selected objects edited</string>
+  <string name="sbxProcessing_multipleDelete_success">Selected objects deleted</string>
+  <string name="sbxProcessing_markerAdd_success">Marker added</string>
+  <string name="sbxProcessing_markerAddAll_success">Missing markers added</string>
+  <string name="sbxProcessing_markerAddAll_exists">This sandbox already has all the standard markers</string>
+  <string name="sbxProcessing_markerEdit_success">Marker edited</string>
+  <string name="sbxProcessing_markerReplace_success">Marker replaced</string>
+  <plurals name="sbxProcessing_markerDelete_success">
+    <item quantity="one">Marker deleted</item>
+    <item quantity="other">Markers deleted</item>
+  </plurals>
+  <string name="sbxProcessing_optimize_success">Sandbox optimized</string>
+  <string name="sbxProcessing_save_success">Sandbox saved</string>
+  <string name="sbxProcessing_dataSave_success">Data saved in: %s</string>
+  <string name="sbxProcessing_failed">Error when processing sandbox:\n%s</string>
+  <string name="editErr_sbxLoadIO">Unable to load sandbox: IO error.\n\n%s</string>
+  <string name="editErr_sbxParserFailure">Invalid sandbox format (line %d)</string>
+  <string name="editErr_fontLoad">The font file not found or corrupted. Try to reinstall application.</string>
+  <string name="editErr_emptyOffset">Offset/center position not defined</string>
+  <string name="editErr_incorrectOffset">Incorrect offset/center position</string>
+  <string name="editErr_emptyPosition">Position not defined</string>
+  <string name="editErr_incorrectPosition">Incorrect position</string>
+  <string name="editErr_incorrectCount">Incorrect number of modules</string>
+  <string name="editErr_emptyAdvanced">Advanced settings not defined</string>
+  <string name="editErr_incorrectDistance">Incorrect pitch of modules</string>
+  <string name="editErr_incorrectInLine">Incorrect modules in line value</string>
+  <string name="editErr_incorrectInLineFont">Incorrect symbols in line value</string>
+  <string name="editErr_emptyMargin">Letter spacing not defined</string>
+  <string name="editErr_incorrectMargin">Incorrect letter spacing value</string>
+  <string name="editErr_emptyLabel">Marker label not defined</string>
+  <string name="editErr_incorrectLabel">Incorrect marker label</string>
+  <string name="editErr_incorrectObjectRadius">Incorrect object radius</string>
+  <string name="editErr_incorrectOrbitRadius">Incorrect orbit radius</string>
+  <string name="editErr_incorrectRescaleRadius">Incorrect rescale radius</string>
+  <string name="editErr_incorrectScale">Incorrect scale factor</string>
+  <string name="editErr_emptyText">Text not defined</string>
+  <string name="editErr_invalidChar">Pixel font does not contain character \"%c\"</string>
+  <string name="editErr_incorrectOptParams">incorrect optimization parameters</string>
+  <!-- Описание ошибок нативного уровня (SbxConverter) -->
+  <string name="sbxConverter_actionSuccess">%s in %s\nOutput file size: %s</string>
+  <string name="actionSuccess_compress">Encrypted</string>
+  <string name="actionSuccess_uncompress">Decrypted</string>
+  <string name="errorFrom">%s error:\n%s</string>
+  <string name="actionFailed_compress">Encryption</string>
+  <string name="actionFailed_uncompress">Decryption</string>
+  <string name="errorCode_inputFile">Can\'t open input file</string>
+  <string name="errorCode_outputFile">Can\'t open output file</string>
+  <string name="errorCode_noMemory">Not enough memory</string>
+  <string name="errorCode_versionCode">Unknown version code</string>
+  <string name="errorCode_notEncrypted">Input file is not encrypted</string>
+  <string name="errorCode_alreadyEncrypted">Input file is already encrypted</string>
+  <!-- Описание ощибок (TexConverter) -->
+  <string name="resConverter_actionSuccess_pack">Packed</string>
+  <string name="resConverter_actionSuccess_unpack">Unpacked</string>
+  <string name="resConverter_actionSuccess">%s in %s</string>
+  <string name="resConverter_actionFailed_pack">Packing</string>
+  <string name="resConverter_actionFailed_unpack">Unpacking</string>
+  <string name="errorCode_no_files">\"%s\" files not found</string>
+  <string name="errorCode_not_packed">Input file is not packed</string>
+  <string name="errorCode_already_packed">Input file is already packed</string>
+  <!-- Текст сообщений (RootShell) -->
+  <string name="rootUnalailable">Root-access unavailable on your device</string>
+  <!-- Текст сообщений (DBTask) -->
+  <string name="dbTask_DbUnwritable">Unable to open local database for writing. There may not be enough free space on the device.</string>
+  <string name="dbTask_webUnavailable">Can\'t get data from the server. Check the connection to the Internet.</string>
+  <string name="dbTask_dbDownloaded">Database successfully downloaded</string>
+  <string name="dbIsLoading">Downloading database</string>
+  <string name="dbIsUnpacking">Unpacking database</string>
+  <string name="dbTask_noUpdates">No updates found</string>
+  <string name="dbTask_newDbAvailable">A newer version of the modules characteristics database available. Update it now?</string>
+  <string name="dbTask_newDbAvailableAdvanced">The database version as of %s is available. Update it now?</string>
+  <string name="modulePicker_dangerousPID">This module exists ONLY in versions of the game 1.4.x. Trying to open a sandbox containing this module in any version of the game starting from 1.5.0 will result in an error where you can not do ANYTHING with this sandbox (including deleting it). Continue?</string>
+  <string name="modulePicker_notStandalone">This module can not be standalone in space and will be removed by game during the first time the sandbox is saved. Are you sure you want to add it?</string>
+  <!-- PartInfo_helpDialog -->
+  <string name="HelpDialog_power"  formatted="false">
+    <![CDATA[
+    Power (<font color=\'#5cff5c\'>generation</font> / <font color=\'#ff8080\'>usage</font>)
+    ]]>
+  </string>
+    <string name="HelpDialog_fuel">Fuel levels (main / thruster)</string>
+  <string name="HelpDialog_cargo">Cargo unit count</string>
+  <string name="HelpDialog_cargoSaver" formatted="false">
+    <![CDATA[
+    <font color=\'#5cff5c\'>Green</font> digit means that this module does not consume resource containers (O<sub>2</sub>, CO<sub>2</sub>)
+    ]]>
+  </string>
+  <string name="HelpDialog_nav">Has or does not NaviComp</string>
+  <string name="diaSort_mainMethod">Main</string>
+  <string name="diaSort_secondMethod">Second</string>
+  <string-array name="partInfo_sortMain">
+    <item>PART ID</item>
+    <item>Module name</item>
+    <item>Main fuel capacity</item>
+    <item>Thruster propellant cap.</item>
+    <item>Power generation (total)</item>
+    <item>Power generation (profit)</item>
+    <item>Cargo unit count</item>
+  </string-array>
+  <string-array name="partInfo_sortSecond">
+    <item>PART ID</item>
+    <item>Module name</item>
+  </string-array>
+  <!-- Описания натроек -->
+  <string name="prefCategory_resConverter">Resources converter</string>
+  <string name="prefCategory_sbxEditor">Sandbox editor</string>
+  <string name="prefCategory_general">General</string>
+  <string name="prefTitle_requestRoot">Request Root-access</string>
+  <string name="prefSummary_requestRoot">Allows you to work with files in the internal directories of the game</string>
+  <string name="pTitle_saveOriginalFiles">Save original files</string>
+  <string name="pSummary_saveOriginalFiles">Don\'t delete original files when packing/unpacking</string>
+  <string name="pTitle_internalExplorer">Internal file manager</string>
+  <string name="pSummary_internalExplorer">Always use internal file manager</string>
+  <string name="pTitle_sbxNameInHeader">Sandbox name in window title</string>
+  <string name="pSummary_sbxNameInHeader">Show current sandbox name in the editor window title</string>
+  <string name="pTitle_confirm_exitEditMode">Confirm exit from editor setup</string>
+  <string name="pSummary_confirm_exitEditMode">Ask for confirmation when exiting station editor configuration mode</string>
+  <string name="pTitle_internalSender">Internal Sandbox saver</string>
+  <string name="pSummary_internalSender">Use internal file manager to save Sandboxes</string>
+  <string name="pTitle_downloadDb">Download database</string>
+  <string name="pSummary_downloadDb">Download the module characteristics database</string>
+  <string name="pTitle_updateDb">Update database</string>
+  <string name="pSummary_updateDb">Check for updates to the modules characteristics database</string>
+  <string name="pSummary_updateDbAdvanced">%s\nCurrent DB version as of %s (SA v%s)</string>
+  <string name="pTitle_updateApp">Update app</string>
+  <string name="pSummary_updateApp">Check for a newer version of the application</string>
+  <string name="appUpdateAvailable">New app version available (%s). Download it now?</string>
+  <string name="pTitle_language">Language</string>
+  <string-array name="language_names">
+    <item>Default</item>
+    <item>English</item>
+    <item>Russian</item>
+  </string-array>
+  <string name="pTitle_feedback">Feedback</string>
+  <string name="pTitle_about">About</string>
+  <string name="devModeEnabled">Developer mode enabled. Please restart app</string>
+  <!-- Текст экранных элементов (layout: dialog_feedback) -->
+  <string name="diaFeedback_developer">Developer</string>
+  <string name="diaFeedback_group">Group in VK</string>
+</resources>

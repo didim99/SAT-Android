@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+  <ImageView
+    android:id="@+id/ivTopDivider"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dirPicker_divHeight"
+    android:layout_marginLeft="@dimen/dirPicker_divHMargin"
+    android:layout_marginRight="@dimen/dirPicker_divHMargin"
+    android:visibility="invisible"
+    app:srcCompat="@color/dirPicker_divider"
+    tools:ignore="ContentDescription"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+      android:id="@+id/ivFolderIcon"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:padding="@dimen/dirPicker_itemIconPadding"
+      app:srcCompat="@drawable/ic_folder_24dp"
+      tools:ignore="ContentDescription"/>
+
+    <TextView
+      android:id="@+id/tvFileName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dirPicker_itemTextPadding"
+      android:textSize="@dimen/dirPicker_itemTextSize"
+      android:background="?attr/selectableItemBackground"/>
+  </LinearLayout>
+
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dirPicker_divHeight"
+    android:layout_marginLeft="@dimen/dirPicker_divHMargin"
+    android:layout_marginRight="@dimen/dirPicker_divHMargin"
+    app:srcCompat="@color/dirPicker_divider"
+    tools:ignore="ContentDescription"/>
+
+</LinearLayout>

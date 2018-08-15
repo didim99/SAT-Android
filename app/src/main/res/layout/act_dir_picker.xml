@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+  <TextView
+    android:id="@+id/dirPicker_tvPath"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:paddingLeft="@dimen/dirPicker_layoutHMargin"
+    android:paddingStart="@dimen/dirPicker_layoutHMargin"
+    android:paddingRight="@dimen/dirPicker_layoutHMargin"
+    android:paddingEnd="@dimen/dirPicker_layoutHMargin"
+    android:layout_margin="@dimen/dirPicker_layoutHMargin"
+    android:textSize="@dimen/dirPicker_textSize_path"/>
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/dirPicker_btnLayout"
+    android:layout_below="@id/dirPicker_tvPath"
+    android:layout_marginLeft="@dimen/dirPicker_layoutHMargin"
+    android:layout_marginStart="@dimen/dirPicker_layoutHMargin"
+    android:layout_marginRight="@dimen/dirPicker_layoutHMargin"
+    android:layout_marginEnd="@dimen/dirPicker_layoutHMargin">
+
+    <TextView
+      android:id="@+id/dirPicker_tvEmpty"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:textSize="@dimen/dirPicker_textSize_path"
+      android:text="@string/tvText_dirPicker_empty"
+      android:visibility="invisible"/>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/dirPicker_listDir"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scrollbars="vertical"/>
+  </RelativeLayout>
+
+  <LinearLayout
+    android:id="@+id/dirPicker_btnLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginLeft="@dimen/dirPicker_layoutHMargin"
+    android:layout_marginStart="@dimen/dirPicker_layoutHMargin"
+    android:layout_marginRight="@dimen/dirPicker_layoutHMargin"
+    android:layout_marginEnd="@dimen/dirPicker_layoutHMargin"
+    android:orientation="horizontal">
+
+    <Button
+      android:id="@+id/dirPicker_back"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:onClick="onClickBack"
+      android:text="@string/btnText_dirPicker_back"
+      tools:ignore="ButtonStyle"/>
+
+    <Button
+      android:id="@+id/dirPicker_go"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/btnText_dirPicker_go"
+      tools:ignore="ButtonStyle"/>
+  </LinearLayout>
+</RelativeLayout>

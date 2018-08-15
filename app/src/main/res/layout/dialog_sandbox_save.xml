@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/dialogView_Padding"
+              android:orientation="vertical">
+
+  <CheckBox
+    android:id="@+id/cbOverwrite"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/diaSbxSave_cbText_Overwrite"
+    android:textSize="@dimen/actSbxConv_textSize_selector"/>
+
+  <CheckBox
+    android:id="@+id/cbCompress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:checked="@bool/default_saveSandbox_compress"
+    android:text="@string/diaSbxSave_cbText_Compress"
+    android:textSize="@dimen/actSbxConv_textSize_selector"/>
+
+  <LinearLayout
+    android:id="@+id/compressLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+      android:id="@+id/selectVersion"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/diaSbxSave_tvContent_selectVersion"
+      android:textSize="@dimen/actSbxConv_textSize_selector"/>
+
+    <RadioGroup
+      android:id="@+id/verCodeGroup"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <RadioButton
+        android:id="@+id/verCode20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="@string/actSbxConv_rBtnText_verCode20"
+        android:textSize="@dimen/actSbxConv_textSize_selector"/>
+
+      <RadioButton
+        android:id="@+id/verCode21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/actSbxConv_rBtnText_verCode21"
+        android:textSize="@dimen/actSbxConv_textSize_selector"
+        android:checked="true"/>
+    </RadioGroup>
+
+  </LinearLayout>
+
+</LinearLayout>

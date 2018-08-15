@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/dialogView_Padding"
+             android:paddingLeft="@dimen/dialogView_PaddingLarge"
+             android:paddingRight="@dimen/dialogView_PaddingLarge">
+
+  <TableRow>
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/diaFeedback_developer"
+      android:textSize="@dimen/dialogView_textSizeMain"/>
+
+    <TextView
+      android:id="@+id/tvDeveloper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/actSbx_layoutMargin"
+      android:layout_marginStart="@dimen/actSbx_layoutMargin"
+      android:textSize="@dimen/dialogView_textSizeMain"
+      android:textColor="@drawable/text_link"/>
+  </TableRow>
+
+  <TableRow>
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/diaFeedback_group"
+      android:textSize="@dimen/dialogView_textSizeMain"/>
+
+    <TextView
+      android:id="@+id/tvGroup"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/actSbx_layoutMargin"
+      android:layout_marginStart="@dimen/actSbx_layoutMargin"
+      android:textSize="@dimen/dialogView_textSizeMain"
+      android:textColor="@drawable/text_link"/>
+  </TableRow>
+
+</TableLayout>

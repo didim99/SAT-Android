@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Application theme -->
+  <color name="colorPrimary">#3f51b5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#6aa4f5</color>
+  <!-- Generic -->
+  <color name="dividerMain">#606060</color>
+  <color name="textActive">#ffffff</color>
+  <color name="textInactive">#b0b0b0</color>
+  <color name="stationItem_selected">#24ffffff</color>
+  <color name="stationItem_unselected">#00ffffff</color>
+  <color name="actSbxEdit_colorSubSection">#c0c0c0</color>
+  <color name="infoDialog_name">@color/textInactive</color>
+  <color name="infoDialog_value">@color/textActive</color>
+  <color name="infoDialog_divider">@color/dividerMain</color>
+  <color name="partInfo_textColorMain">@color/textActive</color>
+  <!-- DirPickerActivity -->
+  <color name="dirPicker_divider">@color/dividerMain</color>
+  <color name="dirPicker_textActive">@color/textActive</color>
+  <color name="dirPicker_textInactive">@color/textInactive</color>
+  <!-- Module/station state (generic) -->
+  <color name="SALightGreen">#a8ffa8</color>
+  <color name="SAGreen">#38ff38</color>
+  <color name="SAOrange">#ffa738</color>
+  <color name="SARed">#ff6060</color>
+  <color name="colorFull">#5cff5c</color>
+  <color name="colorEmpty">#ff8080</color>
+  <!-- Speed -->
+  <color name="speedSubOrbital">@color/SAOrange</color>
+  <color name="speedOrbital">@color/SAGreen</color>
+  <color name="speedOverOrbital">@color/SARed</color>
+  <!-- Distance -->
+  <color name="distanceOver1000">@color/textActive</color>
+  <color name="distanceOver500">@color/SALightGreen</color>
+  <color name="distanceOver200">@color/SAGreen</color>
+  <color name="distanceOver100">@color/SAOrange</color>
+  <color name="distanceUnder100">@color/SARed</color>
+  <!-- Part size -->
+  <color name="sizeLarge">#a60300</color>
+  <color name="sizeMedium">#35a600</color>
+  <color name="sizeSmall">#0016a6</color>
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/actSbx_layoutMargin"
+                android:background="?attr/selectableItemBackground">
+
+  <TextView
+    android:id="@+id/modCount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_margin="@dimen/actSbx_layoutMargin"
+    android:textSize="@dimen/actSbx_textSizeMain"/>
+
+  <TextView
+    android:id="@+id/name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_margin="@dimen/actSbx_layoutMargin"
+    android:textSize="@dimen/actSbx_textSizeMain"/>
+
+  <TextView
+    android:id="@+id/center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:layout_margin="@dimen/actSbx_layoutMargin"
+    android:textSize="@dimen/actSbx_textSizeMain"/>
+
+  <LinearLayout
+    android:id="@+id/distanceLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/center"
+    android:layout_alignRight="@id/center"
+    android:layout_alignEnd="@id/center"
+    tools:ignore="UseCompoundDrawables">
+
+    <TextView
+      android:id="@+id/distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/actSbx_textSizeMain"/>
+
+    <ImageView
+      android:id="@+id/ivNavDirection"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/actSbx_layoutMargin"
+      android:layout_marginStart="@dimen/actSbx_layoutMargin"
+      app:srcCompat="@drawable/ic_direction2_24dp"
+      tools:ignore="ContentDescription"/>
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/statusLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@id/distanceLayout"
+    android:layout_alignLeft="@id/modCount"
+    android:layout_alignStart="@id/modCount">
+
+    <ImageView
+      android:id="@+id/ivStatusMovement"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:srcCompat="@drawable/ic_cross_24dp"
+      tools:ignore="ContentDescription"/>
+
+    <ImageView
+      android:id="@+id/ivStatusVisible"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/actSbxEdit_iconMargin"
+      android:layout_marginStart="@dimen/actSbxEdit_iconMargin"
+      app:srcCompat="@drawable/ic_visibility_24dp"
+      tools:ignore="ContentDescription"/>
+
+    <ImageView
+      android:id="@+id/ivStatusType"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/actSbxEdit_iconMargin"
+      android:layout_marginStart="@dimen/actSbxEdit_iconMargin"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_group_24dp"
+      tools:ignore="ContentDescription"/>
+  </LinearLayout>
+
+  <ProgressBar
+    android:id="@+id/pbModulesCount"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/distanceLayout"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:max="500"/>
+
+</RelativeLayout>

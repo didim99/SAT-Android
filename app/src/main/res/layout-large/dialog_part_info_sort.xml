@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="@dimen/dialogView_Padding">
+
+  <TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end"
+      android:text="@string/diaSort_mainMethod"
+      android:textSize="@dimen/dialogView_textSizeMain"/>
+
+    <Spinner
+      android:id="@+id/mainSelector"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/dialogView_Padding"
+      android:layout_marginRight="@dimen/dialogView_Padding"
+      android:entries="@array/partInfo_sortMain"/>
+
+    <ImageView
+      android:id="@+id/ivReverse"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:srcCompat="@drawable/ic_sort_24dp"
+      tools:ignore="ContentDescription"/>
+  </TableRow>
+
+  <TableRow
+    android:paddingTop="@dimen/dialogView_Padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end"
+      android:text="@string/diaSort_secondMethod"
+      android:textSize="@dimen/dialogView_textSizeMain"/>
+
+    <Spinner
+      android:id="@+id/secondSelector"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/dialogView_Padding"
+      android:layout_marginRight="@dimen/dialogView_Padding"
+      android:entries="@array/partInfo_sortSecond"/>
+  </TableRow>
+</TableLayout>

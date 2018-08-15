@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+    android:id="@+id/action_selectAll"
+    android:icon="@drawable/ic_select_all_24dp"
+    android:title="@string/amStationList_selectAll"/>
+
+  <item
+    android:id="@+id/action_staCopy"
+    android:icon="@drawable/ic_copy_24dp"
+    android:title="@string/ctxMenuTitle_actionCopy"/>
+
+  <item
+    android:id="@+id/action_staEdit"
+    android:icon="@drawable/ic_edit_24dp"
+    android:title="@string/ctxMenuTitle_actionEdit"/>
+
+  <item
+    android:id="@+id/action_staDelete"
+    android:icon="@drawable/ic_delete_black_24dp"
+    android:title="@string/ctxMenuTitle_actionDelete"/>
+
+</menu>

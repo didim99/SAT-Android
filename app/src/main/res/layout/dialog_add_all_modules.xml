@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/dialogView_Padding">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/diaAddModule_selectVersion"
+      android:textSize="@dimen/dialogView_textSizeMain"/>
+
+    <Spinner
+      android:id="@+id/verSelector"
+      android:layout_width="100dp"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/dialogView_Padding"
+      android:layout_marginRight="@dimen/dialogView_Padding"/>
+  </LinearLayout>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/diaAddModule_enterPositionFirst"
+    android:textSize="@dimen/dialogView_textSizeMain"/>
+
+  <include
+    layout="@layout/dialog_input_position"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+</LinearLayout>

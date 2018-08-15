@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+    android:title="@string/prefCategory_sbxConverter">
+
+    <SwitchPreference
+      android:key="requestRoot"
+      android:title="@string/prefTitle_requestRoot"
+      android:summary="@string/prefSummary_requestRoot"
+      android:defaultValue="false"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/prefCategory_resConverter">
+
+    <SwitchPreference
+      android:key="resConverter.saveOriginalFiles"
+      android:title="@string/pTitle_saveOriginalFiles"
+      android:summary="@string/pSummary_saveOriginalFiles"
+      android:defaultValue="true"/>
+
+    <SwitchPreference
+      android:key="resConverter.internalExplorer"
+      android:title="@string/pTitle_internalExplorer"
+      android:summary="@string/pSummary_internalExplorer"
+      android:defaultValue="false"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/prefCategory_sbxEditor">
+
+    <SwitchPreference
+      android:key="sbxNameInHeader"
+      android:title="@string/pTitle_sbxNameInHeader"
+      android:summary="@string/pSummary_sbxNameInHeader"
+      android:defaultValue="true"/>
+
+    <SwitchPreference
+      android:key="confirm_exitEditMode"
+      android:title="@string/pTitle_confirm_exitEditMode"
+      android:summary="@string/pSummary_confirm_exitEditMode"
+      android:defaultValue="true"/>
+
+    <SwitchPreference
+      android:key="internalSender"
+      android:title="@string/pTitle_internalSender"
+      android:summary="@string/pSummary_internalSender"
+      android:defaultValue="false"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/prefCategory_general">
+
+    <ListPreference
+      android:key="language"
+      android:title="@string/pTitle_language"
+      android:summary=""
+      android:entries="@array/language_names"
+      android:entryValues="@array/language_values"
+      android:defaultValue="default"/>
+
+    <Preference
+      android:key="updateDb"
+      android:title="@string/pTitle_updateDb"
+      android:summary="@string/pSummary_updateDb"/>
+
+    <Preference
+      android:key="updateApp"
+      android:title="@string/pTitle_updateApp"
+      android:summary="@string/pSummary_updateApp"/>
+
+    <Preference
+      android:key="feedback"
+      android:title="@string/pTitle_feedback"/>
+
+    <Preference
+      android:key="about"
+      android:title="@string/pTitle_about"/>
+  </PreferenceCategory>
+
+</PreferenceScreen>

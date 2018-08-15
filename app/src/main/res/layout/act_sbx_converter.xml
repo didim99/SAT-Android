@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="com.didim99.sat.sbxconverter.SbxConvertActivity">
+
+  <TextView
+    android:id="@+id/insertPath"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginLeft="15dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="15dp"
+    android:text="@string/actSbxConv_tvContent_insertPath"
+    android:textSize="@dimen/actSbxConv_textSize_main"/>
+
+  <LinearLayout
+    android:id="@+id/inputFileLayout"
+    android:layout_below="@id/insertPath"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:orientation="horizontal"
+    android:layout_marginLeft="@dimen/actSbxConv_linLayoutHMargin"
+    android:layout_marginRight="@dimen/actSbxConv_linLayoutHMargin"
+    android:layout_marginTop="5dp">
+
+    <EditText
+      android:id="@+id/inputFilePath"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="5"
+      android:ems="10"
+      android:inputType="textNoSuggestions"
+      android:layout_marginRight="5dp"
+      android:layout_marginEnd="5dp"/>
+
+    <Button
+      android:id="@+id/btnOpenFileExp"
+      android:layout_weight="1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/actSbxConv_btnText_btnOpenFileExp"
+      android:onClick="clickOpenExplorer"
+      tools:ignore="ButtonStyle"/>
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/buttonLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/inputFileLayout"
+    android:layout_centerHorizontal="true"
+    android:orientation="horizontal"
+    android:layout_marginLeft="@dimen/actSbxConv_linLayoutHMargin"
+    android:layout_marginRight="@dimen/actSbxConv_linLayoutHMargin">
+
+    <Button
+      android:id="@+id/btnCompress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="10"
+      android:text="@string/actSbxConv_btnText_btnCompress"
+      tools:ignore="ButtonStyle"/>
+
+    <Button
+      android:id="@+id/btnUncompress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="10"
+      android:text="@string/actSbxConv_btnText_btnUncompress"
+      tools:ignore="ButtonStyle"/>
+
+    <ImageButton
+      android:id="@+id/btnEdit"
+      android:layout_width="74dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="0"
+      app:srcCompat="@drawable/ic_edit_24dp"
+      android:contentDescription="@string/actSbxConv_btnText_btnEdit"
+      style="@style/Base.Widget.AppCompat.Button"
+      tools:ignore="ButtonStyle"/>
+
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/selectVersion"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@id/insertPath"
+    android:layout_alignStart="@id/insertPath"
+    android:layout_below="@id/buttonLayout"
+    android:layout_marginTop="5dp"
+    android:text="@string/actSbxConv_tvContent_selectVersion"
+    android:textSize="@dimen/actSbxConv_textSize_selector"/>
+
+  <RadioGroup
+    android:id="@+id/verCodeGroup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/selectVersion"
+    android:layout_alignLeft="@id/selectVersion"
+    android:layout_alignStart="@id/selectVersion">
+
+    <RadioButton
+      android:id="@+id/verCode20"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="5dp"
+      android:layout_marginRight="5dp"
+      android:text="@string/actSbxConv_rBtnText_verCode20"
+      android:textSize="@dimen/actSbxConv_textSize_selector"/>
+
+    <RadioButton
+      android:id="@+id/verCode21"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/actSbxConv_rBtnText_verCode21"
+      android:textSize="@dimen/actSbxConv_textSize_selector"/>
+  </RadioGroup>
+
+  <TextView
+    android:id="@+id/outMessage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/actSbxConv_textSize_main"
+    android:layout_below="@id/verCodeGroup"
+    android:layout_centerHorizontal="true"
+    android:layout_margin="10dp"/>
+
+  <ProgressBar
+    android:id="@+id/mainProgressBar"
+    style="?android:attr/progressBarStyleLarge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@id/outMessage"
+    android:layout_centerHorizontal="true"
+    android:visibility="invisible"/>
+
+</RelativeLayout>

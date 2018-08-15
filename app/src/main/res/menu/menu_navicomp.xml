@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+    android:id="@+id/action_add"
+    android:icon="@drawable/ic_add_24dp"
+    android:title="@string/mTitle_actionAdd"
+    android:orderInCategory="1"
+    app:showAsAction="always">
+
+    <menu>
+
+      <item
+        android:id="@+id/action_addStdMarker"
+        android:title="@string/mTitle_actionAddStdMarker"
+        android:orderInCategory="1"
+        android:visible="false"/>
+
+      <item
+        android:id="@+id/action_addAllMarkers"
+        android:title="@string/mTitle_actionAddAllMarkers"
+        android:orderInCategory="2"
+        android:visible="false"/>
+
+      <item
+        android:id="@+id/action_addCustomMarker"
+        android:title="@string/mTitle_actionAddCustomMarker"
+        android:orderInCategory="3"/>
+
+    </menu>
+
+  </item>
+
+</menu>

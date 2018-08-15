@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="addModule_defaultQuantity">10</integer>
+  <integer name="addModule_defaultOffset">5</integer>
+  <integer name="addModule_defaultInLine">10</integer>
+  <integer name="addMarker_defaultRadius">0</integer>
+  <integer name="addMarker_defaultScale">1</integer>
+  <integer name="addText_defaultMargin">1</integer>
+  <integer name="addAllFont_defaultInLine">16</integer>
+  <integer name="addAll_defaultPosX">200</integer>
+  <integer name="addAll_defaultPosY">200</integer>
+  <bool name="default_saveSandbox_compress">false</bool>
+  <!-- Station editing -->
+  <bool name="default_sectionHide_enabled">false</bool>
+  <bool name="default_sectionAlpha_enabled">false</bool>
+  <bool name="default_sectionExtendFuel_enabled">false</bool>
+  <bool name="default_sectionSaveId_enabled">false</bool>
+  <bool name="default_sectionPosition_enabled">false</bool>
+  <bool name="default_sectionRotate_enabled">false</bool>
+  <bool name="default_rotate_commonBase">true</bool>
+  <bool name="default_sectionMovement_enabled">false</bool>
+  <bool name="default_changeMovementDirection_enabled">false</bool>
+  <bool name="default_changeMovementSpeed_enabled">false</bool>
+  <bool name="default_changeMovementRotation_enabled">false</bool>
+</resources>

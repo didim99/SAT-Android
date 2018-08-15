@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/dialogView_Padding">
+
+  <TextView
+    android:id="@+id/tvEnterOffset"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/diaStaCopy_tvText_enterOffset"
+    android:textSize="@dimen/actSbx_textSizeMain"/>
+
+  <include
+    layout="@layout/dialog_input_position"
+    android:id="@+id/offsetLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <RadioGroup
+    android:id="@+id/moveModeGroup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RadioButton
+      android:id="@+id/modeOffset"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="5dp"
+      android:layout_marginRight="5dp"
+      android:text="@string/diaStaCopy_rbText_modeOffset"
+      android:textSize="@dimen/actSbx_textSizeMain"
+      android:checked="true"/>
+
+    <RadioButton
+      android:id="@+id/modeNewCenter"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/diaStaCopy_rbText_modeNewCenter"
+      android:textSize="@dimen/actSbx_textSizeMain"/>
+  </RadioGroup>
+
+</LinearLayout>

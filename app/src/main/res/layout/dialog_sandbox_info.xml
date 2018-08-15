@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/infoDialog_layoutPadding"
+    android:shrinkColumns="2">
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/createSandbox_tvText_name"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvSbxName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/createSandbox_tvText_uid"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvSbxUid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/diaSbxInfo_minVer"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvMinVer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/infoDialog_divHeight"
+      android:layout_marginTop="@dimen/infoDialog_divVMargin"
+      android:layout_marginBottom="@dimen/infoDialog_divVMargin"
+      app:srcCompat="@color/infoDialog_divider"
+      tools:ignore="ContentDescription"/>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/diaSbxInfo_modCount"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvModCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/diaSbxInfo_objCount"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvObjCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/diaSbxInfo_stationCount"
+        android:textSize="@dimen/infoDialog_textSizeSecond"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvStationCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeSecond"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/diaSbxInfo_aloneCount"
+        android:textSize="@dimen/infoDialog_textSizeSecond"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvAloneCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeSecond"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/infoDialog_divHeight"
+      android:layout_marginTop="@dimen/infoDialog_divVMargin"
+      android:layout_marginBottom="@dimen/infoDialog_divVMargin"
+      app:srcCompat="@color/infoDialog_divider"
+      tools:ignore="ContentDescription"/>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_column="1"
+        android:text="@string/diaSbxInfo_markerCount"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_name"/>
+
+      <TextView
+        android:id="@+id/tvMarkerCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
+        android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
+        android:textSize="@dimen/infoDialog_textSizeMain"
+        android:textColor="@color/infoDialog_value"/>
+    </TableRow>
+
+  </TableLayout>
+</ScrollView>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.didim99.sat">
+
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+  <application
+    android:name=".SAT"
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+
+    <activity android:name=".StartActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity android:name=".sbxeditor.ui.SandboxActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.EDIT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="file"/>
+        <data android:mimeType="application/octet-stream"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.EDIT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="*"/>
+        <data android:scheme="file"/>
+        <data android:mimeType="*/*"/>
+        <data android:pathPattern=".*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".sbxeditor.ui.SbxEditActivity"
+      android:launchMode="singleTop"/>
+
+    <activity
+      android:name=".resconverter.TexConvertActivity"
+      android:launchMode="singleTop"/>
+
+    <activity
+      android:name=".sbxconverter.SbxConvertActivity"
+      android:icon="@mipmap/ic_sbx_converter"
+      android:label="@string/moduleName_sbxConverter"
+      android:launchMode="singleTop">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.EDIT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="file"/>
+        <data android:mimeType="application/octet-stream"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.EDIT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="*"/>
+        <data android:scheme="file"/>
+        <data android:mimeType="*/*"/>
+        <data android:pathPattern=".*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".dirpicker.DirPickerActivity"
+      android:label="@string/actLabel_dirPicker"
+      android:launchMode="singleTop"
+      android:theme="@style/AppThemeDialog"/>
+
+    <activity
+      android:name=".sbxeditor.ui.PartInfoActivity"
+      android:label="@string/mTitle_actionPartInfo"/>
+
+    <activity
+      android:name=".sbxeditor.ui.NaviCompActivity"
+      android:label="@string/mTitle_actionNav"/>
+
+    <activity
+      android:name=".settings.SettingsActivity"
+      android:label="@string/mTitle_actionSettings"
+      android:launchMode="singleTop"/>
+
+  </application>
+</manifest>

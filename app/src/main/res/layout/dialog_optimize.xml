@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/dialogView_Padding">
+
+  <CheckBox
+    android:id="@+id/optSaveId"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/diaOptimize_optSaveId"
+    android:textSize="@dimen/actSbx_textSizeMain"/>
+
+  <CheckBox
+    android:id="@+id/refreshCargo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/actSbxEdit_refresh_cargo"
+    android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+  <CheckBox
+    android:id="@+id/refreshFuel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/actSbxEdit_refresh_fuel"
+    android:textSize="@dimen/actSbxEdit_textSize_main"/>
+
+</LinearLayout>

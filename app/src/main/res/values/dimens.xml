@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Generic -->
+  <dimen name="toastPosX">0dp</dimen>
+  <dimen name="toastPosY">300dp</dimen>
+  <dimen name="actStart_btnPadding">20dp</dimen>
+  <!-- Dialog (generic) -->
+  <dimen name="dialogView_Padding">8dp</dimen>
+  <dimen name="dialogView_PaddingLarge">20dp</dimen>
+  <dimen name="dialogView_subHeaderHMargin">14dp</dimen>
+  <dimen name="dialogView_subHeaderVMargin">5dp</dimen>
+  <dimen name="dialogView_textSizeMain">16sp</dimen>
+  <!-- Info dialog (generic) -->
+  <dimen name="infoDialog_layoutPadding">10dp</dimen>
+  <dimen name="infoDialog_valueTextMargin">10dp</dimen>
+  <dimen name="infoDialog_textSizeMain">18sp</dimen>
+  <dimen name="infoDialog_textSizeSecond">16sp</dimen>
+  <dimen name="infoDialog_divHeight">1dp</dimen>
+  <dimen name="infoDialog_divVMargin">4dp</dimen>
+  <!-- Help dialog (generic) -->
+  <dimen name="HelpDialog_itemVMargin">3dp</dimen>
+  <dimen name="HelpDialog_iconPadding">12dp</dimen>
+  <dimen name="HelpDialog_textSize_main">16sp</dimen>
+  <!-- SandboxActivity -->
+  <dimen name="actSbx_layoutMargin">5dp</dimen>
+  <dimen name="actSbx_divHMargin">6dp</dimen>
+  <dimen name="actSbx_divHeight">1dp</dimen>
+  <dimen name="actSbx_textSizeMain">16sp</dimen>
+  <!-- SbxEditActivity -->
+  <dimen name="actSbxEdit_layoutHMargin">6dp</dimen>
+  <dimen name="actSbxEdit_subSectionMargin">30dp</dimen>
+  <dimen name="actSbxEdit_valueFieldMargin">5dp</dimen>
+  <dimen name="actSbxEdit_divHeight">1dp</dimen>
+  <dimen name="actSbxEdit_divVMargin">4dp</dimen>
+  <dimen name="actSbxEdit_textSize_main">16sp</dimen>
+  <dimen name="actSbxEdit_iconMargin">5dp</dimen>
+  <dimen name="actSbxEdit_nameMargin">30dp</dimen>
+  <!-- Part_item -->
+  <dimen name="partInfo_layoutHMargin">5dp</dimen>
+  <dimen name="partInfo_layoutVMargin">2dp</dimen>
+  <dimen name="partInfo_textSizeMain">16sp</dimen>
+  <dimen name="partInfo_iconSize">48dp</dimen>
+  <dimen name="partInfo_iconMargin">3dp</dimen>
+  <dimen name="partInfo_nameMargin">8dp</dimen>
+  <!-- SbxConvertActivity -->
+  <dimen name="actSbxConv_textSize_main">18sp</dimen>
+  <dimen name="actSbxConv_textSize_selector">16sp</dimen>
+  <dimen name="actSbxConv_linLayoutHMargin">5dp</dimen>
+  <!-- TexConvertActivity -->
+  <dimen name="actResConv_textSize_main">18sp</dimen>
+  <dimen name="actResConv_textSize_selector">16sp</dimen>
+  <dimen name="actResConv_layoutHMargin">5dp</dimen>
+  <!-- DirPickerActivity -->
+  <dimen name="dirPicker_textSize_path">18sp</dimen>
+  <dimen name="dirPicker_layoutHMargin">5dp</dimen>
+  <dimen name="dirPicker_itemTextSize">16sp</dimen>
+  <dimen name="dirPicker_itemTextPadding">8dp</dimen>
+  <dimen name="dirPicker_itemIconPadding">5dp</dimen>
+  <dimen name="dirPicker_divHMargin">6dp</dimen>
+  <dimen name="dirPicker_divHeight">1dp</dimen>
+</resources>
