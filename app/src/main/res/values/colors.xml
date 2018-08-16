@@ -4,6 +4,7 @@
   <color name="colorPrimary">#3f51b5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#6aa4f5</color>
+  <color name="textSelectionBg">#806aa4f5</color>
   <!-- Generic -->
   <color name="dividerMain">#606060</color>
   <color name="textActive">#ffffff</color>

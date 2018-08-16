@@ -76,9 +76,7 @@ public class Sandbox {
     this.fileType = SBML.FILE_TYPE_SANDBOX;
     this.sbxName = config.getSbxName();
     this.fileName = Settings.getSbxTempDir() + sbxName + SBML.FILE_MASK_SASBX;
-    String uid = config.getSbxUid();
-    if (uid != null && !uid.isEmpty())
-      this.sbxUid = Integer.parseInt(uid);
+    this.sbxUid = config.getSbxUid();
     this.space = new ArrayList<>();
     this.alone = new ArrayList<>();
     this.naviComp = new ArrayList<>();
@@ -704,10 +702,10 @@ public class Sandbox {
 
   private boolean isCompressed(String fileName)
     throws IOException {
-    File file = new File(fileName);
-    BufferedReader reader = new BufferedReader(new FileReader(file));
+    BufferedReader reader = new BufferedReader(new FileReader(fileName));
     char[] buff = new char[SBML.SECTION_SYSTEM.length()];
-    reader.read(buff, SBML.START_INDEX, SBML.SECTION_SYSTEM.length());
+    reader.read(buff, SBML.START_INDEX, buff.length);
+    reader.close();
     boolean isCompressed = !(new String(buff).equals(SBML.SECTION_SYSTEM));
     if (isCompressed)
       MyLog.w(LOG_TAG, "Sandbox file compressed");
@@ -868,8 +866,8 @@ public class Sandbox {
       modified = true;
     }
 
-    public void setSbxUid(String uid) {
-      sbxUid = (uid == null || uid.isEmpty()) ? null : Integer.parseInt(uid);
+    public void setSbxUid(int uid) {
+      sbxUid = uid;
       modified = true;
     }
   }

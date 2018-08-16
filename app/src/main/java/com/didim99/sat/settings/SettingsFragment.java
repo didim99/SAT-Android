@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -26,6 +27,7 @@ import com.didim99.sat.network.AppUpdateInfo;
 import com.didim99.sat.network.NetworkManager;
 import com.didim99.sat.network.WebAPI;
 import com.didim99.sat.sbxeditor.Storage;
+import com.didim99.sat.sbxeditor.model.InputValidator;
 import com.google.gson.Gson;
 
 /**
@@ -40,8 +42,10 @@ public class SettingsFragment extends PreferenceFragment
   private static final String DATE_FORMAT = "dd.MM.yyyy";
 
   private Context appContext;
-  private ListPreference language;
+  private ListPreference sbxName, language;
+  private EditTextPreference sbxCustomName;
   private Preference prefAbout, prefUpdateDb;
+  private Toast toastMsg;
   //developer mode;
   private static final int DEV_MODE_START = 10;
   private static final int DEV_MODE_FINISH = 0;
@@ -56,9 +60,17 @@ public class SettingsFragment extends PreferenceFragment
     super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.settings);
     appContext = getActivity().getApplicationContext();
+    toastMsg = Toast.makeText(appContext, "", Toast.LENGTH_LONG);
 
+    sbxName = (ListPreference) findPreference(Settings.KEY_SBX_EDITOR_DEFAULT_NAME);
+    sbxCustomName = (EditTextPreference) findPreference(Settings.KEY_SBX_EDITOR_CUSTOM_NAME);
     language = (ListPreference) findPreference(Settings.KEY_LANGUAGE);
-    language.setSummary(language.getEntry());
+    updateListPrefSummary(sbxName);
+    updateListPrefSummary(language);
+    updateSbxCustomNameState();
+
+    sbxCustomName.setOnPreferenceChangeListener((preference, newValue) ->
+      InputValidator.checkSbxName((String) newValue, true));
 
     prefUpdateDb = findPreference(Settings.KEY_UPDATE_DB);
     updateDbState(Settings.isHasDB());
@@ -122,15 +134,15 @@ public class SettingsFragment extends PreferenceFragment
   }
 
   @Override
-  public void onResume() {
-    super.onResume();
+  public void onStart() {
+    super.onStart();
     Settings.getSettings().registerOnSharedPreferenceChangeListener(this);
   }
 
   @Override
-  public void onPause() {
+  public void onStop() {
     Settings.getSettings().unregisterOnSharedPreferenceChangeListener(this);
-    super.onPause();
+    super.onStop();
   }
 
   @Override
@@ -146,12 +158,29 @@ public class SettingsFragment extends PreferenceFragment
   public void onSharedPreferenceChanged(SharedPreferences settings, String key) {
     Settings.updateSettings(key);
     switch (key) {
+      case Settings.KEY_SBX_EDITOR_DEFAULT_NAME:
+        updateListPrefSummary(sbxName);
+        updateSbxCustomNameState();
+        break;
+      case Settings.KEY_SBX_EDITOR_CUSTOM_NAME:
+        updateSbxCustomNameState();
+        break;
       case Settings.KEY_LANGUAGE:
-        language.setSummary(language.getEntry());
+        updateListPrefSummary(language);
         Toast.makeText(getActivity().getBaseContext(),
           R.string.restartRequired, Toast.LENGTH_SHORT).show();
         break;
     }
+  }
+
+  private void updateSbxCustomNameState() {
+    String newName = Settings.getCustomSbxName();
+    if (newName.isEmpty())
+      sbxCustomName.setSummary(R.string.pSummary_sbxEditorCustomName);
+    else
+      sbxCustomName.setSummary(newName);
+    sbxCustomName.setEnabled(Settings.getDefaultSbxName()
+      .equals(Settings.VALUE_CUSTOM));
   }
 
   @Override
@@ -190,6 +219,42 @@ public class SettingsFragment extends PreferenceFragment
       }
     }
   }
+
+  private void updateListPrefSummary(ListPreference pref) {
+    pref.setSummary(pref.getEntry());
+  }
+
+  /*private void setSbxNameDialog() {
+    MyLog.d(LOG_TAG, "SbxName dialog called");
+    LayoutInflater inflater = LayoutInflater.from(getActivity());
+    AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+    adb.setPositiveButton(R.string.dialogButtonOk, null);
+    adb.setNegativeButton(R.string.dialogButtonCancel, (dialog, which) -> dialog.cancel());
+    adb.setView(inflater.inflate(R.layout.dialog_custom_sbx_name, null));
+    AlertDialog dialog = adb.create();
+    dialog.setOnShowListener(dialogInterface -> {
+      AlertDialog dialog1 = (AlertDialog) dialogInterface;
+      final EditText sbxName = dialog1.findViewById(R.id.etSbxName);
+      sbxName.setText(Settings.getCustomSbxName());
+      sbxName.setSelection(sbxName.getText().length());
+
+      dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
+        String name = sbxName.getText().toString();
+        if (name.matches(SBML.INVALID_SBX_NAME)) {
+          toastMsg.setText(R.string.sandboxNameInvalid);
+          toastMsg.show();
+          return;
+        }
+
+        dialogInterface.dismiss();
+        Settings.setCustomSbxName(name);
+      });
+    });
+    dialog.setOnCancelListener(dialogInterface ->
+      sbxName.setValue(Settings.VALUE_DEFAULT));
+    MyLog.d(LOG_TAG, "Dialog created");
+    dialog.show();
+  }*/
 
   private void updateDbState(boolean hasDb) {
     if (hasDb) {

@@ -123,6 +123,8 @@ public class Utils {
 
   public static void copyFile (String srcName, String targetName)
     throws IOException {
+    if (srcName.equals(targetName))
+      return;
     if (new File(targetName).isDirectory()) {
       if (!targetName.endsWith("/"))
         targetName = targetName.concat("/");

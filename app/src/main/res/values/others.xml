@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Service constants -->
+  <integer name="maxValue_SandboxNameLength">15</integer>
+</resources>

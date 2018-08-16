@@ -11,6 +11,7 @@ public final class SBML {
   public static final int FILE_TYPE_SANDBOX = 1;
   static final float PLANET_SCALE = 0.25f;
   public static final float MARKER_SCALE = 1f;
+  public static final String DEFAULT_SANDBOX_NAME = "My Sandbox";
   //part & cargo IDs
   public static final int PART_ID_SPY = 103;
   public static final int PART_ID_HUB = 108;

@@ -14,7 +14,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,6 +39,7 @@ class TexConverter {
   private static final int ERR_CODE_IO_ERROR = -11;
   private static final int ERR_CODE_NOT_PACKED = -12;
   private static final int ERR_CODE_ALREADY_PACKED = -13;
+  private static final byte[] PNG_SIGNATURE = {-119, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a};
   private static final String ambMask = ".ambbmp";
   private static final String pngMask = ".png";
   private static final String tmpMask = ".bin";
@@ -195,7 +195,7 @@ class TexConverter {
 
   private long pack(String pngName)
     throws IOException {
-    if (!pngName.endsWith(pngMask))
+    if (pngName.endsWith(ambMask) || isPacked(pngName))
       return ERR_CODE_ALREADY_PACKED;
     String ambName = pngName.replace(pngMask, ambMask);
     Bitmap bitmap = png2bitmap(pngName);
@@ -208,16 +208,12 @@ class TexConverter {
 
   private long unPack (String ambName)
     throws IOException {
-    if (!ambName.endsWith(ambMask))
+    if (ambName.endsWith(pngMask) || !isPacked(ambName))
       return ERR_CODE_NOT_PACKED;
     String pngName = ambName.replace(ambMask, pngMask);
     if (Settings.ResConverter.isSaveOriginal()) {
       String tmpName = ambName.replace(ambMask, tmpMask);
-      FileChannel src = new FileInputStream(ambName).getChannel();
-      FileChannel out = new FileOutputStream(tmpName).getChannel();
-      src.transferTo(0, src.size(), out);
-      src.close();
-      out.close();
+      Utils.copyFile(ambName, tmpName);
       ambName = tmpName;
     }
     int[] size = uncompressTexture(ambName);
@@ -290,6 +286,17 @@ class TexConverter {
     if (files.isEmpty())
       MyLog.d(LOG_TAG, "\"" + mask + "\" files not found");
     return files.toArray(new String[0]);
+  }
+
+  private boolean isPacked(String fileName)
+    throws IOException {
+    byte[] buff = new byte[PNG_SIGNATURE.length];
+    DataInputStream src = new DataInputStream(new FileInputStream(fileName));
+    src.read(buff);
+    src.close();
+    MyLog.e(LOG_TAG, "buff: " + Arrays.toString(buff));
+    MyLog.e(LOG_TAG, "PNG_SIGNATURE: " + Arrays.toString(PNG_SIGNATURE));
+    return !Arrays.equals(buff, PNG_SIGNATURE);
   }
 
   private byte[] readRawData (String fileName)

@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.widget.Toast;
 import com.didim99.sat.db.DBTask;
 import com.didim99.sat.sbxconverter.RootShell;
+import com.didim99.sat.sbxeditor.model.InputValidator;
 import com.didim99.sat.sbxeditor.model.SBML;
 import com.didim99.sat.sbxeditor.ui.UIManager;
 import com.didim99.sat.settings.Settings;
@@ -44,6 +45,7 @@ public class SAT extends Application implements DBTask.EventListener {
 
     Context appContext = getApplicationContext();
     UIManager.getInstance().init(appContext);
+    InputValidator.init(appContext);
     Settings.init(appContext);
     updateLanguage();
 

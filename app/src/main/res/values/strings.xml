@@ -8,6 +8,7 @@
   <string name="actLabel_dirPicker">Выбор каталога</string>
   <string name="actLabel_pickModule">Выбор модуля</string>
   <!-- Общее -->
+  <string name="defaultValue">По умолчанию</string>
   <string name="dialogButtonOk" translatable="false">OK</string>
   <string name="dialogButtonCancel">Отмена</string>
   <string name="dialogButtonNow">Только сейчас</string>
@@ -46,11 +47,10 @@
   <string name="actStart_btnText_resEdit">Упаковать/распаковать текстуры</string>
   <string name="createSandbox_tvText_name">Имя sandbox\'а</string>
   <string name="createSandbox_tvText_uid" translatable="false">UID</string>
-  <string name="createSandbox_edDefault_name" translatable="false">My Sandbox</string>
   <string name="createSandbox_edHint_uid">Для опытных пользователей</string>
   <string name="createSandbox_addStdMarkers">Добавить стандартные маркеры NaviComp</string>
   <string name="sandboxNameIsEmpty">Не указано имя sandbox\'а</string>
-  <string name="sandboxNameInvalid">Некорректное имя sandbox\'а</string>
+  <string name="sandboxNameIncorrect">Некорректное имя sandbox\'а</string>
   <string name="diaTitle_needDB">Требуется база данных модулей</string>
   <string name="diaMsg_needDB">Для полноценного функционирования приложения требуется загрузка базы данных, которая содержит характеристики модулей. Выполнить это действие сейчас? (Это также можно будет сделать позже из настроек приложения)</string>
   <!-- Текст экранных элементов (SbxConvertActivity) -->
@@ -276,6 +276,7 @@
   <string name="editErr_sbxLoadIO">Не удалось загрузить sandbox: ошибка ввода-вывода.\n\n%s</string>
   <string name="editErr_sbxParserFailure">Некорректный формат sandbox\'а (строка %d)</string>
   <string name="editErr_fontLoad">Файл шрифта не найден или поврежден. Попробуйте переустановить приложение.</string>
+  <string name="editErr_incorrectUID">Некорректное значение UID</string>
   <string name="editErr_emptyOffset">Не указано смещение/координаты центра</string>
   <string name="editErr_incorrectOffset">Некорректное смещение/координаты центра</string>
   <string name="editErr_emptyPosition">Не указаны координаты</string>
@@ -383,6 +384,14 @@
   <string name="pSummary_saveOriginalFiles">Не удалять оригинальные файлы при упаковке/распаковке</string>
   <string name="pTitle_internalExplorer">Встроенный файловый менеджер</string>
   <string name="pSummary_internalExplorer">Всегда использовать встроенный файловый менеджер</string>
+  <string name="pTitle_sbxEditorDefaultName">Имя sandbox\'а по умолчанию</string>
+  <string-array name="sbxDefaultName_names">
+    <item>My Sandbox</item>
+    <item>Текущая дата</item>
+    <item>Пользовательская строка</item>
+  </string-array>
+  <string name="pTitle_sbxEditorCustomName">Пользовательское имя sandbox\'а</string>
+  <string name="pSummary_sbxEditorCustomName">Не задано</string>
   <string name="pTitle_sbxNameInHeader">Имя sandbox\'а в заголовке окна</string>
   <string name="pSummary_sbxNameInHeader">Отображать имя текущего sandbox\'а в заголовке окна редактора</string>
   <string name="pTitle_confirm_exitEditMode">Подтверждение выхода из конфигуратора</string>
@@ -397,10 +406,10 @@
   <string name="pTitle_updateApp">Обновление приложения</string>
   <string name="pSummary_updateApp">Проверить наличие более новой версии приложения</string>
   <string name="appUpdateAvailable">Доступна более новая версия приложения (%s). Скачать ее сейчас?</string>
-  <string name="pTitle_language">Язык приложения</string>
-  <string-array name="language_names">
-    <item>По умолчанию</item>
-    <item>Английский</item>
+  <string name="pTitle_language">Язык приложения (Language)</string>
+  <string-array name="language_names" translatable="false">
+    <item>@string/defaultValue</item>
+    <item>English</item>
     <item>Русский</item>
   </string-array>
   <string name="pTitle_feedback">Обратная связь</string>

@@ -30,6 +30,22 @@
   <PreferenceCategory
     android:title="@string/prefCategory_sbxEditor">
 
+    <ListPreference
+      android:key="sbxEditor.defaultSbxName"
+      android:title="@string/pTitle_sbxEditorDefaultName"
+      android:summary=""
+      android:entries="@array/sbxDefaultName_names"
+      android:entryValues="@array/sbxDefaultName_values"
+      android:defaultValue="default"/>
+
+    <EditTextPreference
+      android:key="sbxEditor.customSbxName"
+      android:title="@string/pTitle_sbxEditorCustomName"
+      android:summary="@string/pSummary_sbxEditorCustomName"
+      android:maxLength="@integer/maxValue_SandboxNameLength"
+      android:inputType="textNoSuggestions"
+      android:enabled="false"/>
+
     <SwitchPreference
       android:key="sbxNameInHeader"
       android:title="@string/pTitle_sbxNameInHeader"

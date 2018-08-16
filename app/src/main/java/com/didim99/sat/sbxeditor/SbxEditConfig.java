@@ -15,7 +15,7 @@ public class SbxEditConfig {
   //for creating
   private String fileName;
   private String sbxName;
-  private String sbxUid;
+  private Integer sbxUid;
   private boolean addMarkers;
   //for adding
   private int partId;
@@ -70,7 +70,7 @@ public class SbxEditConfig {
   }
 
   //create new sandbox
-  public SbxEditConfig(int mode, String sbxName, String sbxUid, boolean addMarkers) {
+  public SbxEditConfig(int mode, String sbxName, Integer sbxUid, boolean addMarkers) {
     this.mode = mode;
     this.sbxName = sbxName;
     this.sbxUid = sbxUid;
@@ -214,7 +214,7 @@ public class SbxEditConfig {
     return sbxName;
   }
 
-  String getSbxUid() {
+  Integer getSbxUid() {
     return sbxUid;
   }
 

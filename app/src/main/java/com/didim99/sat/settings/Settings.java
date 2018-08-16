@@ -12,9 +12,14 @@ import com.didim99.sat.MyLog;
 
 public class Settings {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_Settings";
-  private Settings() {}
 
   private static SharedPreferences settings;
+  private Settings() {}
+
+  //Internal
+  public static final String VALUE_DEFAULT = "default";
+  public static final String VALUE_CUSTOM = "custom";
+  public static final String VALUE_DATE = "date";
 
   //Settings names
   public static final String KEY_DIR_PICKER_LAST_PATH = "dirPicker_lastPath";
@@ -42,6 +47,8 @@ public class Settings {
   private static final String KEY_SBX_OPT_FUEL = "sbxOpt_fuel";
   private static final String KEY_RES_CONV_SAVE_ORIGINAL_FILES = "resConverter.saveOriginalFiles";
   private static final String KEY_RES_CONV_INTERNAL_EXPLORER = "resConverter.internalExplorer";
+  static final String KEY_SBX_EDITOR_DEFAULT_NAME = "sbxEditor.defaultSbxName";
+  static final String KEY_SBX_EDITOR_CUSTOM_NAME = "sbxEditor.customSbxName";
   private static final String KEY_PART_INFO_SORT_MAIN = "partInfo_sortMain";
   private static final String KEY_PART_INFO_SORT_SECOND = "partInfo_sortSecond";
   private static final String KEY_PART_INFO_SORT_REVERSE = "partInfo_sortReverse";
@@ -67,6 +74,8 @@ public class Settings {
   private static final boolean DEFVALUE_CONFIRM_EXIT_EDIT_MODE = true;
   private static final boolean DEFVALUE_CREATE_WITH_MARKERS = false;
   private static final boolean DEFVALUE_USE_INTERNAL_SENDER = false;
+  private static final String DEFVALUE_SBX_EDITOR_DEFAULT_NAME = "default";
+  private static final String DEFVALUE_SBX_EDITOR_CUSTOM_NAME = "";
   private static final boolean DEFVALUE_SBX_NAME_IN_HEADER = true;
   private static final boolean DEFVALUE_SBX_OPT_SID = true;
   private static final boolean DEFVALUE_SBX_OPT_CARGO = true;
@@ -101,6 +110,8 @@ public class Settings {
   private static boolean devMode;
   private static boolean requestRoot;
   private static boolean confirmExitEditMode;
+  private static String defaultSbxName;
+  private static String customSbxName;
   private static boolean createWithMarkers;
   private static boolean useInternalSender;
   private static boolean sbxNameInHeader;
@@ -130,6 +141,10 @@ public class Settings {
     requestRoot = settings.getBoolean(KEY_REQUEST_ROOT, DEFVALUE_REQUEST_ROOT);
     confirmExitEditMode = settings.getBoolean(
       KEY_CONFIRM_EXIT_EDIT_MODE, DEFVALUE_CONFIRM_EXIT_EDIT_MODE);
+    defaultSbxName = settings.getString(
+      KEY_SBX_EDITOR_DEFAULT_NAME, DEFVALUE_SBX_EDITOR_DEFAULT_NAME);
+    customSbxName = settings.getString(
+      KEY_SBX_EDITOR_CUSTOM_NAME, DEFVALUE_SBX_EDITOR_CUSTOM_NAME);
     createWithMarkers = settings.getBoolean(KEY_CREATE_WITH_MARKERS, DEFVALUE_CREATE_WITH_MARKERS);
     useInternalSender = settings.getBoolean(KEY_USE_INTERNAL_SENDER, DEFVALUE_USE_INTERNAL_SENDER);
     sbxNameInHeader = settings.getBoolean(KEY_SBX_NAME_IN_HEADER, DEFVALUE_SBX_NAME_IN_HEADER);
@@ -162,6 +177,8 @@ public class Settings {
       + "\n  requestRoot: " + requestRoot
       + "\n  saveOriginalFiles: " + ResConverter.saveOriginal
       + "\n  confirmExitEditMode: " + confirmExitEditMode
+      + "\n  defaultSbxName: " + defaultSbxName
+      + "\n  customSbxName: " + customSbxName
       + "\n  createWithMarkers: " + createWithMarkers
       + "\n  useInternalSender: " + useInternalSender
       + "\n  sbxNameInHeader: " + sbxNameInHeader
@@ -189,6 +206,12 @@ public class Settings {
         ResConverter.useInternalExplorer = settings.getBoolean(
           key, DEFVALUE_RES_CONV_INTERNAL_EXPLORER);
         break;
+      case KEY_SBX_EDITOR_DEFAULT_NAME:
+        defaultSbxName = settings.getString(key, DEFVALUE_SBX_EDITOR_DEFAULT_NAME);
+        break;
+      case KEY_SBX_EDITOR_CUSTOM_NAME:
+        customSbxName = settings.getString(key, DEFVALUE_SBX_EDITOR_CUSTOM_NAME);
+        break;
       case KEY_SBX_NAME_IN_HEADER:
         sbxNameInHeader = settings.getBoolean(key, DEFVALUE_SBX_NAME_IN_HEADER);
         break;
@@ -210,6 +233,10 @@ public class Settings {
     devOsVer = settings.getString(KEY_DEVICE_OS_VERSION, "");
     devAbi = settings.getString(KEY_DEVICE_ABI, "");
     devId = settings.getString(KEY_DEVICE_ID, "");
+  }
+
+  public static boolean isCustomSbxNameEnabled() {
+    return getDefaultSbxName().equals(VALUE_CUSTOM);
   }
 
   //getters
@@ -287,6 +314,14 @@ public class Settings {
 
   public static boolean isConfirmExitEditMode() {
     return confirmExitEditMode;
+  }
+
+  public static String getDefaultSbxName() {
+    return defaultSbxName;
+  }
+
+  public static String getCustomSbxName() {
+    return customSbxName;
   }
 
   public static boolean isCreateWithMarkers() {
@@ -406,6 +441,11 @@ public class Settings {
   public static void setConfirmExitEditMode(boolean state) {
     confirmExitEditMode = state;
     settings.edit().putBoolean(KEY_CONFIRM_EXIT_EDIT_MODE, state).apply();
+  }
+
+  public static void setCustomSbxName(String newName) {
+    Settings.customSbxName = newName;
+    settings.edit().putString(KEY_SBX_EDITOR_CUSTOM_NAME, newName).apply();
   }
 
   public static void setCreateWithMarkers(boolean state) {

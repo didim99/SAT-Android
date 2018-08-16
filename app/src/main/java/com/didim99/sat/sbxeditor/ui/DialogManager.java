@@ -26,6 +26,7 @@ import com.didim99.sat.sbxeditor.Sandbox;
 import com.didim99.sat.sbxeditor.SbxEditConfig;
 import com.didim99.sat.sbxeditor.Station;
 import com.didim99.sat.sbxeditor.Storage;
+import com.didim99.sat.sbxeditor.model.InputValidator;
 import com.didim99.sat.sbxeditor.model.SBML;
 import com.didim99.sat.settings.Settings;
 import java.lang.ref.WeakReference;
@@ -256,20 +257,28 @@ public class DialogManager {
         v -> {
           MyLog.d(LOG_TAG, "Checking values...");
           String name = sbxName.getText().toString();
-          String uid = sbxUid.getText().toString();
-          if (name.isEmpty()) {
-            toastMsg.setText(R.string.sandboxNameIsEmpty);
-            toastMsg.show();
+          String uidStr = sbxUid.getText().toString();
+
+          if (!InputValidator.checkSbxName(name, false))
             return;
-          }
-          if (name.matches(SBML.INVALID_SBX_NAME)) {
-            toastMsg.setText(R.string.sandboxNameInvalid);
-            toastMsg.show();
-            return;
+
+          Integer uid = null;
+          if (!uidStr.isEmpty()) {
+            try {
+              uid = Integer.parseInt(uidStr);
+              if (uid <= 0)
+                throw new NumberFormatException("UID must be positive");
+            } catch (NumberFormatException e) {
+              MyLog.w(LOG_TAG, "Incorrect UID");
+              toastMsg.setText(R.string.editErr_incorrectUID);
+              toastMsg.show();
+              return;
+            }
           }
 
-          info.setSbxName(name);
+
           info.setSbxUid(uid);
+          info.setSbxName(name);
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.SBX_EDIT, Event.OK, null);
         }

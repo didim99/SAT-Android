@@ -16,7 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="textNoSuggestions"
-    android:text="@string/createSandbox_edDefault_name"/>
+    android:maxLength="@integer/maxValue_SandboxNameLength"/>
 
   <TextView
     android:layout_width="wrap_content"
@@ -29,7 +29,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="number"
-    android:hint="@string/createSandbox_edHint_uid"/>
+    android:hint="@string/createSandbox_edHint_uid"
+    android:maxLength="10"/>
 
   <CheckBox
     android:id="@+id/addStdMarkers"

@@ -5,6 +5,7 @@
   <string name="actLabel_filePicker">Choose file</string>
   <string name="actLabel_pickModule">Choose module</string>
   <!-- Общее -->
+  <string name="defaultValue">Default</string>
   <string name="dialogButtonCancel">Cancel</string>
   <string name="dialogButtonNow">Just now</string>
   <string name="dialogButtonAlways">Always</string>
@@ -41,7 +42,7 @@
   <string name="createSandbox_edHint_uid">For experienced users</string>
   <string name="createSandbox_addStdMarkers">Add standard NaviComp markers</string>
   <string name="sandboxNameIsEmpty">Sandbox name is empty</string>
-  <string name="sandboxNameInvalid">Invalid sandbox name</string>
+  <string name="sandboxNameIncorrect">Invalid sandbox name</string>
   <string name="diaTitle_needDB">Need modules database</string>
   <string name="diaMsg_needDB">To fully function the application, a database of modules characteristics is required. Do you want to download it now? (This can also be done later in the application settings)</string>
   <!-- Текст экранных элементов (SbxConvertActivity) -->
@@ -272,6 +273,7 @@
   <string name="editErr_sbxLoadIO">Unable to load sandbox: IO error.\n\n%s</string>
   <string name="editErr_sbxParserFailure">Invalid sandbox format (line %d)</string>
   <string name="editErr_fontLoad">The font file not found or corrupted. Try to reinstall application.</string>
+  <string name="editErr_incorrectUID">Incorrect UID value</string>
   <string name="editErr_emptyOffset">Offset/center position not defined</string>
   <string name="editErr_incorrectOffset">Incorrect offset/center position</string>
   <string name="editErr_emptyPosition">Position not defined</string>
@@ -366,6 +368,14 @@
   <string name="pSummary_saveOriginalFiles">Don\'t delete original files when packing/unpacking</string>
   <string name="pTitle_internalExplorer">Internal file manager</string>
   <string name="pSummary_internalExplorer">Always use internal file manager</string>
+  <string name="pTitle_sbxEditorDefaultName">Default sandbox name</string>
+  <string-array name="sbxDefaultName_names">
+    <item>My Sandbox</item>
+    <item>Current date</item>
+    <item>Custom string</item>
+  </string-array>
+  <string name="pTitle_sbxEditorCustomName">Custom sandbox name</string>
+  <string name="pSummary_sbxEditorCustomName">Not defined</string>
   <string name="pTitle_sbxNameInHeader">Sandbox name in window title</string>
   <string name="pSummary_sbxNameInHeader">Show current sandbox name in the editor window title</string>
   <string name="pTitle_confirm_exitEditMode">Confirm exit from editor setup</string>
@@ -381,11 +391,6 @@
   <string name="pSummary_updateApp">Check for a newer version of the application</string>
   <string name="appUpdateAvailable">New app version available (%s). Download it now?</string>
   <string name="pTitle_language">Language</string>
-  <string-array name="language_names">
-    <item>Default</item>
-    <item>English</item>
-    <item>Russian</item>
-  </string-array>
   <string name="pTitle_feedback">Feedback</string>
   <string name="pTitle_about">About</string>
   <string name="devModeEnabled">Developer mode enabled. Please restart app</string>

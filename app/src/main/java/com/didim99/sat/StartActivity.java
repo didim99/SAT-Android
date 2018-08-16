@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import com.didim99.sat.sbxconverter.SbxConvertActivity;
 import com.didim99.sat.sbxeditor.Sandbox;
 import com.didim99.sat.sbxeditor.SbxEditConfig;
 import com.didim99.sat.sbxeditor.Storage;
+import com.didim99.sat.sbxeditor.model.InputValidator;
 import com.didim99.sat.sbxeditor.model.SBML;
 import com.didim99.sat.sbxeditor.ui.PartInfoActivity;
 import com.didim99.sat.sbxeditor.ui.SandboxActivity;
@@ -30,6 +32,7 @@ import java.io.File;
 
 public class StartActivity extends BaseActivity {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_StartAct";
+  private static final String NBX_NAME_DATE_FORMAT = "yyyyMMdd_HHmmss";
 
   private Toast toastMsg;
   //intent request codes
@@ -148,7 +151,23 @@ public class StartActivity extends BaseActivity {
       final EditText sbxName = dialog.findViewById(R.id.etSbxName);
       final EditText sbxUid = dialog.findViewById(R.id.etSbxUid);
       final CheckBox cbAddStdMarkers = dialog.findViewById(R.id.addStdMarkers);
-      sbxName.setSelection(sbxName.getText().length());
+
+      String defaultName = Settings.getDefaultSbxName();
+      switch (defaultName) {
+        case Settings.VALUE_DEFAULT:
+          defaultName = SBML.DEFAULT_SANDBOX_NAME;
+          break;
+        case Settings.VALUE_DATE:
+          defaultName =  DateFormat.format
+            (NBX_NAME_DATE_FORMAT, System.currentTimeMillis()).toString();
+          break;
+        case Settings.VALUE_CUSTOM:
+          defaultName = Settings.getCustomSbxName();
+          break;
+      }
+
+      sbxName.setText(defaultName);
+      sbxName.setSelection(defaultName.length());
       if (Settings.isDbLoaded()) {
         cbAddStdMarkers.setChecked(Settings.isCreateWithMarkers());
         cbAddStdMarkers.setVisibility(View.VISIBLE);
@@ -158,17 +177,25 @@ public class StartActivity extends BaseActivity {
         .setOnClickListener(view -> {
           MyLog.d(LOG_TAG, "Checking values...");
           String name = sbxName.getText().toString();
-          String uid = sbxUid.getText().toString();
-          if (name.isEmpty()) {
-            toastMsg.setText(R.string.sandboxNameIsEmpty);
-            toastMsg.show();
+          String uidStr = sbxUid.getText().toString();
+
+          if (!InputValidator.checkSbxName(name, false))
             return;
+
+          Integer uid = null;
+          if (!uidStr.isEmpty()) {
+            try {
+              uid = Integer.parseInt(uidStr);
+              if (uid <= 0)
+                throw new NumberFormatException("UID must be positive");
+            } catch (NumberFormatException e) {
+              MyLog.w(LOG_TAG, "Incorrect UID");
+              toastMsg.setText(R.string.editErr_incorrectUID);
+              toastMsg.show();
+              return;
+            }
           }
-          if (name.matches(SBML.INVALID_SBX_NAME)) {
-            toastMsg.setText(R.string.sandboxNameInvalid);
-            toastMsg.show();
-            return;
-          }
+
           boolean addMarkers = Settings.isDbLoaded() && cbAddStdMarkers.isChecked();
           Settings.setCreateWithMarkers(addMarkers);
           Storage.setEditConfig(new SbxEditConfig(Sandbox.Mode.CREATE, name, uid, addMarkers));
