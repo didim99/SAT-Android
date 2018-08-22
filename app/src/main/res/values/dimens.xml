@@ -35,6 +35,10 @@
   <dimen name="actSbxEdit_textSize_main">16sp</dimen>
   <dimen name="actSbxEdit_iconMargin">5dp</dimen>
   <dimen name="actSbxEdit_nameMargin">30dp</dimen>
+  <!-- Section_headers -->
+  <dimen name="sectionHeader_textHMargin">10dp</dimen>
+  <dimen name="sectionHeader_textVMargin">2dp</dimen>
+  <dimen name="sectionHeader_textSize">16sp</dimen>
   <!-- Part_item -->
   <dimen name="partInfo_layoutHMargin">5dp</dimen>
   <dimen name="partInfo_layoutVMargin">2dp</dimen>

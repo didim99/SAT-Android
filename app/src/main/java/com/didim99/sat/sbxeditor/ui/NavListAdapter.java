@@ -79,6 +79,11 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
   }
 
   @Override
+  int getSelectableItemCount() {
+    return getItemCount();
+  }
+
+  @Override
   NaviCompMarker getItemAt(int position) {
     return naviComp.get(position);
   }

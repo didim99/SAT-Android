@@ -91,7 +91,8 @@ public class TexConvertActivity extends AppCompatActivity
       MyLog.d(LOG_TAG, "Connecting to background task completed (" + texTask.hashCode() + ")");
     }
 
-    convertMode = TexConverter.MODE_SINGLE_FILE;
+    convertMode = selectMode.isChecked() ?
+      TexConverter.MODE_DIRECTORY : TexConverter.MODE_SINGLE_FILE;
     btnPack.setOnClickListener(actionListener);
     btnUnpack.setOnClickListener(actionListener);
     selectMode.setOnCheckedChangeListener(modeListener);

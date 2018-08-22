@@ -294,8 +294,6 @@ class TexConverter {
     DataInputStream src = new DataInputStream(new FileInputStream(fileName));
     src.read(buff);
     src.close();
-    MyLog.e(LOG_TAG, "buff: " + Arrays.toString(buff));
-    MyLog.e(LOG_TAG, "PNG_SIGNATURE: " + Arrays.toString(PNG_SIGNATURE));
     return !Arrays.equals(buff, PNG_SIGNATURE);
   }
 

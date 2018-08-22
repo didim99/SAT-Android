@@ -189,6 +189,8 @@
   <string name="diaAddMarker_enterRescaleRadius">Rescale radius</string>
   <string name="diaAddMarker_enterScale">Scale factor</string>
   <string name="diaAddMarker_selectName">Marker label</string>
+  <!-- Заголовки секций списка (station_list) -->
+  <string name="sectionHeader_stations">Stations</string>
   <!-- Названия элементов меню (menu_start) -->
   <string name="mTitle_actionPartInfo">Parts info</string>
   <string name="mTitle_actionSettings">Settings</string>

@@ -176,17 +176,17 @@ public class NaviCompActivity extends AppCompatActivity
   @Override
   public void onMultiSelectionEvent(int event, int count) {
     switch (event) {
-      case MultiSelectAdapter.EVENT_MS_START:
+      case MultiSelectAdapter.MSEvent.START:
         actionMode = startSupportActionMode(actionModeCallback);
         updateActionMode(count, false);
         break;
-      case MultiSelectAdapter.EVENT_MS_UPDATE:
+      case MultiSelectAdapter.MSEvent.UPDATE:
         updateActionMode(count, false);
         break;
-      case MultiSelectAdapter.EVENT_MS_ALL_SELECTED:
+      case MultiSelectAdapter.MSEvent.ALL_SELECTED:
         updateActionMode(count, true);
         break;
-      case MultiSelectAdapter.EVENT_MS_END:
+      case MultiSelectAdapter.MSEvent.END:
         actionMode.finish();
         break;
     }

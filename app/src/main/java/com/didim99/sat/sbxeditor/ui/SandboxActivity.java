@@ -62,16 +62,16 @@ public class SandboxActivity extends BaseActivity
 
     //Search saved instance
     MyLog.d(LOG_TAG, "Loading saved instance...");
-    Object[] instance = (Object[]) getLastCustomNonConfigurationInstance();
+    SavedState instance = (SavedState) getLastCustomNonConfigurationInstance();
     if (instance == null)
-      instance = new Object[] {null, null};
+      instance = new SavedState();
 
     //View components init
     MyLog.d(LOG_TAG, "View components init...");
     adapter = new StationListAdapter(this, getMenuInflater(), this);
-    if (instance[1] != null) {
+    if (instance.adapterState != null) {
       MyLog.d(LOG_TAG, "Selected list found, enable multi-selection mode");
-      adapter.initSelection(Storage.getSandbox(), (StationListAdapter.State) instance[1]);
+      adapter.initSelection(Storage.getSandbox(), instance.adapterState);
     }
     sbxProgressBar = findViewById(R.id.sbxProgressBar);
     rvStationList = findViewById(R.id.rvStationList);
@@ -92,7 +92,7 @@ public class SandboxActivity extends BaseActivity
     }
 
     MyLog.d(LOG_TAG, "Trying to connect with background task...");
-    task = (SbxEditTask) instance[0];
+    task = instance.task;
     if (task == null) {
       MyLog.d(LOG_TAG, "No existing background task found");
       startTask(config);
@@ -112,18 +112,18 @@ public class SandboxActivity extends BaseActivity
   }
 
   @Override
-  public Object[] onRetainCustomNonConfigurationInstance() {
-    Object[] out = new Object[] {null, null};
+  public SavedState onRetainCustomNonConfigurationInstance() {
+    SavedState state = new SavedState();
 
     if (task != null) {
       task.unregisterEventListener();
-      out[0] = task;
+      state.task = task;
     }
 
     if (adapter.inMultiSelectionMode())
-      out[1] = adapter.getState();
+      state.adapterState = adapter.getState();
 
-    return out;
+    return state;
   }
 
   @Override
@@ -276,25 +276,27 @@ public class SandboxActivity extends BaseActivity
 
   @Override
   public void onItemClick(View view, Station station) {
-    selected = new ArrayList<>(2);
-    selected.add(station);
-    openContextMenu(view);
+    if (station != null) {
+      selected = new ArrayList<>(2);
+      selected.add(station);
+      openContextMenu(view);
+    }
   }
 
   @Override
   public void onMultiSelectionEvent(int event, int count) {
     switch (event) {
-      case MultiSelectAdapter.EVENT_MS_START:
+      case MultiSelectAdapter.MSEvent.START:
         actionMode = startSupportActionMode(actionModeCallback);
         updateActionMode(count, false);
         break;
-      case MultiSelectAdapter.EVENT_MS_UPDATE:
+      case MultiSelectAdapter.MSEvent.UPDATE:
         updateActionMode(count, false);
         break;
-      case MultiSelectAdapter.EVENT_MS_ALL_SELECTED:
+      case MultiSelectAdapter.MSEvent.ALL_SELECTED:
         updateActionMode(count, true);
         break;
-      case MultiSelectAdapter.EVENT_MS_END:
+      case MultiSelectAdapter.MSEvent.END:
         actionMode.finish();
         break;
     }
@@ -494,5 +496,11 @@ public class SandboxActivity extends BaseActivity
       if (bar != null)
         bar.setTitle(Storage.getSandbox().getInfo().getSbxName());
     }
+  }
+
+  private static class SavedState {
+    private MultiSelectAdapter.State adapterState;
+    private SbxEditTask task;
+    private int viewMode;
   }
 }

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
@@ -20,10 +21,12 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SLAdapter";
 
   // Multi-selection event codes
-  static final int EVENT_MS_START = 1;
-  static final int EVENT_MS_UPDATE = 2;
-  static final int EVENT_MS_ALL_SELECTED = 3;
-  static final int EVENT_MS_END = 4;
+  static final class MSEvent {
+    static final int START = 1;
+    static final int UPDATE = 2;
+    static final int ALL_SELECTED = 3;
+    static final int END = 4;
+  }
 
   protected final Context context;
   protected final Resources resources;
@@ -32,6 +35,7 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
   private final int bgSelected, bgUnselected;
 
   private boolean multiSelectAvailable, multiSelectEnabled;
+  protected SparseArray<Boolean> selectable;
   private ArrayList<Integer> selected;
 
   MultiSelectAdapter(Context context, EventListener<T> listener) {
@@ -39,6 +43,7 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
     this.listener = listener;
     this.context = context;
     selected = new ArrayList<>();
+    selectable = new SparseArray<>();
     bgSelected = resources.getColor(R.color.stationItem_selected);
     bgUnselected = resources.getColor(R.color.stationItem_unselected);
     multiSelectAvailable = getItemCount() > 1;
@@ -48,6 +53,12 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
   @Override
   @CallSuper
   public void onBindViewHolder(VH holder, int position) {
+    if (!selectable.get(position)) {
+      holder.itemView.setOnClickListener(v ->
+        listener.onItemClick(v, null));
+      return;
+    }
+
     if (multiSelectEnabled)
       setSelected(holder, true, selected.contains(position));
     else
@@ -61,19 +72,19 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
           setSelected(holder, true, false);
           if (selected.isEmpty()) {
             MyLog.d(LOG_TAG, "Multi-select mode disabled");
-            listener.onMultiSelectionEvent(EVENT_MS_END, 0);
+            listener.onMultiSelectionEvent(MSEvent.END, 0);
             multiSelectEnabled = false;
           } else {
-            listener.onMultiSelectionEvent(EVENT_MS_UPDATE, selected.size());
+            listener.onMultiSelectionEvent(MSEvent.UPDATE, selected.size());
           }
         } else {
           MyLog.d(LOG_TAG, "Item selected: " + position);
           selected.add(position);
           setSelected(holder, true, true);
           int size = selected.size();
-          boolean all = size == getItemCount();
+          boolean all = size == getSelectableItemCount();
           listener.onMultiSelectionEvent(
-            all ? EVENT_MS_ALL_SELECTED : EVENT_MS_UPDATE, selected.size());
+            all ? MSEvent.ALL_SELECTED : MSEvent.UPDATE, size);
           if (all) MyLog.d(LOG_TAG, "All items selected");
         }
       } else {
@@ -85,7 +96,7 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
     holder.itemView.setOnLongClickListener(v -> {
       if (multiSelectAvailable && !multiSelectEnabled) {
         MyLog.d(LOG_TAG, "Multi-select mode enabled");
-        listener.onMultiSelectionEvent(EVENT_MS_START, 1);
+        listener.onMultiSelectionEvent(MSEvent.START, 1);
         multiSelectEnabled = true;
         selected.add(position);
         setSelected(holder, true, true);
@@ -99,9 +110,9 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
     this.selected = state.selected;
     multiSelectAvailable = true;
     multiSelectEnabled = true;
-    listener.onMultiSelectionEvent(EVENT_MS_START, 1);
-    listener.onMultiSelectionEvent(selected.size() == getItemCount() ?
-      EVENT_MS_ALL_SELECTED : EVENT_MS_UPDATE, selected.size());
+    listener.onMultiSelectionEvent(MSEvent.START, 1);
+    listener.onMultiSelectionEvent(selected.size() == getSelectableItemCount() ?
+      MSEvent.ALL_SELECTED : MSEvent.UPDATE, selected.size());
   }
 
   final boolean inMultiSelectionMode() {
@@ -120,15 +131,15 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
   }
 
   final void refreshData() {
-    multiSelectAvailable = getItemCount() > 1;
+    multiSelectAvailable = getSelectableItemCount() > 1;
     notifyDataSetChanged();
   }
 
   final void selectAll() {
     selected.clear();
     for (int i = 0; i < getItemCount(); i++)
-      selected.add(i);
-    listener.onMultiSelectionEvent(EVENT_MS_ALL_SELECTED, selected.size());
+      if (selectable.get(i)) selected.add(i);
+    listener.onMultiSelectionEvent(MSEvent.ALL_SELECTED, selected.size());
     MyLog.d(LOG_TAG, "All items selected");
     notifyDataSetChanged();
   }
@@ -152,7 +163,9 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
 
   abstract T getItemAt(int position);
 
-  class State {
+  abstract int getSelectableItemCount();
+
+  final class State {
     private ArrayList<Integer> selected;
 
     private State(ArrayList<Integer> selected) {

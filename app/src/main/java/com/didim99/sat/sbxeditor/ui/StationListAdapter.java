@@ -19,8 +19,13 @@ import com.didim99.sat.sbxeditor.Station;
  * Created by didim99 on 09.05.18.
  */
 
-class StationListAdapter extends MultiSelectAdapter<Station, StationListAdapter.ViewHolder>
+class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHolder>
   implements View.OnCreateContextMenuListener {
+
+  private static final class ViewType {
+    static final int HEADER = 1;
+    static final int STATION = 2;
+  }
 
   private final UIManager uiManager;
   private final LayoutInflater inflater;
@@ -36,17 +41,98 @@ class StationListAdapter extends MultiSelectAdapter<Station, StationListAdapter.
   }
 
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = inflater.inflate(R.layout.item_station, parent, false);
-    ViewHolder holder = new ViewHolder(view);
-    holder.itemView.setOnCreateContextMenuListener(this);
+  public int getItemViewType(int position) {
+    if (position == 0)
+      return ViewType.HEADER;
+    else
+      return ViewType.STATION;
+  }
+
+  @Override
+  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    RecyclerView.ViewHolder holder = null;
+    switch (viewType) {
+      case ViewType.HEADER:
+        holder = new HeaderViewHolder(
+          inflater.inflate(R.layout.list_category_header, parent, false));
+        break;
+      case ViewType.STATION:
+        holder = new StationViewHolder(
+          inflater.inflate(R.layout.item_station, parent, false));
+        holder.itemView.setOnCreateContextMenuListener(this);
+        break;
+    }
     return holder;
   }
 
   @Override
-  public void onBindViewHolder(StationListAdapter.ViewHolder holder, int position) {
-    Station.Info info = getItemAt(position).getInfo();
+  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     super.onBindViewHolder(holder, position);
+    switch (getItemViewType(position)) {
+      case ViewType.HEADER:
+        bindHeaderViewHolder((HeaderViewHolder) holder, position);
+        break;
+      case ViewType.STATION:
+        bindStationViewHolder((StationViewHolder) holder, position);
+        break;
+    }
+  }
+
+  @Override
+  public int getItemCount() {
+    if (sandbox == null) return 0;
+    int stationCount = sandbox.getInfo().getStationCount();
+    return stationCount == 0 ? 0 : stationCount + 1;
+  }
+
+  @Override
+  int getSelectableItemCount() {
+    return getItemCount() > 0 ? getItemCount() - 1 : 0;
+  }
+
+  @Override
+  Station getItemAt(int position) {
+    if (position == 0)
+      return null;
+    else
+      return sandbox.getStation(position - 1);
+  }
+
+  @Override
+  public void onCreateContextMenu(ContextMenu menu, View view,
+                                  ContextMenu.ContextMenuInfo menuInfo) {
+    menuInflater.inflate(R.menu.ctx_menu_station, menu);
+  }
+
+  void refreshData(Sandbox sandbox) {
+    this.sandbox = sandbox;
+    for (int pos = 0; pos < getItemCount(); pos++) {
+      switch (getItemViewType(pos)) {
+        case ViewType.HEADER:
+          selectable.put(pos, false);
+          break;
+        case ViewType.STATION:
+          selectable.put(pos, true);
+          break;
+      }
+    }
+    super.refreshData();
+  }
+
+  void initSelection(Sandbox sandbox, State state) {
+    this.sandbox = sandbox;
+    super.initSelection(state);
+  }
+
+  private void bindHeaderViewHolder(HeaderViewHolder holder, int position) {
+    if (position == 0) {
+      holder.sectionName.setText(R.string.sectionHeader_stations);
+      holder.itemCount.setText(String.valueOf(sandbox.getInfo().getStationCount()));
+    }
+  }
+
+  private void bindStationViewHolder(StationViewHolder holder, int position) {
+    Station.Info info = getItemAt(position).getInfo();
 
     int visibleId = 0;
     int modulesCount = info.getSize();
@@ -102,33 +188,17 @@ class StationListAdapter extends MultiSelectAdapter<Station, StationListAdapter.
     holder.pbModCount.setProgress(relativeSize);
   }
 
-  @Override
-  public int getItemCount() {
-    return sandbox == null ? 0 : sandbox.getInfo().getStationCount();
+  static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    final TextView sectionName, itemCount;
+
+    HeaderViewHolder(View view) {
+      super(view);
+      sectionName = view.findViewById(R.id.sectionName);
+      itemCount = view.findViewById(R.id.itemCount);
+    }
   }
 
-  @Override
-  Station getItemAt(int position) {
-    return sandbox.getStation(position);
-  }
-
-  @Override
-  public void onCreateContextMenu(ContextMenu menu, View view,
-                                  ContextMenu.ContextMenuInfo menuInfo) {
-    menuInflater.inflate(R.menu.ctx_menu_station, menu);
-  }
-
-  void refreshData(Sandbox sandbox) {
-    this.sandbox = sandbox;
-    super.refreshData();
-  }
-
-  void initSelection(Sandbox sandbox, State state) {
-    this.sandbox = sandbox;
-    super.initSelection(state);
-  }
-
-  static class ViewHolder extends RecyclerView.ViewHolder {
+  static class StationViewHolder extends RecyclerView.ViewHolder {
     final ProgressBar pbModCount;
     final ImageView
       ivStatusMovement, ivStatusVisible,
@@ -137,7 +207,7 @@ class StationListAdapter extends MultiSelectAdapter<Station, StationListAdapter.
       tvModCount, tvDistance,
       tvCenter, tvName;
 
-    ViewHolder(View view) {
+    StationViewHolder(View view) {
       super(view);
       ivStatusMovement = view.findViewById(R.id.ivStatusMovement);
       ivStatusVisible = view.findViewById(R.id.ivStatusVisible);

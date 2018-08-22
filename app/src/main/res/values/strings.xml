@@ -200,6 +200,8 @@
   <string name="diaAddMarker_enterRescaleRadius">Радиус смены масштаба</string>
   <string name="diaAddMarker_enterScale">Коэф. смены масштаба</string>
   <string name="diaAddMarker_selectName">Имя маркера</string>
+  <!-- Заголовки секций списка (station_list) -->
+  <string name="sectionHeader_stations">Станции</string>
   <!-- Названия элементов меню (menu_start) -->
   <string name="mTitle_actionPartInfo">Сведения о модулях</string>
   <string name="mTitle_actionSettings">Настройки</string>
