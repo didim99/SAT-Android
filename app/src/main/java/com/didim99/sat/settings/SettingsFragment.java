@@ -42,7 +42,7 @@ public class SettingsFragment extends PreferenceFragment
   private static final String DATE_FORMAT = "dd.MM.yyyy";
 
   private Context appContext;
-  private ListPreference sbxName, language;
+  private ListPreference convType, sbxName, language;
   private EditTextPreference sbxCustomName;
   private Preference prefAbout, prefUpdateDb;
   private Toast toastMsg;
@@ -62,9 +62,11 @@ public class SettingsFragment extends PreferenceFragment
     appContext = getActivity().getApplicationContext();
     toastMsg = Toast.makeText(appContext, "", Toast.LENGTH_LONG);
 
+    convType = (ListPreference) findPreference(Settings.KEY_RES_CONV_DEFAULT_TYPE);
     sbxName = (ListPreference) findPreference(Settings.KEY_SBX_EDITOR_DEFAULT_NAME);
     sbxCustomName = (EditTextPreference) findPreference(Settings.KEY_SBX_EDITOR_CUSTOM_NAME);
     language = (ListPreference) findPreference(Settings.KEY_LANGUAGE);
+    updateListPrefSummary(convType);
     updateListPrefSummary(sbxName);
     updateListPrefSummary(language);
     updateSbxCustomNameState();
@@ -113,7 +115,8 @@ public class SettingsFragment extends PreferenceFragment
             MyLog.d(LOG_TAG, "Developer mode enabled");
             prefAbout.setOnPreferenceClickListener(null);
             Settings.setDevMode(true);
-            Toast.makeText(getActivity(), R.string.devModeEnabled, Toast.LENGTH_LONG).show();
+            toastMsg.setText(R.string.devModeEnabled);
+            toastMsg.show();
           }
           devModeCounter = DEV_MODE_START;
         }
@@ -158,6 +161,9 @@ public class SettingsFragment extends PreferenceFragment
   public void onSharedPreferenceChanged(SharedPreferences settings, String key) {
     Settings.updateSettings(key);
     switch (key) {
+      case Settings.KEY_RES_CONV_DEFAULT_TYPE:
+        updateListPrefSummary(convType);
+        break;
       case Settings.KEY_SBX_EDITOR_DEFAULT_NAME:
         updateListPrefSummary(sbxName);
         updateSbxCustomNameState();
@@ -167,8 +173,8 @@ public class SettingsFragment extends PreferenceFragment
         break;
       case Settings.KEY_LANGUAGE:
         updateListPrefSummary(language);
-        Toast.makeText(getActivity().getBaseContext(),
-          R.string.restartRequired, Toast.LENGTH_SHORT).show();
+        toastMsg.setText(R.string.restartRequired);
+        toastMsg.show();
         break;
     }
   }
@@ -212,10 +218,12 @@ public class SettingsFragment extends PreferenceFragment
           dialog.show();
         } else {
           MyLog.d(LOG_TAG, "No App updates found");
-          Toast.makeText(appContext, R.string.dbTask_noUpdates, Toast.LENGTH_LONG).show();
+          toastMsg.setText(R.string.dbTask_noUpdates);
+          toastMsg.show();
         }
       } else {
-        Toast.makeText(appContext, R.string.dbTask_webUnavailable, Toast.LENGTH_LONG).show();
+        toastMsg.setText(R.string.dbTask_webUnavailable);
+        toastMsg.show();
       }
     }
   }
@@ -223,38 +231,6 @@ public class SettingsFragment extends PreferenceFragment
   private void updateListPrefSummary(ListPreference pref) {
     pref.setSummary(pref.getEntry());
   }
-
-  /*private void setSbxNameDialog() {
-    MyLog.d(LOG_TAG, "SbxName dialog called");
-    LayoutInflater inflater = LayoutInflater.from(getActivity());
-    AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
-    adb.setPositiveButton(R.string.dialogButtonOk, null);
-    adb.setNegativeButton(R.string.dialogButtonCancel, (dialog, which) -> dialog.cancel());
-    adb.setView(inflater.inflate(R.layout.dialog_custom_sbx_name, null));
-    AlertDialog dialog = adb.create();
-    dialog.setOnShowListener(dialogInterface -> {
-      AlertDialog dialog1 = (AlertDialog) dialogInterface;
-      final EditText sbxName = dialog1.findViewById(R.id.etSbxName);
-      sbxName.setText(Settings.getCustomSbxName());
-      sbxName.setSelection(sbxName.getText().length());
-
-      dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
-        String name = sbxName.getText().toString();
-        if (name.matches(SBML.INVALID_SBX_NAME)) {
-          toastMsg.setText(R.string.sandboxNameInvalid);
-          toastMsg.show();
-          return;
-        }
-
-        dialogInterface.dismiss();
-        Settings.setCustomSbxName(name);
-      });
-    });
-    dialog.setOnCancelListener(dialogInterface ->
-      sbxName.setValue(Settings.VALUE_DEFAULT));
-    MyLog.d(LOG_TAG, "Dialog created");
-    dialog.show();
-  }*/
 
   private void updateDbState(boolean hasDb) {
     if (hasDb) {
@@ -274,7 +250,8 @@ public class SettingsFragment extends PreferenceFragment
 
   private void updateDb (int newVersion) {
     if (newVersion < 0) {
-      Toast.makeText(appContext, R.string.dbTask_webUnavailable, Toast.LENGTH_LONG).show();
+      toastMsg.setText(R.string.dbTask_webUnavailable);
+      toastMsg.show();
     } else if (newVersion > Settings.getDbVer()) {
       MyLog.d(LOG_TAG, "Database update available "
         + "(" + Settings.getDbVer() + " --> " + newVersion + ")");
@@ -297,7 +274,8 @@ public class SettingsFragment extends PreferenceFragment
       dialog.show();
     } else {
       MyLog.d(LOG_TAG, "No DB updates found");
-      Toast.makeText(appContext, R.string.dbTask_noUpdates, Toast.LENGTH_LONG).show();
+      toastMsg.setText(R.string.dbTask_noUpdates);
+      toastMsg.show();
     }
   }
 

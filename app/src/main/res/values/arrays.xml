@@ -10,4 +10,8 @@
     <item>date</item>
     <item>custom</item>
   </string-array>
+  <string-array name="converterType_values">
+    <item>1</item>
+    <item>2</item>
+  </string-array>
 </resources>

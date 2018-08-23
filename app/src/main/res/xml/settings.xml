@@ -14,6 +14,14 @@
   <PreferenceCategory
     android:title="@string/prefCategory_resConverter">
 
+    <ListPreference
+      android:key="resConverter.defaultType"
+      android:title="@string/pTitle_resConverterDefaultType"
+      android:summary=""
+      android:entries="@array/converterType_names"
+      android:entryValues="@array/converterType_values"
+      android:defaultValue="1"/>
+
     <SwitchPreference
       android:key="resConverter.saveOriginalFiles"
       android:title="@string/pTitle_saveOriginalFiles"

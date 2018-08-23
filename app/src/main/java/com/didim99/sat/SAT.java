@@ -25,7 +25,7 @@ import java.util.Locale;
 public class SAT extends Application implements DBTask.EventListener {
   public static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_root";
 
-  public enum GlobalEvent { DB_DAMAGED, UI_RELOAD}
+  public enum GlobalEvent { DB_DAMAGED, UI_RELOAD }
 
   public static final String ACTION_PICK_MODULE = "com.didim99.sat.pickModule";
   public static final String EXTRA_PART_ID = "com.didim99.sat.partId";

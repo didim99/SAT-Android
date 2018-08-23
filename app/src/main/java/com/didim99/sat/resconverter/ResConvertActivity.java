@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,8 +30,8 @@ import com.didim99.sat.settings.Settings;
 import java.io.File;
 import java.util.List;
 
-public class TexConvertActivity extends AppCompatActivity
-  implements TexTask.EventListener {
+public class ResConvertActivity extends AppCompatActivity
+  implements ResConvertTask.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_TexConvertAct";
 
   private static final int REQUEST_GET_PATH = 1;
@@ -39,13 +42,15 @@ public class TexConvertActivity extends AppCompatActivity
   private Button btnPack, btnUnpack, btnChoosePath;
   private CheckBox selectMode;
   private ProgressBar mainProgressBar;
-  private ImageView imageView;
   private TextView sysMsg;
   private Toast toastMsg;
+  private ImageView imageView;
+  private FileListAdapter fileListAdapter;
+  private MenuItem actionSwichType;
   //converter
-  private TexTask texTask;
-  private String startPath;
+  private ResConvertTask resTask;
   private int loadCount = 0;
+  private int convertType;
   private int convertMode;
   private int currAction;
   private String taskResult;
@@ -53,12 +58,25 @@ public class TexConvertActivity extends AppCompatActivity
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    MyLog.d(LOG_TAG, "TexConvertActivity starting...");
+    MyLog.d(LOG_TAG, "ResConvertActivity starting...");
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.act_res_converter);
-    setupActionBar();
+    convertType = Settings.ResConverter.getCurrentType();
 
-    //View components init
+    switch (convertType) {
+      case ResConverter.Type.TEXTURES:
+        setContentView(R.layout.act_tex_converter);
+        imageView = findViewById(R.id.imageView);
+        break;
+      case ResConverter.Type.SOUNDS:
+        setContentView(R.layout.act_sound_converter);
+        fileListAdapter = new FileListAdapter(this);
+        RecyclerView fileList = findViewById(R.id.soundList);
+        fileList.setLayoutManager(new LinearLayoutManager(this));
+        fileList.setAdapter(fileListAdapter);
+        break;
+    }
+
+    setupActionBar();
     MyLog.d(LOG_TAG, "View components init...");
     inputStartPath = findViewById(R.id.inputStartPath);
     btnChoosePath = findViewById(R.id.btnOpenFileExp);
@@ -66,8 +84,6 @@ public class TexConvertActivity extends AppCompatActivity
     btnUnpack = findViewById(R.id.btnUnpack);
     selectMode = findViewById(R.id.selectMode);
     mainProgressBar = findViewById(R.id.mainProgressBar);
-    imageView = findViewById(R.id.imageView);
-    imageView.setBackgroundColor(0xff404040);
     sysMsg = findViewById(R.id.sysMsg);
     //Toast message init
     toastMsg = Toast.makeText(this, "", Toast.LENGTH_LONG);
@@ -76,54 +92,54 @@ public class TexConvertActivity extends AppCompatActivity
 
     //Search existing background task
     MyLog.d(LOG_TAG, "Trying to connect with background task...");
-    texTask = (TexTask) getLastCustomNonConfigurationInstance();
-    if (texTask == null)
+    resTask = (ResConvertTask) getLastCustomNonConfigurationInstance();
+    if (resTask == null)
       MyLog.d(LOG_TAG, "No existing background task found");
     else {
-      texTask.registerEventListener(this);
-      AsyncTask.Status taskStatus = texTask.getStatus();
+      resTask.registerEventListener(this);
+      AsyncTask.Status taskStatus = resTask.getStatus();
       if (taskStatus == AsyncTask.Status.RUNNING)
         uiLock(true);
       else if (taskStatus == AsyncTask.Status.FINISHED) {
-        taskResult = texTask.getResult();
+        taskResult = resTask.getResult();
         uiSet();
       }
-      MyLog.d(LOG_TAG, "Connecting to background task completed (" + texTask.hashCode() + ")");
+      MyLog.d(LOG_TAG, "Connecting to background task completed (" + resTask.hashCode() + ")");
     }
 
     convertMode = selectMode.isChecked() ?
-      TexConverter.MODE_DIRECTORY : TexConverter.MODE_SINGLE_FILE;
+      ResConverter.Mode.DIRECTORY : ResConverter.Mode.SINGLE_FILE;
     btnPack.setOnClickListener(actionListener);
     btnUnpack.setOnClickListener(actionListener);
     selectMode.setOnCheckedChangeListener(modeListener);
 
-    MyLog.d(LOG_TAG, "TexConvertActivity started");
+    MyLog.d(LOG_TAG, "ResConvertActivity started");
   }
 
   View.OnClickListener actionListener = new View.OnClickListener() {
     @Override
     public void onClick(View view) {
       int id = view.getId();
-      startPath = inputStartPath.getText().toString().trim();
+      String startPath = inputStartPath.getText().toString().trim();
       if (!checkPath(startPath))
         return;
 
       switch (id) {
         case R.id.btnPack:
-          currAction = TexConverter.ACTION_PACK;
+          currAction = ResConverter.Action.PACK;
           sysMsg.setText(R.string.resProcessing_packing);
           break;
         case R.id.btnUnpack:
-          currAction = TexConverter.ACTION_UNPACK;
+          currAction = ResConverter.Action.UNPACK;
           sysMsg.setText(R.string.resProcessing_unpacking);
           break;
       }
 
       MyLog.d(LOG_TAG, "Creating new background task...");
-      texTask = new TexTask(getApplicationContext());
-      texTask.registerEventListener(TexConvertActivity.this);
-      MyLog.d(LOG_TAG, "Background task created successful (" + texTask.hashCode() + ")");
-      texTask.execute(new TexConverter.Config(startPath, convertMode, currAction));
+      resTask = new ResConvertTask(getApplicationContext(), convertType);
+      resTask.registerEventListener(ResConvertActivity.this);
+      MyLog.d(LOG_TAG, "Background task created successful (" + resTask.hashCode() + ")");
+      resTask.execute(new ResConverter.Config(startPath, convertMode, currAction));
     }
   };
 
@@ -132,30 +148,62 @@ public class TexConvertActivity extends AppCompatActivity
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
       if (isChecked) {
         MyLog.d(LOG_TAG, "Convert mode: directory");
-        convertMode = TexConverter.MODE_DIRECTORY;
+        convertMode = ResConverter.Mode.DIRECTORY;
       }
       else {
         MyLog.d(LOG_TAG, "Convert mode: single file");
-        convertMode = TexConverter.MODE_SINGLE_FILE;
+        convertMode = ResConverter.Mode.SINGLE_FILE;
       }
     }
   };
 
   @Override
   public Object onRetainCustomNonConfigurationInstance() {
-    if (texTask != null) {
-      texTask.unregisterEventListener();
-      return texTask;
+    if (resTask != null) {
+      resTask.unregisterEventListener();
+      return resTask;
     }
     else return super.onRetainCustomNonConfigurationInstance();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MyLog.d(LOG_TAG, "Creating menu...");
+    getMenuInflater().inflate(R.menu.menu_res_converter, menu);
+
+    actionSwichType = menu.findItem(R.id.action_switch_type);
+    if (convertType == ResConverter.Type.SOUNDS) {
+      actionSwichType.setIcon(R.drawable.ic_textures_24dp);
+      actionSwichType.setTitle(R.string.mTitle_switchToTextures);
+    }
+
+    if (uiLocked)
+      actionSwichType.setVisible(false);
+
+    MyLog.d(LOG_TAG, "menu created");
+    return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
     switch (id) {
-      case android.R.id.home: onBackPressed(); return true;
-      default: return super.onOptionsItemSelected(item);
+      case R.id.action_switch_type:
+        switch (convertType) {
+          case ResConverter.Type.TEXTURES:
+            Settings.ResConverter.setCurrentType(ResConverter.Type.SOUNDS);
+            break;
+          case ResConverter.Type.SOUNDS:
+            Settings.ResConverter.setCurrentType(ResConverter.Type.TEXTURES);
+            break;
+        }
+        recreate();
+        return true;
+      case android.R.id.home:
+        onBackPressed();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
   }
 
@@ -186,7 +234,7 @@ public class TexConvertActivity extends AppCompatActivity
             }
           }
           inputStartPath.setText(extPath);
-          inputStartPath.setSelection(inputStartPath.getText().length());
+          inputStartPath.setSelection(extPath.length());
           MyLog.d(LOG_TAG, "File/dir was successfully loaded:" +
             "\n  Path: " + extPath);
         }
@@ -201,10 +249,10 @@ public class TexConvertActivity extends AppCompatActivity
   @Override
   public void onTaskEvent(int event, String result) {
     switch (event) {
-      case TexTask.Event.START:
+      case ResConvertTask.Event.START:
         uiLock(true);
         break;
-      case TexTask.Event.FINISH:
+      case ResConvertTask.Event.FINISH:
         this.taskResult = result;
         uiLock(false);
         break;
@@ -215,8 +263,8 @@ public class TexConvertActivity extends AppCompatActivity
   public void onProgressUpdate(int max, int current) {
     int msgId = 0;
     switch (currAction) {
-      case TexConverter.ACTION_PACK: msgId = R.string.resProcessing_packingCnt; break;
-      case TexConverter.ACTION_UNPACK: msgId = R.string.resProcessing_unpackingCnt; break;
+      case ResConverter.Action.PACK: msgId = R.string.resProcessing_packingCnt; break;
+      case ResConverter.Action.UNPACK: msgId = R.string.resProcessing_unpackingCnt; break;
     }
     sysMsg.setText(getString(msgId, current, max));
   }
@@ -225,18 +273,26 @@ public class TexConvertActivity extends AppCompatActivity
     if (state) MyLog.d(LOG_TAG, "Locking UI...");
     else MyLog.d(LOG_TAG, "Unlocking UI...");
 
+    uiLocked = state;
+    if (actionSwichType != null)
+      actionSwichType.setVisible(!state);
     inputStartPath.setEnabled(!state);
     btnChoosePath.setEnabled(!state);
     btnPack.setEnabled(!state);
     btnUnpack.setEnabled(!state);
     selectMode.setEnabled(!state);
-    uiLocked = state;
 
     if (state) {
       MyLog.d(LOG_TAG, "Clearing UI...");
-      imageView.setImageDrawable(null);
+      switch (convertType) {
+        case ResConverter.Type.TEXTURES:
+          imageView.setImageDrawable(null);
+          break;
+        case ResConverter.Type.SOUNDS:
+          fileListAdapter.refreshData(null);
+          break;
+      }
       MyLog.d(LOG_TAG, "UI cleared");
-
       mainProgressBar.setVisibility(ProgressBar.VISIBLE);
       MyLog.d(LOG_TAG, "UI locked");
     }
@@ -250,18 +306,25 @@ public class TexConvertActivity extends AppCompatActivity
   void uiSet () {
     MyLog.d(LOG_TAG, "Setting up UI");
     sysMsg.setText(taskResult);
-    imageView.setImageBitmap(texTask.getPreview());
+    switch (convertType) {
+      case ResConverter.Type.TEXTURES:
+        imageView.setImageBitmap(resTask.getPreview());
+        break;
+      case ResConverter.Type.SOUNDS:
+        fileListAdapter.refreshData(resTask.getFileList());
+        break;
+    }
     MyLog.d(LOG_TAG, "UI setup completed");
   }
 
   public void choosePath (View v) {
-    if (convertMode == TexConverter.MODE_DIRECTORY) {
+    if (convertMode == ResConverter.Mode.DIRECTORY) {
       MyLog.d(LOG_TAG, "Choose start directory from DirPicker...");
       Intent intent = new Intent(this, DirPickerActivity.class);
       intent.putExtra(DirPickerActivity.KEY_MODE, DirPickerActivity.MODE_DIRECTORY);
       startActivityForResult(intent, REQUEST_CHOOSE_DIR);
     }
-    else if (convertMode == TexConverter.MODE_SINGLE_FILE) {
+    else if (convertMode == ResConverter.Mode.SINGLE_FILE) {
       if (Settings.ResConverter.isUseInternalExplorer()) {
         MyLog.d(LOG_TAG, "Choose file from DirPicker...");
         Intent intent = new Intent(this, DirPickerActivity.class);
@@ -301,9 +364,9 @@ public class TexConvertActivity extends AppCompatActivity
 
       if (!file.exists())
         fileStatus = getString(R.string.fileNotExist);
-      else if (file.isDirectory() && convertMode == TexConverter.MODE_SINGLE_FILE)
+      else if (file.isDirectory() && convertMode == ResConverter.Mode.SINGLE_FILE)
         fileStatus = getString(R.string.fileIsDir);
-      else if (!file.isDirectory() && convertMode == TexConverter.MODE_DIRECTORY)
+      else if (!file.isDirectory() && convertMode == ResConverter.Mode.DIRECTORY)
         fileStatus = getString(R.string.fileIsNotDir);
       else if (!file.canRead()) {
         fileStatus = getString(R.string.fileNotReadable);
@@ -341,6 +404,14 @@ public class TexConvertActivity extends AppCompatActivity
     if (bar != null) {
       bar.setDisplayShowHomeEnabled(true);
       bar.setDisplayHomeAsUpEnabled(true);
+      switch (convertType) {
+        case ResConverter.Type.TEXTURES:
+          bar.setTitle(R.string.actLabel_texConverter);
+          break;
+        case ResConverter.Type.SOUNDS:
+          bar.setTitle(R.string.actLabel_soundConverter);
+          break;
+      }
     }
   }
 }

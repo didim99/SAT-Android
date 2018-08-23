@@ -50,7 +50,7 @@
   <dimen name="actSbxConv_textSize_main">18sp</dimen>
   <dimen name="actSbxConv_textSize_selector">16sp</dimen>
   <dimen name="actSbxConv_linLayoutHMargin">5dp</dimen>
-  <!-- TexConvertActivity -->
+  <!-- ResConvertActivity -->
   <dimen name="actResConv_textSize_main">18sp</dimen>
   <dimen name="actResConv_textSize_selector">16sp</dimen>
   <dimen name="actResConv_layoutHMargin">5dp</dimen>

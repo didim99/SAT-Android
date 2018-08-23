@@ -5,14 +5,15 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import com.didim99.sat.MyLog;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 /**
- * Textures converter wrapper class
+ * Resources converter wrapper class
  * Created by didim99 on 23.01.18.
  */
 
-class TexTask extends AsyncTask<TexConverter.Config, Integer, String>
-  implements TexConverter.ProgressListener {
+class ResConvertTask extends AsyncTask<ResConverter.Config, Integer, Void>
+  implements ResConverter.ProgressListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_TexTask";
 
   static final class Event {
@@ -22,11 +23,15 @@ class TexTask extends AsyncTask<TexConverter.Config, Integer, String>
 
   private WeakReference<Context> appContext;
   private EventListener listener;
-  private Bitmap preview;
-  private String result;
+  private int type;
 
-  TexTask(Context context) {
+  private ArrayList<String> fileList;
+  private String result;
+  private Bitmap preview;
+
+  ResConvertTask(Context context, int type) {
     appContext = new WeakReference<>(context);
+    this.type = type;
   }
 
   void registerEventListener(EventListener listener) {
@@ -45,21 +50,34 @@ class TexTask extends AsyncTask<TexConverter.Config, Integer, String>
   }
 
   @Override
-  protected String doInBackground(TexConverter.Config... configs) {
+  protected Void doInBackground(ResConverter.Config... configs) {
     MyLog.d(LOG_TAG, "Executing...");
+    ResConverter converter;
 
-    TexConverter converter = new TexConverter(
-      appContext.get(), configs[0], this);
-    converter.convert();
-    preview = converter.getPreview();
+    switch (type) {
+      case ResConverter.Type.TEXTURES:
+        converter = new TexConverter(
+          appContext.get(), configs[0], this);
+        converter.convert();
+        preview = ((TexConverter) converter).getPreview();
+        break;
+      case ResConverter.Type.SOUNDS:
+        converter = new SoundConverter(
+          appContext.get(), configs[0], this);
+        converter.convert();
+        fileList = converter.getFileList();
+        break;
+      default:
+        throw new IllegalArgumentException("Unknown converter type");
+    }
+
     result = converter.getStatus();
-
-    return result;
+    return null;
   }
 
   @Override
-  protected void onPostExecute(String result) {
-    super.onPostExecute(result);
+  protected void onPostExecute(Void res) {
+    super.onPostExecute(res);
     MyLog.d(LOG_TAG, "Executing completed");
     if (listener != null)
       listener.onTaskEvent(Event.FINISH, result);
@@ -79,11 +97,15 @@ class TexTask extends AsyncTask<TexConverter.Config, Integer, String>
   }
 
   String getResult() {
-    return this.result;
+    return result;
   }
 
   Bitmap getPreview() {
     return preview;
+  }
+
+  ArrayList<String> getFileList() {
+    return fileList;
   }
 
   interface EventListener {

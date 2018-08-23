@@ -54,7 +54,7 @@
       android:launchMode="singleTop"/>
 
     <activity
-      android:name=".resconverter.TexConvertActivity"
+      android:name=".resconverter.ResConvertActivity"
       android:launchMode="singleTop"/>
 
     <activity

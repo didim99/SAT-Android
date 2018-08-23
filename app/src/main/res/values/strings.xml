@@ -4,6 +4,8 @@
   <string name="app_ver" translatable="false">%s ver. %s\n%s</string>
   <string name="app_years" translatable="false">2018</string>
   <string name="moduleName_sbxConverter" translatable="false">SASBX Encryptor - Decryptor</string>
+  <string name="actLabel_texConverter">Конвертер текстур</string>
+  <string name="actLabel_soundConverter">Конвертер звуков</string>
   <string name="actLabel_filePicker">Выбор файла</string>
   <string name="actLabel_dirPicker">Выбор каталога</string>
   <string name="actLabel_pickModule">Выбор модуля</string>
@@ -44,7 +46,7 @@
   <string name="actStart_btnText_create">Создать sandbox</string>
   <string name="actStart_btnText_sbxEdit">Редактировать sandbox</string>
   <string name="actStart_btnText_sbxConvert">Шифровать/дешифровать sandbox</string>
-  <string name="actStart_btnText_resEdit">Упаковать/распаковать текстуры</string>
+  <string name="actStart_btnText_resEdit">Упаковать/распаковать ресурсы</string>
   <string name="createSandbox_tvText_name">Имя sandbox\'а</string>
   <string name="createSandbox_tvText_uid" translatable="false">UID</string>
   <string name="createSandbox_edHint_uid">Для опытных пользователей</string>
@@ -55,7 +57,7 @@
   <string name="diaMsg_needDB">Для полноценного функционирования приложения требуется загрузка базы данных, которая содержит характеристики модулей. Выполнить это действие сейчас? (Это также можно будет сделать позже из настроек приложения)</string>
   <!-- Текст экранных элементов (SbxConvertActivity) -->
   <string name="noVersionSelected">Не выбрана версия</string>
-  <!-- Содержимое текстовых полей и подписей кнопок (Layout: act_res_converter) -->
+  <!-- Содержимое текстовых полей и подписей кнопок (Layout: res_converter_ctrl) -->
   <string name="tvContent_insertPath">Введите стартовый путь:</string>
   <string name="btnText_btnOpenFileExp" translatable="false">…</string>
   <string name="btnText_btnPack">Запаковать</string>
@@ -205,6 +207,9 @@
   <!-- Названия элементов меню (menu_start) -->
   <string name="mTitle_actionPartInfo">Сведения о модулях</string>
   <string name="mTitle_actionSettings">Настройки</string>
+  <!-- Названия элементов меню (menu_res_converter) -->
+  <string name="mTitle_switchToSound">Переключиться на конвертер звуков</string>
+  <string name="mTitle_switchToTextures">Переключиться на конвертер текстур</string>
   <!-- Названия элементов меню (menu_sandbox) -->
   <string name="mTitle_actionSbxInfo">Информация о sandbox\'е</string>
   <string name="mTitle_actionNav">Маркеры NaviComp</string>
@@ -329,6 +334,7 @@
   <string name="errorCode_no_files">\"%s\" файлы не найдены</string>
   <string name="errorCode_not_packed">Исходный файл не запакован</string>
   <string name="errorCode_already_packed">Исходный файл уже запакован</string>
+  <string name="errorCode_incorrect_format">Некорректный формат исходного файла</string>
   <!-- Текст сообщений (RootShell) -->
   <string name="rootUnalailable">На вашем устройстве не получен Root-доступ</string>
   <!-- Текст сообщений (DBTask) -->
@@ -382,6 +388,11 @@
   <string name="prefCategory_general">Общее</string>
   <string name="prefTitle_requestRoot">Запрашивать Root-доступ</string>
   <string name="prefSummary_requestRoot">Позволяет работать с файлами во внутренних каталогах игры</string>
+  <string name="pTitle_resConverterDefaultType">Режим по умолчанию</string>
+  <string-array name="converterType_names" translatable="false">
+    <item>@string/actLabel_texConverter</item>
+    <item>@string/actLabel_soundConverter</item>
+  </string-array>
   <string name="pTitle_saveOriginalFiles">Сохранять исходные файлы</string>
   <string name="pSummary_saveOriginalFiles">Не удалять оригинальные файлы при упаковке/распаковке</string>
   <string name="pTitle_internalExplorer">Встроенный файловый менеджер</string>

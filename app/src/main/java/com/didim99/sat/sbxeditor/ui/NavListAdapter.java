@@ -42,8 +42,8 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = inflater.inflate(R.layout.item_navicomp, parent, false);
-    ViewHolder holder = new ViewHolder(view);
+    ViewHolder holder = new ViewHolder(
+      inflater.inflate(R.layout.item_navicomp, parent, false));
     holder.itemView.setOnCreateContextMenuListener(this);
     return holder;
   }

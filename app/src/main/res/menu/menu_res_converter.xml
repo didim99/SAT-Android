@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+    android:id="@+id/action_switch_type"
+    android:icon="@drawable/ic_sounds_24dp"
+    android:title="@string/mTitle_switchToSound"
+    app:showAsAction="always"/>
+
+</menu>

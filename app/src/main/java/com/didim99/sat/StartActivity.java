@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.didim99.sat.db.DBTask;
 import com.didim99.sat.network.NetworkManager;
 import com.didim99.sat.network.WebAPI;
-import com.didim99.sat.resconverter.TexConvertActivity;
+import com.didim99.sat.resconverter.ResConvertActivity;
 import com.didim99.sat.sbxconverter.SbxConvertActivity;
 import com.didim99.sat.sbxeditor.Sandbox;
 import com.didim99.sat.sbxeditor.SbxEditConfig;
@@ -137,8 +137,8 @@ public class StartActivity extends BaseActivity {
     startActivity(new Intent(this, SbxConvertActivity.class));
   }
 
-  public void StartResEditor(View view) {
-    startActivity(new Intent(this, TexConvertActivity.class));
+  public void StartResConverter(View view) {
+    startActivity(new Intent(this, ResConvertActivity.class));
   }
 
   //CreateSandbox dialog show listener

@@ -121,7 +121,7 @@ public class Utils {
     return new String (Base64.encode(str.getBytes(), Base64.DEFAULT)).trim();
   }
 
-  public static void copyFile (String srcName, String targetName)
+  public static void copyFile(String srcName, String targetName)
     throws IOException {
     if (srcName.equals(targetName))
       return;
@@ -138,9 +138,9 @@ public class Utils {
     out.close();
   }
 
-  public static void writeFile (String fileName, byte[] data)
+  public static void writeFile(String fileName, byte[] data)
     throws IOException {
-    MyLog.d(LOG_TAG, "Writing:\n  " + fileName);
+    MyLog.d(LOG_TAG, "Writing: " + fileName);
     File file = new File(fileName);
     DataOutputStream src = new DataOutputStream(new FileOutputStream(file));
     src.write(data);

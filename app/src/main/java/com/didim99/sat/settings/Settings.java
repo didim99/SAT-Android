@@ -45,6 +45,7 @@ public class Settings {
   private static final String KEY_SBX_OPT_SID = "sbxOpt_saveId";
   private static final String KEY_SBX_OPT_CARGO = "sbxOpt_cargo";
   private static final String KEY_SBX_OPT_FUEL = "sbxOpt_fuel";
+  static final String KEY_RES_CONV_DEFAULT_TYPE = "resConverter.defaultType";
   private static final String KEY_RES_CONV_SAVE_ORIGINAL_FILES = "resConverter.saveOriginalFiles";
   private static final String KEY_RES_CONV_INTERNAL_EXPLORER = "resConverter.internalExplorer";
   static final String KEY_SBX_EDITOR_DEFAULT_NAME = "sbxEditor.defaultSbxName";
@@ -80,6 +81,7 @@ public class Settings {
   private static final boolean DEFVALUE_SBX_OPT_SID = true;
   private static final boolean DEFVALUE_SBX_OPT_CARGO = true;
   private static final boolean DEFVALUE_SBX_OPT_FUEL = true;
+  private static final String DEFVALUE_RES_CONV_DEFAULT_TYPE = "1";
   private static final boolean DEFVALUE_RES_CONV_SAVE_ORIGINAL_FILES = true;
   private static final boolean DEFVALUE_RES_CONV_INTERNAL_EXPLORER = false;
   private static final int DEFVALUE_PART_INFO_SORT_MAIN = 0;
@@ -155,6 +157,9 @@ public class Settings {
     sysCacheDir = settings.getString(KEY_SYSTEM_CACHE_DIR, DEFVALUE_SYSTEM_CACHE_DIR);
     sbxTempDir = settings.getString(KEY_SYSTEM_SBX_TMP_DIR, DEFVALUE_SYSTEM_SBX_TMP_DIR);
     resTempDir = settings.getString(KEY_SYSTEM_RES_TMP_DIR, DEFVALUE_SYSTEM_RES_TMP_DIR);
+    ResConverter.defaultType = Integer.parseInt(settings.getString(
+      KEY_RES_CONV_DEFAULT_TYPE, DEFVALUE_RES_CONV_DEFAULT_TYPE));
+    ResConverter.currentType = ResConverter.defaultType;
     ResConverter.saveOriginal = settings.getBoolean(
       KEY_RES_CONV_SAVE_ORIGINAL_FILES, DEFVALUE_RES_CONV_SAVE_ORIGINAL_FILES);
     ResConverter.useInternalExplorer = settings.getBoolean(
@@ -175,7 +180,8 @@ public class Settings {
       + "\n  hasIconsDir: " + hasIconsDir
       + "\n  devMode: " + devMode
       + "\n  requestRoot: " + requestRoot
-      + "\n  saveOriginalFiles: " + ResConverter.saveOriginal
+      + "\n  ResConverter.defaultType: " + ResConverter.defaultType
+      + "\n  ResConverter.saveOriginalFiles: " + ResConverter.saveOriginal
       + "\n  confirmExitEditMode: " + confirmExitEditMode
       + "\n  defaultSbxName: " + defaultSbxName
       + "\n  customSbxName: " + customSbxName
@@ -198,6 +204,10 @@ public class Settings {
   static void updateSettings(String key) {
     MyLog.d(LOG_TAG, "Updating setting state (" + key + ")");
     switch (key) {
+      case KEY_RES_CONV_DEFAULT_TYPE:
+        ResConverter.defaultType = Integer.parseInt(settings.getString(
+          key, DEFVALUE_RES_CONV_DEFAULT_TYPE));
+        break;
       case KEY_RES_CONV_SAVE_ORIGINAL_FILES:
         ResConverter.saveOriginal = settings.getBoolean(
           key, DEFVALUE_RES_CONV_SAVE_ORIGINAL_FILES);
@@ -233,10 +243,6 @@ public class Settings {
     devOsVer = settings.getString(KEY_DEVICE_OS_VERSION, "");
     devAbi = settings.getString(KEY_DEVICE_ABI, "");
     devId = settings.getString(KEY_DEVICE_ID, "");
-  }
-
-  public static boolean isCustomSbxNameEnabled() {
-    return getDefaultSbxName().equals(VALUE_CUSTOM);
   }
 
   //getters
@@ -487,8 +493,14 @@ public class Settings {
   }
 
   public static class ResConverter {
+    private static int defaultType;
+    private static int currentType;
     private static boolean saveOriginal;
     private static boolean useInternalExplorer;
+
+    public static int getCurrentType() {
+      return currentType;
+    }
 
     public static boolean isSaveOriginal() {
       return saveOriginal;
@@ -496,6 +508,10 @@ public class Settings {
 
     public static boolean isUseInternalExplorer() {
       return useInternalExplorer;
+    }
+
+    public static void setCurrentType(int currentType) {
+      ResConverter.currentType = currentType;
     }
 
     public static void setUseInternalExplorer(boolean useInternalExplorer) {

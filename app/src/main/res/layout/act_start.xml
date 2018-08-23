@@ -40,7 +40,7 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/actStart_btnPadding"
       android:text="@string/actStart_btnText_resEdit"
-      android:onClick="StartResEditor"/>
+      android:onClick="StartResConverter"/>
   </LinearLayout>
 
 </RelativeLayout>

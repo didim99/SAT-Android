@@ -20,6 +20,8 @@
   <color name="dirPicker_divider">@color/dividerMain</color>
   <color name="dirPicker_textActive">@color/textActive</color>
   <color name="dirPicker_textInactive">@color/textInactive</color>
+  <!-- Resources converter -->
+  <color name="bg_texPreview">#404040</color>
   <!-- Module/station state (generic) -->
   <color name="SALightGreen">#a8ffa8</color>
   <color name="SAGreen">#38ff38</color>

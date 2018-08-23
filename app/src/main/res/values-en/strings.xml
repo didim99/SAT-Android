@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- Application level -->
+  <string name="actLabel_texConverter">Texture converter</string>
+  <string name="actLabel_soundConverter">Sound converter</string>
   <string name="actLabel_dirPicker">Choose directory</string>
   <string name="actLabel_filePicker">Choose file</string>
   <string name="actLabel_pickModule">Choose module</string>
@@ -37,7 +39,7 @@
   <string name="actStart_btnText_create">Create new sandbox</string>
   <string name="actStart_btnText_sbxEdit">Edit sandbox</string>
   <string name="actStart_btnText_sbxConvert">Encrypt/decrypt sandbox</string>
-  <string name="actStart_btnText_resEdit">Pack/unpack textures</string>
+  <string name="actStart_btnText_resEdit">Pack/unpack resources</string>
   <string name="createSandbox_tvText_name">Sandbox name</string>
   <string name="createSandbox_edHint_uid">For experienced users</string>
   <string name="createSandbox_addStdMarkers">Add standard NaviComp markers</string>
@@ -47,7 +49,7 @@
   <string name="diaMsg_needDB">To fully function the application, a database of modules characteristics is required. Do you want to download it now? (This can also be done later in the application settings)</string>
   <!-- Текст экранных элементов (SbxConvertActivity) -->
   <string name="noVersionSelected">Version not selected</string>
-  <!-- Содержимое текстовых полей и подписей кнопок (Layout: act_res_converter) -->
+  <!-- Содержимое текстовых полей и подписей кнопок (Layout: res_converter_ctrl) -->
   <string name="tvContent_insertPath">Enter start path:</string>
   <string name="btnText_btnPack">Pack</string>
   <string name="btnText_btnUnpack">Unpack</string>
@@ -194,6 +196,9 @@
   <!-- Названия элементов меню (menu_start) -->
   <string name="mTitle_actionPartInfo">Parts info</string>
   <string name="mTitle_actionSettings">Settings</string>
+  <!-- Названия элементов меню (menu_res_converter) -->
+  <string name="mTitle_switchToSound">Switch to sound converter</string>
+  <string name="mTitle_switchToTextures">Switch to textures converter</string>
   <!-- Названия элементов меню (menu_sandbox) -->
   <string name="mTitle_actionSbxInfo">Sandbox info</string>
   <string name="mTitle_actionNav">NaviComp markers</string>
@@ -318,6 +323,7 @@
   <string name="errorCode_no_files">\"%s\" files not found</string>
   <string name="errorCode_not_packed">Input file is not packed</string>
   <string name="errorCode_already_packed">Input file is already packed</string>
+  <string name="errorCode_incorrect_format">Incorrect source file format</string>
   <!-- Текст сообщений (RootShell) -->
   <string name="rootUnalailable">Root-access unavailable on your device</string>
   <!-- Текст сообщений (DBTask) -->
@@ -366,6 +372,7 @@
   <string name="prefCategory_general">General</string>
   <string name="prefTitle_requestRoot">Request Root-access</string>
   <string name="prefSummary_requestRoot">Allows you to work with files in the internal directories of the game</string>
+  <string name="pTitle_resConverterDefaultType">Default mode</string>
   <string name="pTitle_saveOriginalFiles">Save original files</string>
   <string name="pSummary_saveOriginalFiles">Don\'t delete original files when packing/unpacking</string>
   <string name="pTitle_internalExplorer">Internal file manager</string>
