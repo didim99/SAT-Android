@@ -33,11 +33,14 @@ public class SandboxActivity extends BaseActivity
     SbxEditTask.EventListener, DialogManager.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SbxAct";
 
-  //request codes
-  private static final int REQUEST_PICK_MODULE = 1;
-  private static final int REQUEST_EDIT_NAVICOMP = 2;
-  private static final int REQUEST_EDIT_STATION = 3;
-  private static final int REQUEST_SBX_SAVE_INTERNAL = 4;
+  private static final class Request {
+    private static final int PICK_MODULE = 1;
+    private static final int PICK_MODULE_FOR_COLONY = 2;
+    private static final int EDIT_NAVICOMP = 3;
+    private static final int EDIT_STATION = 4;
+    private static final int SBX_SAVE_INTERNAL = 5;
+  }
+
   //view-elements
   private MenuItem
     actionSave, actionSbxInfo, actionNav, actionOptimize,
@@ -174,7 +177,7 @@ public class SandboxActivity extends BaseActivity
         return true;
       case R.id.action_nav:
         startActivityForResult(new Intent(
-          this, NaviCompActivity.class), REQUEST_EDIT_NAVICOMP);
+          this, NaviCompActivity.class), Request.EDIT_NAVICOMP);
         return true;
       case R.id.action_optimize:
         dialogManager.createDialog(DialogManager.DialogID.SBX_OPTIMIZE);
@@ -186,9 +189,14 @@ public class SandboxActivity extends BaseActivity
         dialogManager.addModuleDialog(SBML.PART_ID_SPY);
         return true;
       case R.id.action_addModule:
-        Intent intent = new Intent(this, PartInfoActivity.class);
-        intent.setAction(SAT.ACTION_PICK_MODULE);
-        startActivityForResult(intent, REQUEST_PICK_MODULE);
+        Intent moduleIntent = new Intent(this, PartInfoActivity.class);
+        moduleIntent.setAction(SAT.ACTION_PICK_MODULE);
+        startActivityForResult(moduleIntent, Request.PICK_MODULE);
+        return true;
+      case R.id.action_addColony:
+        Intent colonyIntent = new Intent(this, PartInfoActivity.class);
+        colonyIntent.setAction(SAT.ACTION_PICK_MODULE);
+        startActivityForResult(colonyIntent, Request.PICK_MODULE_FOR_COLONY);
         return true;
       case R.id.action_addText:
         dialogManager.createDialog(DialogManager.DialogID.ADD_TEXT);
@@ -225,7 +233,7 @@ public class SandboxActivity extends BaseActivity
       case R.id.action_staEdit:
         Storage.setEditConfig(new SbxEditConfig(Sandbox.Mode.EDIT, selected));
         Intent intent = new Intent(this, SbxEditActivity.class);
-        startActivityForResult(intent, REQUEST_EDIT_STATION);
+        startActivityForResult(intent, Request.EDIT_STATION);
         return true;
       case R.id.action_staDelete:
         dialogManager.stationDelete(selected);
@@ -237,20 +245,24 @@ public class SandboxActivity extends BaseActivity
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    if (requestCode == REQUEST_EDIT_NAVICOMP) {
+    if (requestCode == Request.EDIT_NAVICOMP) {
       if (Storage.getSandbox().isNaviCompModified())
         startTask(new SbxEditConfig(Sandbox.Mode.UPDATE_NAV));
     } else if (resultCode == RESULT_OK) {
       switch (requestCode) {
-        case REQUEST_EDIT_STATION:
+        case Request.EDIT_STATION:
           MyLog.d(LOG_TAG, "Station edit configuration received");
           startTask(Storage.getEditConfig());
           break;
-        case REQUEST_PICK_MODULE:
+        case Request.PICK_MODULE:
           int partID = intent.getIntExtra(SAT.EXTRA_PART_ID, 0);
           if (partID != 0) dialogManager.addModuleDialog(partID);
           break;
-        case REQUEST_SBX_SAVE_INTERNAL:
+        case Request.PICK_MODULE_FOR_COLONY:
+          int colonyPartID = intent.getIntExtra(SAT.EXTRA_PART_ID, 0);
+          if (colonyPartID != 0) dialogManager.addColonyDialog(colonyPartID);
+          break;
+        case Request.SBX_SAVE_INTERNAL:
           Uri data = intent.getData();
           if (data != null)
             startTask(new SbxEditConfig(Sandbox.Mode.SEND, data.getPath()));
@@ -392,6 +404,7 @@ public class SandboxActivity extends BaseActivity
         break;
       case DialogManager.DialogID.SBX_OPTIMIZE:
       case DialogManager.DialogID.ADD_MODULE:
+      case DialogManager.DialogID.ADD_COLONY:
       case DialogManager.DialogID.ADD_ALL_MODULES:
       case DialogManager.DialogID.ADD_TEXT:
       case DialogManager.DialogID.ADD_ALL_FONT:
@@ -427,7 +440,7 @@ public class SandboxActivity extends BaseActivity
     MyLog.d(LOG_TAG, "Saving Sandbox with internal explorer...");
     Intent intent = new Intent(this, DirPickerActivity.class);
     intent.putExtra(DirPickerActivity.KEY_MODE, DirPickerActivity.MODE_DIRECTORY);
-    startActivityForResult(intent, REQUEST_SBX_SAVE_INTERNAL);
+    startActivityForResult(intent, Request.SBX_SAVE_INTERNAL);
   }
 
   private void startTask (SbxEditConfig config) {

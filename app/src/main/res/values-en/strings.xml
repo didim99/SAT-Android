@@ -101,7 +101,8 @@
   <string name="actSbxEdit_alpha_isEmpty">Transparency value not defined</string>
   <string name="actSbxEdit_alpha_incorrect">Transparency value incorrect</string>
   <string name="actSbxEdit_extend_fuel_isEmpty">Fuel tanks extension factor not defined</string>
-  <string name="actSbxEdit_extend_fuel_incorrect">НFuel tanks extension factor incorrect</string>
+  <string name="actSbxEdit_extend_fuel_incorrect">Fuel tanks extension factor incorrect</string>
+  <string name="actSbxEdit_saveId_incorrect">Start SAVE ID incorrect</string>
   <string name="actSbxEdit_rotate_emptyAngle">Rotation angle not defined</string>
   <string name="actSbxEdit_rotate_incorrectAngle">Rotation angle incorrect</string>
   <string name="actSbxEdit_rotate_emptyBase">Rotation base point not defined</string>
@@ -132,6 +133,7 @@
   <string name="diaSbxSave_tvContent_selectVersion">Select version:</string>
   <!-- Текст экранных элементов (layout: dialog_sandbox_info) -->
   <string name="diaTitle_staInfo">Station info</string>
+  <string name="diaTitle_colonyInfo">Colony info</string>
   <string name="diaTitle_groupInfo">Group info</string>
   <string name="diaTitle_textInfo">Text info</string>
   <string name="diaSbxInfo_minVer">Min SA version</string>
@@ -147,6 +149,7 @@
   <!-- Текст экранных элементов (layout: dialog_station_copy) -->
   <string name="diaTitle_multipleCopy">Copy multiple objects</string>
   <string name="diaTitle_staCopy">Copy station</string>
+  <string name="diaTitle_colonyCopy">Copy colony</string>
   <string name="diaTitle_groupCopy">Copy group</string>
   <string name="diaTitle_textCopy">Copy text</string>
   <string name="diaStaCopy_tvText_enterOffset">Enter offset</string>
@@ -155,7 +158,9 @@
   <string name="diaStaCopy_rbText_modeNewCenter">Center position</string>
   <!-- Текст экранных элементов (dialog_add_moddialog_add_all_modules_all) -->
   <string name="diaTitle_addModule">Add module</string>
+  <string name="diaTitle_addColony">Add colony</string>
   <string name="diaTitle_addAll">Add all modules</string>
+  <string name="diaTitle_addText">Add text</string>
   <string name="diaAddModule_enterPosition">Position</string>
   <string name="diaAddModule_enterPositionFirst">First module position</string>
   <string name="diaAddModule_multiple">Multiple Modules</string>
@@ -164,7 +169,10 @@
   <string name="diaAddModule_distance">Pitch of modules (NCU)</string>
   <string name="diaAddModule_inLine">Modules in line</string>
   <string name="diaAddModule_selectVersion">SA version</string>
-  <string name="diaTitle_addText">Add text</string>
+  <string name="diaAddColony_targetPlanet">Choose planet:</string>
+  <string name="diaAddColony_moduleCount">@string/diaAddModule_enterCount</string>
+  <string name="diaAddColony_orbitHeight">Orbit height</string>
+  <string name="diaAddColony_nodulesGap">Gap between modules (in &#176;)</string>
   <string name="diaAddText_enterText">Text</string>
   <string name="diaAddText_enterPosition">Position (upper left corner)</string>
   <string name="diaAddText_selectAlign">Text alignment</string>
@@ -207,6 +215,7 @@
   <string name="mTitle_actionAdd_shuttle">Shuttle</string>
   <string name="mTitle_actionAdd_spy">Spy Satellite</string>
   <string name="mTitle_actionAdd_module">Other module</string>
+  <string name="mTitle_actionAdd_colony">Colony</string>
   <string name="mTitle_actionAdd_text">Text</string>
   <string name="mTitle_actionAdd_all">All modules</string>
   <string name="mTitle_actionAdd_allFont">All pixel font</string>
@@ -241,6 +250,7 @@
   <!-- События sandbox'а -->
   <string name="deleteMultiple">Delete selected objects?</string>
   <string name="deleteStation">Delete station?</string>
+  <string name="deleteColony">Delete colony?</string>
   <string name="deleteGroup">Delete group?</string>
   <string name="deleteText">Delete text?</string>
   <plurals name="deleteMarker">
@@ -254,6 +264,8 @@
   </plurals>
   <string name="sbxProcessing_station">Station %s</string>
   <string name="sbxProcessing_group">Group %s</string>
+  <string name="sbxProcessing_colony">Colony %s</string>
+  <string name="sbxProcessing_add_success">added</string>
   <string name="sbxProcessing_copy_success">copied</string>
   <string name="sbxProcessing_edit_success">edited</string>
   <string name="sbxProcessing_delete_success">deleted</string>
@@ -289,6 +301,8 @@
   <string name="editErr_emptyAdvanced">Advanced settings not defined</string>
   <string name="editErr_incorrectDistance">Incorrect pitch of modules</string>
   <string name="editErr_incorrectInLine">Incorrect modules in line value</string>
+  <string name="editErr_incorrectOrbHeight">Incorrect orbit height</string>
+  <string name="editErr_incorrectModGap">Incorrect gap between modules</string>
   <string name="editErr_incorrectInLineFont">Incorrect symbols in line value</string>
   <string name="editErr_emptyMargin">Letter spacing not defined</string>
   <string name="editErr_incorrectMargin">Incorrect letter spacing value</string>

@@ -22,6 +22,9 @@ public class SbxEditConfig {
   private int count;
   private float offset;
   private int inLine;
+  private int planetId;
+  private Float orbHeight;
+  private Float gap;
   private String text;
   private int align;
   private Integer margin;
@@ -113,6 +116,17 @@ public class SbxEditConfig {
     this.inLine = inLine;
   }
 
+  //add colony
+  public SbxEditConfig(int mode, int planetId, int partId,
+                       int count, Float orbHeight, Float gap) {
+    this.mode = mode;
+    this.planetId = planetId;
+    this.partId = partId;
+    this.count = count;
+    this.orbHeight = orbHeight;
+    this.gap = gap;
+  }
+
   //add all modules
   public SbxEditConfig(int mode, int verCode, float positionX, float positionY,
                 float offset, int inLine) {
@@ -180,6 +194,9 @@ public class SbxEditConfig {
       + "\n  count: " + count
       + "\n  offset: " + offset
       + "\n  inLine: " + inLine
+      + "\n  planetId: " + planetId
+      + "\n  orbHeight: " + orbHeight
+      + "\n  gap: " + gap
       + "\n  text: " + text
       + "\n  align: " + align
       + "\n  margin: " + margin
@@ -292,6 +309,18 @@ public class SbxEditConfig {
 
   int getInLine() {
     return inLine;
+  }
+
+  int getPlanetId() {
+    return planetId;
+  }
+
+  Float getOrbHeight() {
+    return orbHeight;
+  }
+
+  Float getGap() {
+    return gap;
   }
 
   String getText() {

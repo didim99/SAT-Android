@@ -179,7 +179,7 @@ public class StartActivity extends BaseActivity {
           String name = sbxName.getText().toString();
           String uidStr = sbxUid.getText().toString();
 
-          if (!InputValidator.checkSbxName(name, false))
+          if (!InputValidator.getInstance().checkSbxName(name, false))
             return;
 
           Integer uid = null;

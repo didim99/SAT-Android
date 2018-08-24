@@ -20,6 +20,7 @@ import com.didim99.sat.R;
 import com.didim99.sat.sbxeditor.SbxEditConfig;
 import com.didim99.sat.sbxeditor.Station;
 import com.didim99.sat.sbxeditor.Storage;
+import com.didim99.sat.sbxeditor.model.InputValidator;
 import com.didim99.sat.sbxeditor.model.SBML;
 import com.didim99.sat.settings.Settings;
 
@@ -328,175 +329,85 @@ public class SbxEditActivity extends AppCompatActivity {
   }
 
   private boolean checkValues() {
-    Toast toastMsg = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG);
-    if (config.isChangeAlpha()) {
-      String opacityStr = etAlpha.getText().toString();
-      if (opacityStr.isEmpty()) {
-        MyLog.w(LOG_TAG, "Texture alpha value is empty");
-        toastMsg.setText(R.string.actSbxEdit_alpha_isEmpty);
-        toastMsg.show();
-        return false;
+    InputValidator inputValidator = InputValidator.getInstance();
+
+    try {
+      if (config.isChangeAlpha()) {
+        int opacity = inputValidator.checkInteger(etAlpha,
+          SBML.OPACITY_MIN_VALUE, SBML.OPACITY_MAX_VALUE, R.string.actSbxEdit_alpha_isEmpty,
+          R.string.actSbxEdit_alpha_incorrect, "texture alpha");
+        config.setAlphaValue(
+          (float) (SBML.OPACITY_MAX_VALUE - opacity) / SBML.OPACITY_MAX_VALUE);
       }
-      int opacity = Integer.parseInt(opacityStr);
-      if (opacity > SBML.OPACITY_MAX_VALUE || opacity < SBML.OPACITY_MIN_VALUE) {
-        MyLog.w(LOG_TAG, "Texture alpha value incorrect (" + opacity + ")");
-        toastMsg.setText(R.string.actSbxEdit_alpha_incorrect);
-        toastMsg.show();
-        return false;
+      if (config.isExtendFuel()) {
+        float extendFuelArg = inputValidator.checkFloat(etExtendFuel,
+          null, R.string.actSbxEdit_extend_fuel_isEmpty,
+          R.string.actSbxEdit_extend_fuel_incorrect, "extend fuel");
+        config.setExtendFuelValue(extendFuelArg);
       }
-      config.setAlphaValue(
-        (float) (SBML.OPACITY_MAX_VALUE - opacity) / SBML.OPACITY_MAX_VALUE);
-    }
-    if (config.isExtendFuel()) {
-      String extendFuelStr = etExtendFuel.getText().toString();
-      if (extendFuelStr.isEmpty()) {
-        MyLog.w(LOG_TAG, "Extend fuel value is empty");
-        toastMsg.setText(R.string.actSbxEdit_extend_fuel_isEmpty);
-        toastMsg.show();
-        return false;
+      if (config.isChangeSaveId()) {
+        Integer startSID = inputValidator.checkInteger(etStartSaveId, 0,
+          0, R.string.actSbxEdit_saveId_incorrect, "save id");
+        config.setStartSaveId(startSID != null ? startSID :
+          Storage.getSandbox().getInfo().getMaxSaveId() + 1);
       }
-      try {
-        config.setExtendFuelValue(Float.parseFloat(extendFuelStr));
-      } catch (NumberFormatException e) {
-        MyLog.w(LOG_TAG, "Extend fuel value incorrect");
-        toastMsg.setText(R.string.actSbxEdit_extend_fuel_incorrect);
-        toastMsg.show();
-        return false;
+      if (config.isChangePosition()) {
+        config.setPositionX(inputValidator.checkFloat(etPositionX,
+          SBML.POSITION_FACTOR, R.string.editErr_emptyOffset,
+          R.string.editErr_incorrectOffset, "X-offset"));
+        config.setPositionY(inputValidator.checkFloat(etPositionY,
+          SBML.POSITION_FACTOR, R.string.editErr_emptyOffset,
+          R.string.editErr_incorrectOffset, "Y-offset"));
       }
-    }
-    if (config.isChangeSaveId()) {
-      String saveIdStr = etStartSaveId.getText().toString();
-      if (saveIdStr.isEmpty())
-        config.setStartSaveId(Storage.getSandbox().getInfo().getMaxSaveId() + 1);
-      else
-        config.setStartSaveId(Integer.parseInt(saveIdStr));
-    }
-    if (config.isChangePosition()) {
-      String strPosX = etPositionX.getText().toString();
-      String strPosY = etPositionY.getText().toString();
-      if (strPosX.isEmpty() || strPosY.isEmpty()) {
-        MyLog.w(LOG_TAG, "Offset is empty");
-        toastMsg.setText(R.string.editErr_emptyOffset);
-        toastMsg.show();
-        return false;
-      }
-      try {
-        float deltaX = (float) (Double.parseDouble(strPosX) * SBML.POSITION_FACTOR);
-        float deltaY = (float) (Double.parseDouble(strPosY) * SBML.POSITION_FACTOR);
-        config.setPositionX(deltaX);
-        config.setPositionY(deltaY);
-      } catch (NumberFormatException e) {
-        MyLog.w(LOG_TAG, "Offset incorrect");
-        toastMsg.setText(R.string.editErr_incorrectOffset);
-        toastMsg.show();
-        return false;
-      }
-    }
-    if (config.isChangeAngle()) {
-      String angleStr = etRotateAngle.getText().toString();
-      if (angleStr.isEmpty()) {
-        MyLog.w(LOG_TAG, "Rotation angle is empty");
-        toastMsg.setText(R.string.actSbxEdit_rotate_emptyAngle);
-        toastMsg.show();
-        return false;
-      }
-      try {
-        config.setPositionAnge(Float.parseFloat(angleStr));
-      } catch (NumberFormatException e) {
-        MyLog.w(LOG_TAG, "Rotation angle incorrect");
-        toastMsg.setText(R.string.actSbxEdit_rotate_incorrectAngle);
-        toastMsg.show();
-        return false;
-      }
-      if (isMultiple && !config.isRotationCommonBase())
-        config.setRotationCustomBase(false);
-      if (config.isRotationCustomBase()) {
-        String strBaseX = etRotationBaseX.getText().toString();
-        String strBaseY = etRotationBaseY.getText().toString();
-        if (strBaseX.isEmpty() && strBaseY.isEmpty()) {
-          MyLog.w(LOG_TAG, "Rotation base is empty");
-          toastMsg.setText(R.string.actSbxEdit_rotate_emptyBase);
-          toastMsg.show();
-          return false;
-        }
-        try {
-          if (!strBaseX.isEmpty()) {
-            float baseX = (float) (Double.parseDouble(strBaseX) * SBML.POSITION_FACTOR);
+      if (config.isChangeAngle()) {
+        config.setPositionAnge(inputValidator.checkFloat(etRotateAngle,
+          null, R.string.actSbxEdit_rotate_emptyAngle,
+          R.string.actSbxEdit_rotate_incorrectAngle, "rotation angle"));
+        if (isMultiple && !config.isRotationCommonBase())
+          config.setRotationCustomBase(false);
+        if (config.isRotationCustomBase()) {
+          Float baseX = inputValidator.checkFloat(etRotationBaseX, SBML.POSITION_FACTOR,
+            R.string.actSbxEdit_rotate_incorrectBase, "X-rotation base");
+          Float baseY = inputValidator.checkFloat(etRotationBaseY, SBML.POSITION_FACTOR,
+            R.string.actSbxEdit_rotate_incorrectBase, "Y-rotation base");
+
+          if (baseX == null && baseY == null) {
+            Toast.makeText(getApplicationContext(),
+              R.string.actSbxEdit_rotate_emptyBase, Toast.LENGTH_LONG).show();
+            return false;
+          }
+          if (baseX != null)
             config.setRotationBaseX(baseX);
-          }
-          if (!strBaseY.isEmpty()) {
-            float baseY = (float) (Double.parseDouble(strBaseY) * SBML.POSITION_FACTOR);
+          if (baseY != null)
             config.setRotationBaseY(baseY);
-          }
-        } catch (NumberFormatException e) {
-          MyLog.w(LOG_TAG, "Offset incorrect");
-          toastMsg.setText(R.string.actSbxEdit_rotate_incorrectBase);
-          toastMsg.show();
-          return false;
         }
       }
-    }
-    if (config.isChangeMovement() && config.getMovementMode() == Station.MOVEMENT_MODE_EDIT) {
-      if (config.isChangeMovementDirection()) {
-        String directionStr = etMovementDirection.getText().toString();
-        if (directionStr.isEmpty()) {
-          MyLog.w(LOG_TAG, "Movement direction is empty");
-          toastMsg.setText(R.string.actSbxEdit_movement_direction_isEmpty);
-          toastMsg.show();
-          return false;
-        }
-        try {
-          float direction = Float.parseFloat(directionStr);
-          if (direction < SBML.DIRECTION_MIN_VALUE
-            || direction > SBML.DIRECTION_MAX_VALUE)
-            throw new NumberFormatException();
+      if (config.isChangeMovement() && config.getMovementMode() == Station.MOVEMENT_MODE_EDIT) {
+        if (config.isChangeMovementDirection()) {
+          float direction = inputValidator.checkFloat(etMovementDirection,
+            null, SBML.DIRECTION_MIN_VALUE, SBML.DIRECTION_MAX_VALUE,
+            R.string.actSbxEdit_movement_direction_isEmpty,
+            R.string.actSbxEdit_movement_direction_incorrect, "movement direction");
           config.setMovementDirection(direction);
-        } catch (NumberFormatException e) {
-          MyLog.w(LOG_TAG, "Movement direction incorrect");
-          toastMsg.setText(R.string.actSbxEdit_movement_direction_incorrect);
-          toastMsg.show();
-          return false;
         }
-      }
-      if (config.isChangeMovementSpeed()) {
-        String speedStr = etMovementSpeed.getText().toString();
-        if (speedStr.isEmpty()) {
-          MyLog.w(LOG_TAG, "Movement speed is empty");
-          toastMsg.setText(R.string.actSbxEdit_movement_speed_isEmpty);
-          toastMsg.show();
-          return false;
+        if (config.isChangeMovementSpeed()) {
+          float speed = inputValidator.checkFloat(etMovementSpeed,
+            null, R.string.actSbxEdit_movement_speed_isEmpty,
+            R.string.actSbxEdit_movement_speed_incorrect, "movement speed");
+          config.setMovementSpeed(speed);
         }
-        try {
-          config.setMovementSpeed(Float.parseFloat(speedStr));
-        } catch (NumberFormatException e) {
-          MyLog.w(LOG_TAG, "Movement speed incorrect");
-          toastMsg.setText(R.string.actSbxEdit_movement_speed_incorrect);
-          toastMsg.show();
-          return false;
-        }
-      }
-      if (config.isChangeMovementRotation()) {
-        String rotationStr = etMovementRotation.getText().toString();
-        if (rotationStr.isEmpty()) {
-          MyLog.w(LOG_TAG, "Movement rotation is empty");
-          toastMsg.setText(R.string.actSbxEdit_movement_rotation_isEmpty);
-          toastMsg.show();
-          return false;
-        }
-        try {
-          float rotation = Float.parseFloat(rotationStr);
-          if (rotation < SBML.ROTATION_SPEED_MIN_VALUE
-            || rotation > SBML.ROTATION_SPEED_MAX_VALUE)
-            throw new NumberFormatException();
+        if (config.isChangeMovementRotation()) {
+          float rotation = inputValidator.checkFloat(etMovementRotation,
+            null, SBML.ROTATION_SPEED_MIN_VALUE, SBML.ROTATION_SPEED_MAX_VALUE,
+            R.string.actSbxEdit_movement_rotation_isEmpty,
+            R.string.actSbxEdit_movement_rotation_incorrect, "movement rotation");
           config.setMovementRotation(rotation);
-        } catch (NumberFormatException e) {
-          MyLog.w(LOG_TAG, "Movement rotation incorrect");
-          toastMsg.setText(R.string.actSbxEdit_movement_rotation_incorrect);
-          toastMsg.show();
-          return false;
         }
       }
+    } catch (InputValidator.ValidationException e) {
+      return false;
     }
+
     return true;
   }
 

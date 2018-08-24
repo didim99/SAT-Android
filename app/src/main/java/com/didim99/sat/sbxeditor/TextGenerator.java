@@ -135,7 +135,8 @@ public class TextGenerator {
 
       if (!lines[i].isEmpty())
         group.addAll(makeLine(lines[i].toUpperCase(), posX, posY, startSaveId, margin));
-      startSaveId = group.get(group.size() - 1).getSaveId() + 1;
+      if (group.size() > 0)
+        startSaveId = group.get(group.size() - 1).getSaveId() + 1;
       posY += DOT_SIZE * (FONT_HEIGHT + DEFAULT_LINE_MARGIN);
     }
 

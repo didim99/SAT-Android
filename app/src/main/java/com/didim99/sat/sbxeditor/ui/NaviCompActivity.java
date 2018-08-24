@@ -26,6 +26,7 @@ import com.didim99.sat.R;
 import com.didim99.sat.Utils;
 import com.didim99.sat.sbxeditor.Sandbox;
 import com.didim99.sat.sbxeditor.Storage;
+import com.didim99.sat.sbxeditor.model.InputValidator;
 import com.didim99.sat.sbxeditor.model.NaviCompMarker;
 import com.didim99.sat.sbxeditor.model.Planet;
 import com.didim99.sat.sbxeditor.model.SBML;
@@ -62,10 +63,7 @@ public class NaviCompActivity extends AppCompatActivity
 
     if (Settings.isDbLoaded()) {
       planets = Storage.getPlanetInfo();
-      planetNames = new ArrayList<>();
-      for (Planet planet : planets)
-        planetNames.add(planet.getLabel());
-      planetNames.trimToSize();
+      planetNames = Storage.getPlanetNames();
     }
 
     MyLog.d(LOG_TAG, "Loading saved instance...");
@@ -316,107 +314,56 @@ public class NaviCompActivity extends AppCompatActivity
       dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(
         v -> {
           MyLog.d(LOG_TAG, "Checking values...");
-          float posX, posY, objR = 0, orbR = 0, rescaleR = 0, scale = 0;
+          InputValidator inputValidator = InputValidator.getInstance();
+          Float posX, posY, objR = null, orbR = null, rescaleR = null, scale = null;
+          String label;
 
-          switch (mode) {
-            case MODE_ADD_CUSTOM:
-              objR = orbR = rescaleR = resources.getInteger(
-                R.integer.addMarker_defaultRadius) * SBML.POSITION_FACTOR;
-              scale = SBML.MARKER_SCALE;
-              break;
-            case MODE_EDIT:
-              isAdvanced = true;
-              break;
-          }
+          if (mode == Sandbox.Mode.EDIT)
+            isAdvanced = true;
 
-          String label = etLabel.getText().toString();
-          if (label.isEmpty()) {
-            MyLog.w(LOG_TAG, "Label is empty");
-            toastMsg.setText(R.string.editErr_emptyLabel);
-            toastMsg.show();
-            return;
-          }
-          if (label.matches(SBML.INVALID_MARKER_NAME)) {
-            toastMsg.setText(R.string.editErr_incorrectLabel);
-            toastMsg.show();
-            return;
-          }
-
-          String strPosX = positionX.getText().toString();
-          String strPosY = positionY.getText().toString();
-          if (strPosX.isEmpty() || strPosY.isEmpty()) {
-            MyLog.w(LOG_TAG, "Position is empty");
-            toastMsg.setText(R.string.editErr_emptyPosition);
-            toastMsg.show();
-            return;
-          }
           try {
-            posX = (float) ((Double.parseDouble(strPosX) * SBML.POSITION_FACTOR));
-            posY = (float) ((Double.parseDouble(strPosY) * SBML.POSITION_FACTOR));
-          } catch (NumberFormatException e) {
-            MyLog.w(LOG_TAG, "Incorrect position");
-            toastMsg.setText(R.string.editErr_incorrectPosition);
-            toastMsg.show();
-            return;
-          }
-
-          if (isAdvanced) {
-            String strObjR = etObjRadius.getText().toString();
-            String strOrbR = etOrbRadius.getText().toString();
-            String strRescaleR = etRescaleRadius.getText().toString();
-            String strScale = etScale.getText().toString();
-            if (strObjR.isEmpty() && strOrbR.isEmpty()
-              && strRescaleR.isEmpty() && strScale.isEmpty()) {
-              MyLog.w(LOG_TAG, "Advanced settings is empty");
-              toastMsg.setText(R.string.editErr_emptyAdvanced);
+            label = inputValidator.checkEmptyStr(etLabel,
+              R.string.editErr_emptyLabel, "marker label");
+            if (label.matches(SBML.INVALID_MARKER_NAME)) {
+              toastMsg.setText(R.string.editErr_incorrectLabel);
               toastMsg.show();
               return;
             }
 
-            if (!strObjR.isEmpty()){
-              try {
-                objR = (float) ((Double.parseDouble(strObjR) * SBML.POSITION_FACTOR));
-              } catch (NumberFormatException e) {
-                MyLog.w(LOG_TAG, "Incorrect object radius");
-                toastMsg.setText(R.string.editErr_incorrectObjectRadius);
-                toastMsg.show();
-                return;
-              }
-            }
+            posX = inputValidator.checkFloat(positionX,
+              SBML.POSITION_FACTOR, R.string.editErr_emptyPosition,
+              R.string.editErr_incorrectPosition, "X-position");
+            posY = inputValidator.checkFloat(positionY,
+              SBML.POSITION_FACTOR, R.string.editErr_emptyPosition,
+              R.string.editErr_incorrectPosition, "Y-position");
 
-            if (!strOrbR.isEmpty()){
-              try {
-                orbR = (float) ((Double.parseDouble(strOrbR) * SBML.POSITION_FACTOR));
-              } catch (NumberFormatException e) {
-                MyLog.w(LOG_TAG, "Incorrect orbit radius");
-                toastMsg.setText(R.string.editErr_incorrectOrbitRadius);
-                toastMsg.show();
-                return;
-              }
-            }
+            if (isAdvanced) {
+              objR = inputValidator.checkFloat(etObjRadius, SBML.POSITION_FACTOR,
+                R.string.editErr_incorrectObjectRadius, "object radius");
+              orbR = inputValidator.checkFloat(etOrbRadius, SBML.POSITION_FACTOR,
+                R.string.editErr_incorrectOrbitRadius, "orbit radius");
+              rescaleR = inputValidator.checkFloat(etRescaleRadius, SBML.POSITION_FACTOR,
+                R.string.editErr_incorrectRescaleRadius, "rescale radius");
+              scale = inputValidator.checkFloat(etScale, null,
+                R.string.editErr_incorrectScale, "scale");
 
-            if (!strRescaleR.isEmpty()){
-              try {
-                rescaleR = (float) ((Double.parseDouble(strRescaleR) * SBML.POSITION_FACTOR));
-              } catch (NumberFormatException e) {
-                MyLog.w(LOG_TAG, "Incorrect rescale radius");
-                toastMsg.setText(R.string.editErr_incorrectRescaleRadius);
+              if (objR == null && orbR == null && rescaleR == null && scale == null) {
+                MyLog.w(LOG_TAG, "Advanced settings is empty");
+                toastMsg.setText(R.string.editErr_emptyAdvanced);
                 toastMsg.show();
                 return;
               }
             }
-
-            if (!strScale.isEmpty()){
-              try {
-                scale = Float.parseFloat(strScale);
-              } catch (NumberFormatException e) {
-                MyLog.w(LOG_TAG, "Incorrect scale");
-                toastMsg.setText(R.string.editErr_incorrectScale);
-                toastMsg.show();
-                return;
-              }
-            }
+          } catch (InputValidator.ValidationException e) {
+            return;
           }
+
+          float defValue = resources.getInteger(
+            R.integer.addMarker_defaultRadius) * SBML.POSITION_FACTOR;
+          objR = setDefaultIfNull(objR, defValue);
+          orbR = setDefaultIfNull(orbR, defValue);
+          rescaleR = setDefaultIfNull(rescaleR, defValue);
+          scale = setDefaultIfNull(scale, SBML.MARKER_SCALE);
 
           Sandbox sandbox = Storage.getSandbox();
           NaviCompMarker newMarker = new NaviCompMarker(
@@ -431,8 +378,8 @@ public class NaviCompActivity extends AppCompatActivity
               toastMsg.setText(R.string.sbxProcessing_markerEdit_success);
               break;
           }
-          adapter.refreshData(sandbox);
           toastMsg.show();
+          adapter.refreshData(sandbox);
           dialogInterface.dismiss();
         }
       );
@@ -574,5 +521,9 @@ public class NaviCompActivity extends AppCompatActivity
       bar.setDisplayShowHomeEnabled(true);
       bar.setDisplayHomeAsUpEnabled(true);
     }
+  }
+
+  private Float setDefaultIfNull(Float oldValue, Float defaultValue) {
+    return oldValue == null ? defaultValue : oldValue;
   }
 }

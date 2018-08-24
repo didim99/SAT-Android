@@ -72,7 +72,7 @@ public class SettingsFragment extends PreferenceFragment
     updateSbxCustomNameState();
 
     sbxCustomName.setOnPreferenceChangeListener((preference, newValue) ->
-      InputValidator.checkSbxName((String) newValue, true));
+      InputValidator.getInstance().checkSbxName((String) newValue, true));
 
     prefUpdateDb = findPreference(Settings.KEY_UPDATE_DB);
     updateDbState(Settings.isHasDB());

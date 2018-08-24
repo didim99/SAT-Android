@@ -27,38 +27,37 @@
     <menu>
       <item
         android:id="@+id/action_addShuttle"
-        android:orderInCategory="1"
         android:title="@string/mTitle_actionAdd_shuttle"
         app:showAsAction="never"/>
 
       <item
         android:id="@+id/action_addSpy"
-        android:orderInCategory="2"
         android:title="@string/mTitle_actionAdd_spy"
         app:showAsAction="never"/>
 
       <item
         android:id="@+id/action_addModule"
-        android:orderInCategory="3"
         android:title="@string/mTitle_actionAdd_module"
         app:showAsAction="never"/>
 
       <item
+        android:id="@+id/action_addColony"
+        android:title="@string/mTitle_actionAdd_colony"
+        app:showAsAction="never"/>
+
+      <item
         android:id="@+id/action_addText"
-        android:orderInCategory="4"
         android:title="@string/mTitle_actionAdd_text"
         app:showAsAction="never"/>
 
       <item
         android:id="@+id/action_addAll"
-        android:orderInCategory="4"
         android:title="@string/mTitle_actionAdd_all"
         app:showAsAction="never"
         android:visible="false"/>
 
       <item
         android:id="@+id/action_addAllFont"
-        android:orderInCategory="5"
         android:title="@string/mTitle_actionAdd_allFont"
         app:showAsAction="never"
         android:visible="false"/>

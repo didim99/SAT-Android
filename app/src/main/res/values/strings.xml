@@ -126,6 +126,7 @@
   <string name="actSbxEdit_alpha_incorrect">Некорректное значение прозрачности</string>
   <string name="actSbxEdit_extend_fuel_isEmpty">Не указан коэффициент расширеня топливных баков</string>
   <string name="actSbxEdit_extend_fuel_incorrect">Некорректный коэффициент расширеня топливных баков</string>
+  <string name="actSbxEdit_saveId_incorrect">Некорректный SAVE ID</string>
   <string name="actSbxEdit_rotate_emptyAngle">Не указан угол поворота</string>
   <string name="actSbxEdit_rotate_incorrectAngle">Некорректный угол поворота</string>
   <string name="actSbxEdit_rotate_emptyBase">Не указана база врашения</string>
@@ -144,6 +145,7 @@
   <!-- Текст экранных элементов (layout: dialog_sandbox_info) -->
   <string name="diaTitle_groupInfo">Информация о группе</string>
   <string name="diaTitle_staInfo">Информация о станции</string>
+  <string name="diaTitle_colonyInfo">Информация о колонии</string>
   <string name="diaTitle_textInfo">Информация о тексте</string>
   <string name="diaSbxInfo_minVer">Мин. версия SA</string>
   <string name="diaSbxInfo_modCount">Всего модулей</string>
@@ -158,15 +160,18 @@
   <!-- Текст экранных элементов (layout: dialog_station_copy) -->
   <string name="diaTitle_multipleCopy">Скопировать несколько объектов</string>
   <string name="diaTitle_staCopy">Скопировать станцию</string>
+  <string name="diaTitle_colonyCopy">Скопировать колонию</string>
   <string name="diaTitle_groupCopy">Скопировать группу</string>
   <string name="diaTitle_textCopy">Скопировать текст</string>
   <string name="diaStaCopy_tvText_enterOffset">Укажите смещение</string>
   <string name="diaStaCopy_tvText_enterCenterPos">Укажите координаты центра</string>
   <string name="diaStaCopy_rbText_modeOffset">Смещение</string>
   <string name="diaStaCopy_rbText_modeNewCenter">Координаты центра</string>
-  <!-- Текст экранных элементов (dialog_add_module/all/text) -->
+  <!-- Текст экранных элементов (dialog_add_module/colony/all/text) -->
   <string name="diaTitle_addModule">Добавить модуль</string>
+  <string name="diaTitle_addColony">Добавить Колонию</string>
   <string name="diaTitle_addAll">Добавить все модули</string>
+  <string name="diaTitle_addText">Добавить текст</string>
   <string name="diaAddModule_enterPosition">Координаты</string>
   <string name="diaAddModule_enterPositionFirst">Координаты первого модуля</string>
   <string name="diaAddModule_multiple">Несколько модулей</string>
@@ -175,7 +180,11 @@
   <string name="diaAddModule_distance">Шаг между модулями (NCU)</string>
   <string name="diaAddModule_inLine">Модулей в строке</string>
   <string name="diaAddModule_selectVersion">Версия SA</string>
-  <string name="diaTitle_addText">Добавить текст</string>
+  <string name="diaAddColony_targetPlanet">Выберите планету:</string>
+  <string name="diaAddColony_moduleCount">@string/diaAddModule_enterCount</string>
+  <string name="diaAddColony_orbitHeight">Высота орбиты</string>
+  <string name="diaAddColony_nodulesGap">Угол между модулями (в &#176;)</string>
+  <string name="diaAddColony_defaultHeight" translatable="false">50%</string>
   <string name="diaAddText_enterText">Текст</string>
   <string name="diaAddText_enterPosition">Координаты (левый верхний угол)</string>
   <string name="diaAddText_selectAlign">Выравнивание</string>
@@ -218,6 +227,7 @@
   <string name="mTitle_actionAdd_shuttle">Шаттл</string>
   <string name="mTitle_actionAdd_spy">Спутник-шпион</string>
   <string name="mTitle_actionAdd_module">Другой модуль</string>
+  <string name="mTitle_actionAdd_colony">Колонию</string>
   <string name="mTitle_actionAdd_text">Текст</string>
   <string name="mTitle_actionAdd_all">Все модули</string>
   <string name="mTitle_actionAdd_allFont">Весь пиксельный шрифт</string>
@@ -244,6 +254,7 @@
   <!-- События sandbox'а -->
   <string name="deleteMultiple">Удалить выбранные объекты?</string>
   <string name="deleteStation">Удалить станцию?</string>
+  <string name="deleteColony">Удалить колонию?</string>
   <string name="deleteGroup">Удалить группу?</string>
   <string name="deleteText">Удалить текст?</string>
   <plurals name="deleteMarker">
@@ -257,6 +268,8 @@
   </plurals>
   <string name="sbxProcessing_station">Станция %s</string>
   <string name="sbxProcessing_group">Группа %s</string>
+  <string name="sbxProcessing_colony">Колония %s</string>
+  <string name="sbxProcessing_add_success">добавлена</string>
   <string name="sbxProcessing_copy_success">скопирована</string>
   <string name="sbxProcessing_edit_success">отредактирована</string>
   <string name="sbxProcessing_delete_success">удалена</string>
@@ -292,6 +305,8 @@
   <string name="editErr_emptyAdvanced">Не заданы дополнительные параметры</string>
   <string name="editErr_incorrectDistance">Некорректное расстояние между модулями</string>
   <string name="editErr_incorrectInLine">Некорректное количество модулей в строке</string>
+  <string name="editErr_incorrectOrbHeight">Некорректная высота орбиты</string>
+  <string name="editErr_incorrectModGap">Некорректный интервал между модулями</string>
   <string name="editErr_incorrectInLineFont">Некорректное количество символов в строке</string>
   <string name="editErr_emptyMargin">Не задан межсимвольный интервал</string>
   <string name="editErr_incorrectMargin">Некорректный межсимвольный интервал</string>

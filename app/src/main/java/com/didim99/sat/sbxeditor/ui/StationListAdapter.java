@@ -86,7 +86,7 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
   }
 
   @Override
-  int getSelectableItemCount() {
+  protected int getSelectableItemCount() {
     return getItemCount() > 0 ? getItemCount() - 1 : 0;
   }
 
@@ -99,6 +99,11 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
   }
 
   @Override
+  protected boolean isItemSelectable(int position) {
+    return getItemViewType(position) != ViewType.HEADER;
+  }
+
+  @Override
   public void onCreateContextMenu(ContextMenu menu, View view,
                                   ContextMenu.ContextMenuInfo menuInfo) {
     menuInflater.inflate(R.menu.ctx_menu_station, menu);
@@ -106,21 +111,11 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
 
   void refreshData(Sandbox sandbox) {
     this.sandbox = sandbox;
-    for (int pos = 0; pos < getItemCount(); pos++) {
-      switch (getItemViewType(pos)) {
-        case ViewType.HEADER:
-          selectable.put(pos, false);
-          break;
-        case ViewType.STATION:
-          selectable.put(pos, true);
-          break;
-      }
-    }
     super.refreshData();
   }
 
   void initSelection(Sandbox sandbox, State state) {
-    this.sandbox = sandbox;
+    refreshData(sandbox);
     super.initSelection(state);
   }
 
@@ -151,6 +146,10 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
     }
 
     switch (info.getObjType()) {
+      case Station.Type.COLONY:
+        holder.ivStatusType.setVisibility(View.VISIBLE);
+        holder.ivStatusType.setImageResource(R.drawable.ic_colony_24dp);
+        break;
       case Station.Type.GROUP:
         holder.ivStatusType.setVisibility(View.VISIBLE);
         holder.ivStatusType.setImageResource(R.drawable.ic_group_24dp);

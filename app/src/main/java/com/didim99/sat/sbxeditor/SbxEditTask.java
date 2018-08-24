@@ -88,6 +88,10 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
         modCount = config.getCount();
         Storage.getSandbox().addModule(config);
         break;
+      case Sandbox.Mode.ADD_COLONY:
+        Storage.getSandbox().createColony(config);
+        objType = Station.Type.COLONY;
+        break;
       case Sandbox.Mode.ADD_ALL:
         Storage.getSandbox().addAllModules(config);
         break;
@@ -207,6 +211,9 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
           toastMsg.setText(R.string.sbxProcessing_optimize_success);
           toastMsg.show();
           return;
+        case Sandbox.Mode.ADD_COLONY:
+          action = appContext.get().getString(R.string.sbxProcessing_add_success);
+          break;
         case Sandbox.Mode.COPY:
           action = appContext.get().getString(R.string.sbxProcessing_copy_success);
           break;
@@ -238,6 +245,9 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
             break;
           case Station.Type.GROUP:
             msg = appContext.get().getString(R.string.sbxProcessing_group, action);
+            break;
+          case Station.Type.COLONY:
+            msg = appContext.get().getString(R.string.sbxProcessing_colony, action);
             break;
           case Station.Type.TEXT:
             switch (mode) {

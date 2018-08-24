@@ -39,16 +39,17 @@ public class Sandbox {
     public static final int OPEN = 2;
     public static final int UPDATE_NAV = 3;
     public static final int ADD_MODULE = 4;
-    public static final int ADD_TEXT = 5;
-    public static final int ADD_ALL = 6;
-    public static final int ADD_ALL_FONT = 7;
-    public static final int COPY = 8;
-    public static final int EDIT = 9;
-    public static final int DELETE = 10;
-    public static final int OPTIMIZE = 11;
-    public static final int SAVE = 12;
-    public static final int SEND = 13;
-    public static final int FUEL_INFO = 14;
+    public static final int ADD_COLONY = 5;
+    public static final int ADD_TEXT = 6;
+    public static final int ADD_ALL = 7;
+    public static final int ADD_ALL_FONT = 8;
+    public static final int COPY = 9;
+    public static final int EDIT = 10;
+    public static final int DELETE = 11;
+    public static final int OPTIMIZE = 12;
+    public static final int SAVE = 13;
+    public static final int SEND = 14;
+    public static final int FUEL_INFO = 15;
   }
 
   private WeakReference<Context> appContextRef;
@@ -135,6 +136,7 @@ public class Sandbox {
       if (module.getSaveId() > info.maxSaveId)
         info.maxSaveId = module.getSaveId();
     }
+    MyLog.d(LOG_TAG, "Sandbox info updated");
   }
 
   void optimize(boolean optSaveId, boolean refreshCargo, boolean refreshFuel) {
@@ -206,6 +208,16 @@ public class Sandbox {
       alone.add(module);
     }
     analyze(true);
+  }
+
+  public void createColony(SbxEditConfig config) {
+    int planetId = config.getPlanetId();
+    int partId = config.getPartId();
+    int count = config.getCount();
+    Float height = config.getOrbHeight();
+    Float gap = config.getGap();
+
+    // TODO: 24.08.18
   }
 
   void addAllModules(SbxEditConfig config) {
@@ -866,7 +878,7 @@ public class Sandbox {
       modified = true;
     }
 
-    public void setSbxUid(int uid) {
+    public void setSbxUid(Integer uid) {
       sbxUid = uid;
       modified = true;
     }

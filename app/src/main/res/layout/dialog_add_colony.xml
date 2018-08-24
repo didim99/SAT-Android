@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dialogView_Padding"
+            android:paddingRight="@dimen/dialogView_Padding"
+            android:paddingBottom="@dimen/dialogView_Padding">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/tvModName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/dialogView_subHeaderHMargin"
+      android:layout_marginRight="@dimen/dialogView_subHeaderHMargin"
+      android:layout_marginBottom="@dimen/dialogView_subHeaderVMargin"
+      android:layout_gravity="start"
+      android:textSize="18sp"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/diaAddColony_targetPlanet"
+        android:textSize="@dimen/dialogView_textSizeMain"/>
+
+      <Spinner
+        android:id="@+id/planetSelector"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dialogView_Padding"
+        android:layout_marginRight="@dimen/dialogView_Padding"/>
+    </LinearLayout>
+
+    <TableLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="3dp">
+
+      <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/diaAddColony_moduleCount"
+          android:textSize="@dimen/actSbx_textSizeMain"/>
+
+        <EditText
+          android:id="@+id/etModCount"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:inputType="number"
+          android:hint="@integer/addColony_defaultCount"
+          android:ems="3"/>
+      </TableRow>
+
+      <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/diaAddColony_orbitHeight"
+          android:textSize="@dimen/actSbx_textSizeMain"/>
+
+        <EditText
+          android:id="@+id/etOrbHeight"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:inputType="numberDecimal"
+          android:hint="@string/diaAddColony_defaultHeight"
+          android:ems="3"/>
+      </TableRow>
+
+      <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/diaAddColony_nodulesGap"
+          android:textSize="@dimen/actSbx_textSizeMain"/>
+
+        <EditText
+          android:id="@+id/etModGap"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
+          android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+          android:inputType="numberDecimal"
+          android:hint="@string/actSbxEdit_saveId_auto"
+          android:ems="3"/>
+      </TableRow>
+
+    </TableLayout>
+
+  </LinearLayout>
+
+</ScrollView>

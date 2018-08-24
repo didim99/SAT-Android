@@ -13,6 +13,7 @@ import java.util.Map;
 public class Storage {
   private static SparseArray<Part> partInfo;
   private static ArrayList<Planet> planetInfo;
+  private static ArrayList<String> planetNames;
   private static Map<Character, TextGenerator.PixelChar> font;
   private static SparseArray<String> saVerInfo;
   private static ArrayList<String> saVerNames;
@@ -25,6 +26,11 @@ public class Storage {
 
   public static ArrayList<Planet> getPlanetInfo() {
     return planetInfo;
+  }
+
+  public static ArrayList<String> getPlanetNames() {
+    if (planetNames == null) initPlanetNames();
+    return planetNames;
   }
 
   public static Map<Character, TextGenerator.PixelChar> getFont() {
@@ -73,5 +79,12 @@ public class Storage {
 
   public static void setSAVerNames(ArrayList<String> saVerNames) {
     Storage.saVerNames = saVerNames;
+  }
+
+  private static void initPlanetNames() {
+    planetNames = new ArrayList<>();
+    for (Planet planet : planetInfo)
+      planetNames.add(planet.getLabel());
+    planetNames.trimToSize();
   }
 }

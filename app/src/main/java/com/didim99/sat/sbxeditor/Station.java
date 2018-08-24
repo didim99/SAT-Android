@@ -26,8 +26,9 @@ public class Station implements Cloneable {
     public static final int UNKNOWN = 0;
     public static final int MULTIPLE_OBJECTS = 1;
     public static final int STATION = 2;
-    public static final int GROUP = 3;
-    public static final int TEXT = 4;
+    public static final int COLONY = 3;
+    public static final int GROUP = 4;
+    public static final int TEXT = 5;
   }
 
   //edit mode constants

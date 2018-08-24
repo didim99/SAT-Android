@@ -79,7 +79,7 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
   }
 
   @Override
-  int getSelectableItemCount() {
+  protected int getSelectableItemCount() {
     return getItemCount();
   }
 
