@@ -3,7 +3,12 @@
   <integer name="addModule_defaultQuantity">10</integer>
   <integer name="addModule_defaultOffset">5</integer>
   <integer name="addModule_defaultInLine">10</integer>
+  <integer name="addColony_defaultPlanet">2</integer>
+  <integer name="addColony_defaultState">1</integer>
   <integer name="addColony_defaultCount">10</integer>
+  <integer name="addColony_defaultHeightPercent">50</integer>
+  <integer name="addColony_defaultRotate">180</integer>
+  <integer name="addColony_defaultSpeed">6</integer>
   <integer name="addAll_defaultPosX">200</integer>
   <integer name="addAll_defaultPosY">200</integer>
   <integer name="addText_defaultMargin">1</integer>

@@ -1,6 +1,7 @@
 package com.didim99.sat.sbxeditor;
 
 import com.didim99.sat.MyLog;
+import com.didim99.sat.sbxeditor.model.SBML;
 import java.util.ArrayList;
 
 /**
@@ -23,11 +24,13 @@ public class SbxEditConfig {
   private float offset;
   private int inLine;
   private int planetId;
-  private Float orbHeight;
+  private int orbitalState;
+  private float orbHeight;
   private Float gap;
   private String text;
   private int align;
   private Integer margin;
+  private SBML.DistanceUnit units;
   //for editing
   private ArrayList<Station> stations;
   private int editMode;
@@ -106,7 +109,7 @@ public class SbxEditConfig {
 
   //add module(s)
   public SbxEditConfig(int mode, int partId, float positionX, float positionY,
-                int count, float offset, int inLine) {
+                       int count, float offset, int inLine) {
     this.mode = mode;
     this.partId = partId;
     this.positionX = positionX;
@@ -117,19 +120,24 @@ public class SbxEditConfig {
   }
 
   //add colony
-  public SbxEditConfig(int mode, int planetId, int partId,
-                       int count, Float orbHeight, Float gap) {
+  public SbxEditConfig(int mode, int planetId, int partId, int orbitalState,
+                       int count, float orbHeight, SBML.DistanceUnit hUnits,
+                       Float gap, float rotationAnge, Float movementSpeed) {
     this.mode = mode;
     this.planetId = planetId;
     this.partId = partId;
+    this.orbitalState = orbitalState;
     this.count = count;
     this.orbHeight = orbHeight;
+    this.units = hUnits;
     this.gap = gap;
+    this.positionAnge = rotationAnge;
+    this.movementSpeed = movementSpeed;
   }
 
   //add all modules
   public SbxEditConfig(int mode, int verCode, float positionX, float positionY,
-                float offset, int inLine) {
+                       float offset, int inLine) {
     this.mode = mode;
     this.verCode = verCode;
     this.positionX = positionX;
@@ -140,7 +148,7 @@ public class SbxEditConfig {
 
   //add text
   public SbxEditConfig(int mode, float positionX, float positionY,
-                String text, int align, int margin) {
+                       String text, int align, int margin) {
     this.mode = mode;
     this.positionX = positionX;
     this.positionY = positionY;
@@ -195,11 +203,13 @@ public class SbxEditConfig {
       + "\n  offset: " + offset
       + "\n  inLine: " + inLine
       + "\n  planetId: " + planetId
+      + "\n  orbitalState: " + orbitalState
       + "\n  orbHeight: " + orbHeight
       + "\n  gap: " + gap
       + "\n  text: " + text
       + "\n  align: " + align
       + "\n  margin: " + margin
+      + "\n  units: " + units
       + "\n -----"
       + "\n  stations: " + stations.size() + " " + stations
       + "\n  editMode: " + editMode
@@ -315,7 +325,11 @@ public class SbxEditConfig {
     return planetId;
   }
 
-  Float getOrbHeight() {
+  int getOrbitalState() {
+    return orbitalState;
+  }
+
+  float getOrbHeight() {
     return orbHeight;
   }
 
@@ -333,6 +347,10 @@ public class SbxEditConfig {
 
   Integer getMargin() {
     return margin;
+  }
+
+  SBML.DistanceUnit getUnits() {
+    return units;
   }
 
   int getEditMode() {

@@ -73,9 +73,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/actSbxEdit_valueFieldMargin"
-        android:layout_marginStart="@dimen/actSbxEdit_valueFieldMargin"
+        android:layout_marginRight="@dimen/actSbxEdit_valueFieldMargin"
         android:inputType="number|numberSigned"
-        android:ems="5"/>
+        android:hint="@integer/addText_defaultMargin"
+        android:ems="3"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valueDots"
+        android:textSize="@dimen/actSbx_textSizeMain"/>
 
     </LinearLayout>
 

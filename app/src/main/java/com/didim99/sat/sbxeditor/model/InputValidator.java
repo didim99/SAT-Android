@@ -3,6 +3,7 @@ package com.didim99.sat.sbxeditor.model;
 import android.content.Context;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.didim99.sat.BuildConfig;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
 
@@ -59,6 +60,7 @@ public class InputValidator {
       return result;
     } catch (IllegalArgumentException e) {
       MyLog.w(LOG_TAG, "Incorrect value: " + logMsg);
+      if (BuildConfig.DEBUG) e.printStackTrace();
       showToast(msgId_incorrect);
       throw new ValidationException();
     }
@@ -82,7 +84,7 @@ public class InputValidator {
                           int msgId_empty, int msgId_incorrect, String logMsg)
     throws ValidationException {
     if (multiplier == null) multiplier = 1;
-    if (minValue == null) minValue = Double.MIN_VALUE;
+    if (minValue == null) minValue = -Double.MAX_VALUE;
     if (maxValue == null) maxValue = Double.MAX_VALUE;
 
     String strValue = checkEmptyStr(src, msgId_empty, logMsg);
@@ -96,6 +98,7 @@ public class InputValidator {
       return result.floatValue();
     } catch (IllegalArgumentException e) {
       MyLog.w(LOG_TAG, "Incorrect value: " + logMsg);
+      if (BuildConfig.DEBUG) e.printStackTrace();
       showToast(msgId_incorrect);
       throw new ValidationException();
     }

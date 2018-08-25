@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -40,6 +42,11 @@ public class DialogManager {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_DialogManager";
 
   private static final DialogManager ourInstance = new DialogManager();
+  private static final int NUMBER_DECIMAL_SIGNED = InputType.TYPE_CLASS_NUMBER
+    | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
+  private static final int NUMBER_DECIMAL = InputType.TYPE_CLASS_NUMBER
+    | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+
   public static DialogManager getInstance() {
     return ourInstance;
   }
@@ -523,6 +530,8 @@ public class DialogManager {
   private DialogInterface.OnShowListener addColonyDialog_showListener
     = new DialogInterface.OnShowListener() {
     private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_AddColony";
+    private SBML.DistanceUnit hUnits = SBML.DistanceUnit.PERCENT;
+    private boolean checkSpeed = false;
 
     @Override
     public void onShow(final DialogInterface dialogInterface) {
@@ -530,41 +539,105 @@ public class DialogManager {
       AlertDialog dialog = (AlertDialog) dialogInterface;
       ((TextView) dialog.findViewById(R.id.tvModName))
         .setText(Storage.getPartInfo().get(addModulePID).getPartName());
+      final View speedLayout = dialog.findViewById(R.id.speedLayout);
       final Spinner planetSelector = dialog.findViewById(R.id.planetSelector);
+      final Spinner stateSelector = dialog.findViewById(R.id.stateSelector);
       final EditText etCount = dialog.findViewById(R.id.etModCount);
       final EditText etHeight = dialog.findViewById(R.id.etOrbHeight);
       final EditText etGap = dialog.findViewById(R.id.etModGap);
+      final EditText etRotate = dialog.findViewById(R.id.etModRotate);
+      final EditText etSpeed = dialog.findViewById(R.id.etModSpeed);
 
       planetSelector.setAdapter(new ArrayAdapter<>(contextRef.get(),
         android.R.layout.simple_spinner_item, Storage.getPlanetNames()));
+      planetSelector.setSelection(res.getInteger(
+        R.integer.addColony_defaultPlanet));
+      stateSelector.setSelection(res.getInteger(
+        R.integer.addColony_defaultState));
+
+      stateSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+          if (SBML.ORBITAL_STATES_COLONY[position] == SBML.ORBITAL_STATE_ORBITING) {
+            speedLayout.setVisibility(View.VISIBLE);
+            checkSpeed = true;
+          } else {
+            speedLayout.setVisibility(View.GONE);
+            checkSpeed = false;
+          }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {}
+      });
+
+      (dialog.findViewById(R.id.heightUnits)).setOnClickListener(v -> {
+        switch (hUnits) {
+          case NCU:
+            hUnits = SBML.DistanceUnit.PERCENT;
+            ((TextView) v).setText(R.string.valuePercent);
+            etHeight.setHint(String.valueOf(res.getInteger(
+              R.integer.addColony_defaultHeightPercent)));
+            etHeight.setInputType(NUMBER_DECIMAL_SIGNED);
+            break;
+          case PERCENT:
+            hUnits = SBML.DistanceUnit.NCU;
+            ((TextView) v).setText(R.string.valueNCU);
+            etHeight.setInputType(NUMBER_DECIMAL);
+            etHeight.setHint(null);
+            break;
+        }
+      });
 
       dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(
         v -> {
           MyLog.d(LOG_TAG, "Checking values...");
           int planetId = planetSelector.getSelectedItemPosition();
-          Float orbHeight, gap;
+          int state = SBML.ORBITAL_STATES_COLONY[stateSelector.getSelectedItemPosition()];
+          Float orbHeight, gap, rotate, speed = 0f;
           Integer count;
 
+          int heightEmptyRes = 0;
+          Number heightFactor = null, heightMin = -100;
+          if (hUnits == SBML.DistanceUnit.NCU) {
+            heightEmptyRes = R.string.editErr_emptyOrbHeight;
+            heightFactor = SBML.POSITION_FACTOR;
+            heightMin = 0;
+          }
+
           try {
-            count = inputValidator.checkInteger(etCount, 1,
+            count = inputValidator.checkInteger(etCount, 2,
               0, R.string.editErr_incorrectCount, "modules count");
-            orbHeight = inputValidator.checkFloat(etHeight, null,
-              0, null, 0,
+            orbHeight = inputValidator.checkFloat(etHeight,
+              heightFactor, heightMin, null, heightEmptyRes,
               R.string.editErr_incorrectOrbHeight, "orbit height");
             gap = inputValidator.checkFloat(etGap, null,
               0, 360, 0,
               R.string.editErr_incorrectModGap, "modules gap");
+            rotate = inputValidator.checkFloat(etRotate, null,
+              -360, 360, 0,
+              R.string.actSbxEdit_rotate_incorrectAngle, "modules rotate");
+            if (checkSpeed) {
+              speed = inputValidator.checkFloat(etSpeed, null,
+                R.string.actSbxEdit_movement_speed_incorrect, "modules speed");
+              if (speed == null)
+                speed = (float) res.getInteger(R.integer.addColony_defaultSpeed);
+            }
 
             if (count == null)
               count = res.getInteger(R.integer.addColony_defaultCount);
+            if (orbHeight == null)
+              orbHeight = (float) res.getInteger(R.integer.addColony_defaultHeightPercent);
+            if (rotate == null)
+              rotate = (float) res.getInteger(R.integer.addColony_defaultRotate);
           } catch (InputValidator.ValidationException e) {
             return;
           }
 
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.ADD_COLONY, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.ADD_COLONY,
-              planetId, addModulePID, count, orbHeight, gap));
+            new SbxEditConfig(Sandbox.Mode.ADD_COLONY, planetId, addModulePID,
+              state, count, orbHeight, hUnits, gap, rotate, speed));
         }
       );
     }

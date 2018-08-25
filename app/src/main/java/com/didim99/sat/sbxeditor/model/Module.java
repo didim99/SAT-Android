@@ -6,6 +6,7 @@ import com.didim99.sat.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Locale;
 
 /**
  * Module container class
@@ -54,6 +55,14 @@ public class Module implements Comparable, Cloneable {
     this.partId = partId;
     this.position = new float[3];
     this.showInSelector = SBML.VISIBILITY_MODE_VISIBLE;
+  }
+
+  public Module(int saveId, Part part) {
+    this(saveId, part.getPartId());
+    if (part.isHasCargo()) {
+      for (int id = 0; id < part.getCargoCount(); id++)
+        addCargo(id, SBML.CARGO_ID_BAT);
+    }
   }
 
   public void setValue(String key, ArrayList<String> args) {
@@ -270,7 +279,7 @@ public class Module implements Comparable, Cloneable {
     dock.add(point);
   }
 
-  public void log () {
+  public void log() {
     MyLog.d(LOG_TAG, "Module (" + hashCode() + ")"
       + "\n  save id: " + saveId
       + "\n  part id: " + partId
@@ -423,6 +432,14 @@ public class Module implements Comparable, Cloneable {
     this.movement = movement;
   }
 
+  public void setMovement(float direction, float speed, float rotation) {
+    this.movement = new float[4];
+    movement[SBML.MOVEMENT_INDEX_DIRECTION] = direction;
+    movement[SBML.MOVEMENT_INDEX_SPEED] = speed;
+    movement[SBML.MOVEMENT_INDEX_ROTATION_VISUAL] = rotation;
+    movement[SBML.MOVEMENT_INDEX_ROTATION_REAL] = rotation;
+  }
+
   public void setMovementDirection(float direction) {
     movement[SBML.MOVEMENT_INDEX_DIRECTION] = direction;
   }
@@ -438,6 +455,11 @@ public class Module implements Comparable, Cloneable {
 
   public void setOrbitalState(String orbitalState) {
     this.orbitalState = orbitalState;
+  }
+
+  public void setOrbitalState(int planetId, int state, float height, float angle) {
+    this.orbitalState = String.format(Locale.US,
+      "%d,%d,%.2f,%.2f", state, planetId, height, angle);
   }
 
   public void setParentModule(Integer parentModule) {

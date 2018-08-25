@@ -58,10 +58,11 @@ public class Station implements Cloneable {
     this.type = type;
   }
 
-  void init(ArrayList<NaviCompMarker> naviComp) {
+  Station init(ArrayList<NaviCompMarker> naviComp) {
     MyLog.d(LOG_TAG, "New station init");
     moduleSet.trimToSize();
     analyze(naviComp);
+    return this;
   }
 
   void analyze(ArrayList<NaviCompMarker> naviComp) {
@@ -467,6 +468,8 @@ public class Station implements Cloneable {
     public String getDistanceStr(Context ctx) {
       if (distance == null)
         return null;
+      if (type == Type.COLONY)
+        return ctx.getString(R.string.colonyNear, nearestMarker);
       String formatStr;
       ctx = ctx.getApplicationContext();
       double distance = this.distance / SBML.POSITION_FACTOR;

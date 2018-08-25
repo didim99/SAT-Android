@@ -195,8 +195,7 @@ public class Sandbox {
         }
       }
 
-      group.init(naviComp);
-      space.add(group);
+      space.add(group.init(naviComp));
     } else {
       Module module = new Module(info.maxSaveId + 1, partId);
       module.setPosition(config.getPositionX(), config.getPositionY(), 0);
@@ -210,14 +209,61 @@ public class Sandbox {
     analyze(true);
   }
 
-  public void createColony(SbxEditConfig config) {
+  void createColony(SbxEditConfig config) {
     int planetId = config.getPlanetId();
-    int partId = config.getPartId();
+    int state = config.getOrbitalState();
     int count = config.getCount();
-    Float height = config.getOrbHeight();
-    Float gap = config.getGap();
+    float posRotation = config.getPositionAnge();
+    float movementSpeed = config.getMovementSpeed();
+    int timestamp = Utils.getTimestamp();
+    int saveId = info.maxSaveId + 1;
+    Planet planet = Storage.getPlanetInfo().get(planetId);
+    Part part = Storage.getPartInfo().get(config.getPartId());
 
-    // TODO: 24.08.18
+    Float gap = config.getGap();
+    if (gap == null)
+      gap = 360f / count;
+    Float height = config.getOrbHeight();
+    if (config.getUnits() == SBML.DistanceUnit.PERCENT)
+      height = planet.getObjectRadius() + planet.getOrbitRadius() * (height / 100);
+
+    boolean setMovement = false;
+    float movementDirection = 270f;
+    if (state == SBML.ORBITAL_STATE_ORBITING) {
+      setMovement = true;
+      if (movementSpeed < 0) {
+        movementSpeed = Math.abs(movementSpeed);
+        movementDirection = 90f;
+      }
+    }
+
+    MyLog.d(LOG_TAG, "Creating colony\n  planet: " + planetId + " state: " + state
+      + " partId: " + part.getPartId() + " count: " + count + " height: " + height
+      + " gap: " + gap + " rotation: " + posRotation + " speed: " + movementSpeed);
+
+    float posX, posY, orbitAngle = 0;
+    double baseX = planet.getPositionX(), baseY = planet.getPositionY();
+    Station colony = new Station(count, Station.Type.COLONY);
+    for (int i = 0; i < count; i++) {
+      double phi = Math.toRadians(orbitAngle - 90);
+      posX = (float) (baseX + height * Math.cos(phi));
+      posY = (float) (baseY - height * Math.sin(phi));
+
+      Module module = new Module(saveId++, part);
+      module.setOrbitalState(planetId, state, height, orbitAngle);
+      if (setMovement)
+        module.setMovement(movementDirection, movementSpeed, 0);
+      module.setPosition(posX, posY, posRotation);
+      module.setTimes(timestamp);
+      colony.addModule(module);
+
+      orbitAngle += gap;
+      posRotation += gap;
+      movementDirection += gap;
+    }
+
+    space.add(colony.init(naviComp));
+    analyze(true);
   }
 
   void addAllModules(SbxEditConfig config) {
@@ -242,13 +288,9 @@ public class Sandbox {
         || partId == SBML.PART_ID_SOYUZ_SERVICE)
         continue;
 
-      Module module = new Module(saveId++, partId);
+      Module module = new Module(saveId++, part);
       module.setPosition(currPosX, currPosY, 0);
       module.setTimes(timestamp);
-      if (part.isHasCargo()) {
-        for (int id = 0; id < part.getCargoCount(); id++)
-          module.addCargo(id, SBML.CARGO_ID_BAT);
-      }
 
       group.addModule(module);
       currPosX += offset;
@@ -258,8 +300,7 @@ public class Sandbox {
       }
     }
 
-    group.init(naviComp);
-    space.add(group);
+    space.add(group.init(naviComp));
     analyze(true);
   }
 
@@ -534,8 +575,7 @@ public class Sandbox {
       Station newStation = new Station(station.size());
       for (Integer id : moduleSet)
         newStation.addModule(newSpace.get(id));
-      newStation.init(naviComp);
-      this.space.add(newStation);
+      this.space.add(newStation.init(naviComp));
     }
 
     sb.append("\n  Alone: ").append(aloneModules.size());

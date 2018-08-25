@@ -10,6 +10,10 @@
   <string name="actLabel_dirPicker">Выбор каталога</string>
   <string name="actLabel_pickModule">Выбор модуля</string>
   <!-- Общее -->
+  <string name="valueDegrees" translatable="false">&#176;</string>
+  <string name="valuePercent" translatable="false">%</string>
+  <string name="valueNCU" translatable="false">NCU</string>
+  <string name="valueDots" translatable="false">pt</string>
   <string name="defaultValue">По умолчанию</string>
   <string name="dialogButtonOk" translatable="false">OK</string>
   <string name="dialogButtonCancel">Отмена</string>
@@ -24,6 +28,7 @@
   <string name="distanceTo_M">%.2fM до %s</string>
   <string name="distanceTo_K">%.2fK до %s</string>
   <string name="distanceTo_U">%.2f до %s</string>
+  <string name="colonyNear">Колония около %s</string>
   <string name="diaTitle_warning">Внимание</string>
   <string name="downloadingStarted">Загрузка начата</string>
   <string name="noAskMore">Больше не спрашивать</string>
@@ -177,14 +182,20 @@
   <string name="diaAddModule_multiple">Несколько модулей</string>
   <string name="diaAddModule_enterCount">Кол-во модулей</string>
   <string name="diaAddModule_advanced">Расширенные настройки</string>
-  <string name="diaAddModule_distance">Шаг между модулями (NCU)</string>
+  <string name="diaAddModule_distance">Шаг между модулями</string>
   <string name="diaAddModule_inLine">Модулей в строке</string>
   <string name="diaAddModule_selectVersion">Версия SA</string>
   <string name="diaAddColony_targetPlanet">Выберите планету:</string>
+  <string name="diaAddColony_state">Состояние:</string>
+  <string-array name="diaAddColony_stateNames">
+    <item>Летают на орбите</item>
+    <item>\"Приземлены\"</item>
+  </string-array>
   <string name="diaAddColony_moduleCount">@string/diaAddModule_enterCount</string>
   <string name="diaAddColony_orbitHeight">Высота орбиты</string>
-  <string name="diaAddColony_nodulesGap">Угол между модулями (в &#176;)</string>
-  <string name="diaAddColony_defaultHeight" translatable="false">50%</string>
+  <string name="diaAddColony_modulesGap">Угол между модулями</string>
+  <string name="diaAddColony_modulesRotation">Угол поворота модулей</string>
+  <string name="diaAddColony_modulesSpeed">Скорость</string>
   <string name="diaAddText_enterText">Текст</string>
   <string name="diaAddText_enterPosition">Координаты (левый верхний угол)</string>
   <string name="diaAddText_selectAlign">Выравнивание</string>
@@ -193,7 +204,7 @@
     <item>По центру</item>
     <item>По правому краю</item>
   </string-array>
-  <string name="diaAddText_margin">Межсимв. интервал (в точках)</string>
+  <string name="diaAddText_margin">Межсимв. интервал</string>
   <string name="diaTitle_addAllFont">Добавить весь пиксельный шрифт</string>
   <string name="diaAddAllFont_inLine">Символов в строке</string>
   <string name="diaOptimize_optSaveId">Оптимизировать SAVE ID</string>
@@ -305,6 +316,7 @@
   <string name="editErr_emptyAdvanced">Не заданы дополнительные параметры</string>
   <string name="editErr_incorrectDistance">Некорректное расстояние между модулями</string>
   <string name="editErr_incorrectInLine">Некорректное количество модулей в строке</string>
+  <string name="editErr_emptyOrbHeight">Не задана высота орбиты</string>
   <string name="editErr_incorrectOrbHeight">Некорректная высота орбиты</string>
   <string name="editErr_incorrectModGap">Некорректный интервал между модулями</string>
   <string name="editErr_incorrectInLineFont">Некорректное количество символов в строке</string>

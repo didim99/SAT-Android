@@ -6,6 +6,7 @@ package com.didim99.sat.sbxeditor.model;
  */
 
 public final class SBML {
+  public enum DistanceUnit { NCU, PERCENT }
   //default parameters
   public static final int FORMAT_VERSION = 0;
   public static final int FILE_TYPE_SANDBOX = 1;
@@ -129,6 +130,9 @@ public final class SBML {
   static final int DOCK_INDEX_DOOR = 3;
   static final int DOCK_INDEX_SLAVE_ID = 4;
   static final int DOCK_INDEX_SLAVE_PORT = 5;
+  //parameter values
+  public static final int ORBITAL_STATE_ORBITING = 2;
+  public static final int ORBITAL_STATE_LANDED = 4;
   //version codes
   public static final int VER_CODE_14 = 14;
   public static final int VER_CODE_20 = 20;
@@ -155,4 +159,7 @@ public final class SBML {
     KEY_NAV_LABEL, KEY_NAV_CENTER, KEY_NAV_POSITION, KEY_NAV_OBJECT_RADIUS,
     KEY_NAV_ORBIT_RADIUS, KEY_NAV_RESCALE_RADIUS, KEY_NAV_SCALE, KEY_NAV_END
   };
+  //others
+  public static final int[] ORBITAL_STATES_COLONY =
+    { ORBITAL_STATE_ORBITING, ORBITAL_STATE_LANDED };
 }

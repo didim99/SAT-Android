@@ -17,6 +17,7 @@
   <string name="distanceTo_M">%.2fM to %s</string>
   <string name="distanceTo_K">%.2fK to %s</string>
   <string name="distanceTo_U">%.2f to %s</string>
+  <string name="colonyNear">Colony near %s</string>
   <string name="diaTitle_warning">Warning</string>
   <string name="downloadingStarted">Download started</string>
   <string name="noAskMore">Don\'t ask again</string>
@@ -166,13 +167,20 @@
   <string name="diaAddModule_multiple">Multiple Modules</string>
   <string name="diaAddModule_enterCount">Number of modules</string>
   <string name="diaAddModule_advanced">Advanced settings</string>
-  <string name="diaAddModule_distance">Pitch of modules (NCU)</string>
+  <string name="diaAddModule_distance">Pitch of modules</string>
   <string name="diaAddModule_inLine">Modules in line</string>
   <string name="diaAddModule_selectVersion">SA version</string>
   <string name="diaAddColony_targetPlanet">Choose planet:</string>
+  <string name="diaAddColony_state">State:</string>
+  <string-array name="diaAddColony_stateNames">
+    <item>Fly on orbit</item>
+    <item>\"Landed\"</item>
+  </string-array>
   <string name="diaAddColony_moduleCount">@string/diaAddModule_enterCount</string>
   <string name="diaAddColony_orbitHeight">Orbit height</string>
-  <string name="diaAddColony_nodulesGap">Gap between modules (in &#176;)</string>
+  <string name="diaAddColony_modulesGap">Gap between modules</string>
+  <string name="diaAddColony_modulesRotation">Rotate modules by</string>
+  <string name="diaAddColony_modulesSpeed">Speed</string>
   <string name="diaAddText_enterText">Text</string>
   <string name="diaAddText_enterPosition">Position (upper left corner)</string>
   <string name="diaAddText_selectAlign">Text alignment</string>
@@ -181,7 +189,7 @@
     <item>Center</item>
     <item>Right side</item>
   </string-array>
-  <string name="diaAddText_margin">Letter spacing (in \"dots\")</string>
+  <string name="diaAddText_margin">Letter spacing</string>
   <string name="diaTitle_addAllFont">Add all pixel font</string>
   <string name="diaAddAllFont_inLine">Symbols in line</string>
   <string name="diaOptimize_optSaveId">Optimize SAVE ID</string>
@@ -301,6 +309,7 @@
   <string name="editErr_emptyAdvanced">Advanced settings not defined</string>
   <string name="editErr_incorrectDistance">Incorrect pitch of modules</string>
   <string name="editErr_incorrectInLine">Incorrect modules in line value</string>
+  <string name="editErr_emptyOrbHeight">Orbit height not defined</string>
   <string name="editErr_incorrectOrbHeight">Incorrect orbit height</string>
   <string name="editErr_incorrectModGap">Incorrect gap between modules</string>
   <string name="editErr_incorrectInLineFont">Incorrect symbols in line value</string>
