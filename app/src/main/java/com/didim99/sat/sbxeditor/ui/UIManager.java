@@ -57,7 +57,10 @@ public class UIManager {
         colorId = R.color.speedOrbital;
       else
         colorId = R.color.speedSubOrbital;
-      view.setImageResource(R.drawable.ic_rotation_24dp);
+      if (info.getObjType() == Station.Type.COLONY)
+        view.setImageResource(R.drawable.ic_orbiting_24dp);
+      else
+        view.setImageResource(R.drawable.ic_rotation_24dp);
       view.setRotationY(info.getRotationSpeed() < 0 ? 180 : 0);
       view.getDrawable().setColorFilter(
         res.getColor(colorId), PorterDuff.Mode.SRC_ATOP);

@@ -120,12 +120,19 @@ public class Station implements Cloneable {
     else
       visibility = VISIBILITY_UNKNOWN;
 
-    if (info != null && info.getObjType() == Type.TEXT)
+    if (info != null && type == Type.TEXT)
       names = info.names;
 
+    if (type == Type.COLONY && hasMovement) {
+      rotationSpeed = Float.compare(movementDirection, 90f) == 0
+        ? movementSpeed : -movementSpeed;
+      movementSpeed = null;
+      hasMovement = false;
+      hasRotation = true;
+    }
+
     id = minSaveId;
-    info = new Info(
-      minSaveId, maxSaveId, hasMovement, movementDirection,
+    info = new Info(minSaveId, maxSaveId, hasMovement, movementDirection,
       movementSpeed, hasRotation, rotationSpeed, visibility, minVer
     );
 
@@ -254,6 +261,7 @@ public class Station implements Cloneable {
       module.setPositionY(module.getPositionY() + deltaY);
     }
     MyLog.d(LOG_TAG, "Station moved");
+    colonyToGroup();
     analyzePosition();
   }
 
@@ -274,6 +282,7 @@ public class Station implements Cloneable {
       module.setPositionAngle(module.getPositionAngle() + angle);
     }
     MyLog.d(LOG_TAG, "Station rotated");
+    colonyToGroup();
   }
 
   void movementChange(SbxEditConfig config) {
@@ -376,6 +385,14 @@ public class Station implements Cloneable {
     } else return Type.UNKNOWN;
   }
 
+  private void colonyToGroup() {
+    if (type == Type.COLONY) {
+      for (Module module : moduleSet)
+        module.setOrbitalState(null);
+      type = Type.GROUP;
+    }
+  }
+
   public class Info implements Cloneable {
     private int minSaveId;
     private int maxSaveId;
@@ -439,6 +456,10 @@ public class Station implements Cloneable {
 
     public int getSize() {
       return moduleSet.size();
+    }
+
+    public String getNearestMarker() {
+      return nearestMarker;
     }
 
     public String getStationName() {

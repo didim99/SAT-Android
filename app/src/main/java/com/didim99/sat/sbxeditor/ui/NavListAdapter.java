@@ -1,6 +1,7 @@
 package com.didim99.sat.sbxeditor.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -40,8 +41,9 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
     super.refreshData();
   }
 
+  @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ViewHolder holder = new ViewHolder(
       inflater.inflate(R.layout.item_navicomp, parent, false));
     holder.itemView.setOnCreateContextMenuListener(this);
@@ -49,7 +51,7 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     NaviCompMarker marker = getItemAt(position);
     super.onBindViewHolder(holder, position);
 

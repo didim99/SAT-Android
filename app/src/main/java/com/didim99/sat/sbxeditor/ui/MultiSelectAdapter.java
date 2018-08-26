@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.didim99.sat.MyLog;
@@ -50,7 +51,7 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
 
   @Override
   @CallSuper
-  public void onBindViewHolder(VH holder, int position) {
+  public void onBindViewHolder(@NonNull VH holder, int position) {
     if (selectable == null || selectable.length == 0) return;
     if (!selectable[position]) {
       holder.itemView.setOnClickListener(v ->

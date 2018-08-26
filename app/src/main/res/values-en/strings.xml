@@ -147,6 +147,7 @@
   <string name="diaSbxInfo_centerPosition">Center position</string>
   <string name="diaSbxInfo_size">Size</string>
   <string name="diaSbxInfo_movement">Movement</string>
+  <string name="diaSbxInfo_planet">Planet</string>
   <!-- Текст экранных элементов (layout: dialog_station_copy) -->
   <string name="diaTitle_multipleCopy">Copy multiple objects</string>
   <string name="diaTitle_staCopy">Copy station</string>

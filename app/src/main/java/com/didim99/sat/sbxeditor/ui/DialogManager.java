@@ -292,10 +292,17 @@ public class DialogManager {
     View dialogView = inflater.inflate(R.layout.dialog_station_info, null);
 
     Station.Info staInfo = station.getInfo();
+    if (staInfo.getObjType() == Station.Type.COLONY) {
+      ((TextView) dialogView.findViewById(R.id.tvPosition))
+        .setText(R.string.diaSbxInfo_planet);
+      ((TextView) dialogView.findViewById(R.id.tvCenterPos))
+        .setText(staInfo.getNearestMarker());
+    } else {
+      ((TextView) dialogView.findViewById(R.id.tvCenterPos))
+        .setText(staInfo.getCenterPosStr(2));
+    }
     ((TextView) dialogView.findViewById(R.id.tvSaveIdRange))
       .setText(staInfo.getSaveIdRange());
-    ((TextView) dialogView.findViewById(R.id.tvCenterPos))
-      .setText(staInfo.getCenterPosStr(2));
     ((TextView) dialogView.findViewById(R.id.tvSize))
       .setText(staInfo.getSizeStr(2));
     ((TextView) dialogView.findViewById(R.id.tvModCount))

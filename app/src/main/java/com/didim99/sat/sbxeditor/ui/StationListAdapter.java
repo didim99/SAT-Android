@@ -1,6 +1,7 @@
 package com.didim99.sat.sbxeditor.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -48,25 +49,22 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
       return ViewType.STATION;
   }
 
+  @NonNull
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    RecyclerView.ViewHolder holder = null;
-    switch (viewType) {
-      case ViewType.HEADER:
-        holder = new HeaderViewHolder(
-          inflater.inflate(R.layout.list_category_header, parent, false));
-        break;
-      case ViewType.STATION:
-        holder = new StationViewHolder(
-          inflater.inflate(R.layout.item_station, parent, false));
-        holder.itemView.setOnCreateContextMenuListener(this);
-        break;
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    if (viewType == ViewType.HEADER) {
+      return new HeaderViewHolder(
+        inflater.inflate(R.layout.list_category_header, parent, false));
+    } else {
+      RecyclerView.ViewHolder holder = new StationViewHolder(
+        inflater.inflate(R.layout.item_station, parent, false));
+      holder.itemView.setOnCreateContextMenuListener(this);
+      return holder;
     }
-    return holder;
   }
 
   @Override
-  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     super.onBindViewHolder(holder, position);
     switch (getItemViewType(position)) {
       case ViewType.HEADER:

@@ -162,6 +162,7 @@
   <string name="diaSbxInfo_centerPosition">Координаты центра</string>
   <string name="diaSbxInfo_size">Размер</string>
   <string name="diaSbxInfo_movement">Движение</string>
+  <string name="diaSbxInfo_planet">Планета</string>
   <!-- Текст экранных элементов (layout: dialog_station_copy) -->
   <string name="diaTitle_multipleCopy">Скопировать несколько объектов</string>
   <string name="diaTitle_staCopy">Скопировать станцию</string>

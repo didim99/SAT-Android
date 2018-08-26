@@ -5,21 +5,18 @@
   <item
     android:id="@+id/action_sbxInfo"
     android:icon="@drawable/ic_info_outline_24dp"
-    android:orderInCategory="1"
     android:title="@string/mTitle_actionSbxInfo"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/action_nav"
     android:icon="@drawable/ic_nav_24dp"
-    android:orderInCategory="2"
     android:title="@string/mTitle_actionNav"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/action_add"
     android:icon="@drawable/ic_add_24dp"
-    android:orderInCategory="3"
     android:title="@string/mTitle_actionAddObject"
     app:showAsAction="ifRoom"
     android:visible="false">
@@ -67,20 +64,17 @@
   <item
     android:id="@+id/action_optimize"
     android:icon="@drawable/ic_optimize_24dp"
-    android:orderInCategory="4"
     android:title="@string/mTitle_actionOptimize"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/action_save"
     android:icon="@drawable/ic_save_24dp"
-    android:orderInCategory="5"
     android:title="@string/mTitle_actionSave"
     app:showAsAction="always"/>
 
   <item
     android:id="@+id/action_devTools"
-    android:orderInCategory="6"
     android:title="@string/mTitle_actionDevTools"
     app:showAsAction="never"
     android:visible="false">
@@ -88,7 +82,6 @@
     <menu>
       <item
         android:id="@+id/action_fuelInfo"
-        android:orderInCategory="1"
         android:title="@string/mTitle_actionFuelInfo"
         app:showAsAction="never"/>
     </menu>
@@ -96,7 +89,6 @@
 
   <item
     android:id="@+id/action_partInfo"
-    android:orderInCategory="6"
     android:title="@string/mTitle_actionPartInfo"
     app:showAsAction="never"
     android:visible="false"/>
