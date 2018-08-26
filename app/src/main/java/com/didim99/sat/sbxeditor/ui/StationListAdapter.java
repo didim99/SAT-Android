@@ -164,10 +164,7 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
     if (holder.tvDistance != null) {
       holder.tvName.setText(info.getStationName());
       holder.tvDistance.setText(info.getDistanceStr(inflater.getContext()));
-      if (info.getObjType() == Station.Type.COLONY)
-        holder.ivNavDirection.setVisibility(View.GONE);
-      else
-        uiManager.setNavDistanceIcon(holder.ivNavDirection, info);
+      uiManager.setNavDistanceIcon(holder.ivNavDirection, info);
     } else {
       if (info.hasName()) {
         holder.tvName.setText(info.getStationName());

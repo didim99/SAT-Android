@@ -71,7 +71,9 @@ public class UIManager {
   }
 
   void setNavDistanceIcon(ImageView view, Station.Info info) {
-    if (info.hasNavDistance()) {
+    if (info.getObjType() == Station.Type.COLONY) {
+      view.setVisibility(View.GONE);
+    } else if (info.hasNavDistance()) {
       view.setVisibility(View.VISIBLE);
       view.setRotation(45 - info.getNavDirection());
       int colorId;
