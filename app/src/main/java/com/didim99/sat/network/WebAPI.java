@@ -17,14 +17,21 @@ import retrofit2.http.Query;
 public interface WebAPI {
   String URL_GET_APK = "https://didim.eclabs.ru/dl/SAT.apk";
   String URL_BASE = "https://didim.eclabs.ru/";
-  String ACTION_LAST_APP_VER = "last_app_ver";
-  String ACTION_GET_DB_VER = "get_db_ver";
-  String ACTION_GET_DB = "get_db";
-  String LOG_EVENT_DB_IGNORE = "db_ignore";
-  String LOG_EVENT_DB_CREATE = "db_create";
-  String LOG_EVENT_DB_UPDATE = "db_update";
-  String LOG_EVENT_DB_USE_DAMAGED = "db_use_damaged";
-  String LOG_EVENT_UNKNOWN = "unknown";
+
+  final class Action {
+    public static final String LAST_APP_VER = "last_app_ver";
+    public static final String GET_DB_VER = "get_db_ver";
+    public static final String GET_DB = "get_db";
+  }
+
+  final class LogEvent {
+    public static final String DB_IGNORE = "db_ignore";
+    public static final String DB_CREATE = "db_create";
+    public static final String DB_UPDATE = "db_update";
+    public static final String DB_USE_DAMAGED = "db_use_damaged";
+    public static final String DEV_MODE = "dev_mode_enable";
+    public static final String UNKNOWN = "unknown";
+  }
 
   @GET("/?id=sagency.android")
   Call<ResponseBody> getData(@Query("action") String action);

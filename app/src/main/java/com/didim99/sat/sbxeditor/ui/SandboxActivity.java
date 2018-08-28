@@ -2,7 +2,6 @@ package com.didim99.sat.sbxeditor.ui;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import com.didim99.sat.BaseActivity;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
@@ -102,12 +102,6 @@ public class SandboxActivity extends BaseActivity
       Storage.setSandbox(null);
     } else {
       task.registerEventListener(this);
-      AsyncTask.Status taskStatus = task.getStatus();
-      if (taskStatus == AsyncTask.Status.RUNNING)
-        uiLock(true);
-      else if (taskStatus == AsyncTask.Status.FINISHED) {
-        uiSet();
-      }
       MyLog.d(LOG_TAG, "Connecting to background task completed (" + task.hashCode() + ")");
     }
 
@@ -183,10 +177,10 @@ public class SandboxActivity extends BaseActivity
         dialogManager.createDialog(DialogManager.DialogID.SBX_OPTIMIZE);
         return true;
       case R.id.action_addShuttle:
-        dialogManager.addModuleDialog(SBML.PART_ID_SHUTTLE);
+        dialogManager.addModuleDialog(SBML.PartID.SHUTTLE);
         return true;
       case R.id.action_addSpy:
-        dialogManager.addModuleDialog(SBML.PART_ID_SPY);
+        dialogManager.addModuleDialog(SBML.PartID.SPY);
         return true;
       case R.id.action_addModule:
         Intent moduleIntent = new Intent(this, PartInfoActivity.class);
@@ -206,6 +200,9 @@ public class SandboxActivity extends BaseActivity
         return true;
       case R.id.action_addAllFont:
         dialogManager.createDialog(DialogManager.DialogID.ADD_ALL_FONT);
+        return true;
+      case R.id.action_play:
+        startTask(new SbxEditConfig(Sandbox.Mode.PLAY));
         return true;
       case R.id.action_save:
         dialogManager.saveSandbox(false);
@@ -354,7 +351,7 @@ public class SandboxActivity extends BaseActivity
   };
 
   @Override
-  public void onTaskEvent(int event, boolean success) {
+  public void onTaskEvent(int event, int mode, boolean success) {
     switch (event) {
       case SbxEditTask.Event.START:
         uiLock(true);
@@ -362,7 +359,7 @@ public class SandboxActivity extends BaseActivity
       case SbxEditTask.Event.FINISH:
         uiLock(false);
         if (success)
-          uiSet();
+          uiSet(mode);
         else if (Storage.getSandbox() == null) {
           MyLog.e(LOG_TAG, "Unable to load external file. Finishing Activity.");
           finish();
@@ -416,6 +413,21 @@ public class SandboxActivity extends BaseActivity
     }
   }
 
+  private void playSandbox() {
+    MyLog.d(LOG_TAG, "Loading Sandbox to SA...");
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setDataAndType(Uri.fromFile(new File(
+      Storage.getSandbox().getFileName())), "application/sasbx");
+    if (Utils.isIntentSafe(this, intent)) {
+      MyLog.d(LOG_TAG, "Calling Space Agency...");
+      startActivity(intent);
+    } else {
+      MyLog.e(LOG_TAG, "Space Agency not found");
+      Toast.makeText(this,
+        R.string.externalNotFound_spaceAgency, Toast.LENGTH_LONG).show();
+    }
+  }
+
   private void sendSandbox() {
     if (Settings.isUseInternalSender()) {
       sendSandboxInternal();
@@ -426,9 +438,9 @@ public class SandboxActivity extends BaseActivity
     intent.setType("file/*");
     intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(
       new File(Storage.getSandbox().getFileName())));
-    if (Utils.isIntentSase(this, intent)) {
-      startActivity(intent);
+    if (Utils.isIntentSafe(this, intent)) {
       MyLog.d(LOG_TAG, "Sandbox sent");
+      startActivity(intent);
     }
     else {
       MyLog.e(LOG_TAG, "No any external sender found");
@@ -443,13 +455,14 @@ public class SandboxActivity extends BaseActivity
     startActivityForResult(intent, Request.SBX_SAVE_INTERNAL);
   }
 
-  private void startTask (SbxEditConfig config) {
+  private void startTask(SbxEditConfig config) {
     task = new SbxEditTask(getApplicationContext());
     task.registerEventListener(this);
     task.execute(config);
   }
 
   private void uiLock(boolean state) {
+    if (!uiLocked && !state) return;
     if (state) MyLog.d(LOG_TAG, "Locking UI...");
     else MyLog.d(LOG_TAG, "Unlocking UI...");
 
@@ -482,14 +495,22 @@ public class SandboxActivity extends BaseActivity
     }
   }
 
-  void uiSet() {
+  void uiSet(int mode) {
     MyLog.d(LOG_TAG, "Setting up UI...");
     adapter.refreshData(Storage.getSandbox());
     if (task.isSuccess()) {
-      if (task.isNewFileCreated())
-        sendSandbox();
-      else if (exitRequired)
-        finish();
+      switch (mode) {
+        case Sandbox.Mode.PLAY:
+          if (task.isNewFileCreated())
+            playSandbox();
+          break;
+        case Sandbox.Mode.SAVE:
+          if (task.isNewFileCreated())
+            sendSandbox();
+          else if (exitRequired)
+            finish();
+          break;
+      }
     }
     updateActionBar();
     MyLog.d(LOG_TAG, "UI setup completed");

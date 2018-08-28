@@ -94,7 +94,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
     switch (mode) {
       case Mode.CHECK_DB_UPDATES:
         try {
-          String rawData = NetworkManager.getContentFromWeb(WebAPI.ACTION_GET_DB_VER);
+          String rawData = NetworkManager.getContentFromWeb(WebAPI.Action.GET_DB_VER);
           statusCode = Integer.parseInt(rawData.trim());
         } catch (Exception e) {
           MyLog.e(LOG_TAG, "Can't check for DB updates\n  " + e.toString());
@@ -123,10 +123,10 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
       try {
         notifyStart();
         updateDbFromWeb();
-        String action = WebAPI.LOG_EVENT_UNKNOWN;
+        String action = WebAPI.LogEvent.UNKNOWN;
         switch (mode) {
-          case Mode.CREATE: action = WebAPI.LOG_EVENT_DB_CREATE; break;
-          case Mode.UPDATE: action = WebAPI.LOG_EVENT_DB_UPDATE; break;
+          case Mode.CREATE: action = WebAPI.LogEvent.DB_CREATE; break;
+          case Mode.UPDATE: action = WebAPI.LogEvent.DB_UPDATE; break;
         }
         NetworkManager.sendLog(action);
       } catch (IOException e) {
@@ -272,7 +272,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
   }
 
   private void updateDbFromWeb() throws IOException {
-    String data = NetworkManager.getContentFromWeb(WebAPI.ACTION_GET_DB);
+    String data = NetworkManager.getContentFromWeb(WebAPI.Action.GET_DB);
     DataBuffer buffer = new Gson().fromJson(data, DataBuffer.class);
     if (buffer == null || buffer.parts == null || buffer.parts.length == 0)
       throw new IOException("Incorrect parts data from server:\n  " + data);

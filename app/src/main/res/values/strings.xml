@@ -47,6 +47,9 @@
   <string name="databaseDamaged">База данных повреждена или несовместима с текущей версией приложения. Вы можете скачать ее заново или отказаться от ее использования.</string>
   <!-- Системные ошибки-->
   <string name="systemErr_cacheDirsNotCreated">Не удалось создать временные каталоги. Возможно на устройстве недостаточно свободного места. Попробуйте освободить место и перезапустить приложение.</string>
+  <string name="externalNotFound_fileManager">Не найдено ни одного внешнего файлового менеджера</string>
+  <string name="externalNotFound_textEditor">Не найдено ни одного внешнего текстового редактора</string>
+  <string name="externalNotFound_spaceAgency">Space Agency не установлена на вашем устройстве</string>
   <!-- Текст экранных элементов (StartActivity) -->
   <string name="actStart_btnText_create">Создать sandbox</string>
   <string name="actStart_btnText_sbxEdit">Редактировать sandbox</string>
@@ -243,7 +246,8 @@
   <string name="mTitle_actionAdd_text">Текст</string>
   <string name="mTitle_actionAdd_all">Все модули</string>
   <string name="mTitle_actionAdd_allFont">Весь пиксельный шрифт</string>
-  <string name="mTitle_actionSave">Сохранить</string>
+  <string name="mTitle_actionSave">Сохранить Sandbox</string>
+  <string name="mTitle_actionPlay">Запустить Sandbox</string>
   <string name="mTitle_actionDevTools">Инструменты разработчика</string>
   <string name="mTitle_actionFuelInfo">Информация о топливе</string>
   <!-- Названия элементов меню (menu_sbx_edit) -->

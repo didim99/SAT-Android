@@ -85,7 +85,7 @@ public class SettingsFragment extends PreferenceFragment
     });
 
     findPreference(Settings.KEY_UPDATE_APP).setOnPreferenceClickListener(pref -> {
-      new NetworkManager(SettingsFragment.this, WebAPI.ACTION_LAST_APP_VER).execute();
+      new NetworkManager(SettingsFragment.this, WebAPI.Action.LAST_APP_VER).execute();
       return false;
     });
 
@@ -115,6 +115,7 @@ public class SettingsFragment extends PreferenceFragment
             MyLog.d(LOG_TAG, "Developer mode enabled");
             prefAbout.setOnPreferenceClickListener(null);
             Settings.setDevMode(true);
+            new NetworkManager(WebAPI.LogEvent.DEV_MODE).execute();
             toastMsg.setText(R.string.devModeEnabled);
             toastMsg.show();
           }
@@ -203,7 +204,7 @@ public class SettingsFragment extends PreferenceFragment
 
   @Override
   public void onDataReceived(String action, int statusCode, String data) {
-    if (action.equals(WebAPI.ACTION_LAST_APP_VER)) {
+    if (action.equals(WebAPI.Action.LAST_APP_VER)) {
       if (statusCode == NetworkManager.Status.OK) {
         AppUpdateInfo info = new Gson().fromJson(data, AppUpdateInfo.class);
         if (info.getVerCode() > BuildConfig.VERSION_CODE) {

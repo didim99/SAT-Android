@@ -48,6 +48,14 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
 
   public void registerEventListener(EventListener listener) {
     this.listener = listener;
+    switch (getStatus()) {
+      case RUNNING:
+        listener.onTaskEvent(Event.START, 0, true);
+        break;
+      case FINISHED:
+        listener.onTaskEvent(Event.FINISH, mode, errMsg == null);
+        break;
+    }
   }
 
   public void unregisterEventListener() {
@@ -58,7 +66,7 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
   protected void onPreExecute() {
     super.onPreExecute();
     if (listener != null)
-      listener.onTaskEvent(Event.START, true);
+      listener.onTaskEvent(Event.START, 0, true);
   }
 
   @Override
@@ -142,6 +150,14 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
       case Sandbox.Mode.UPDATE_NAV:
         Storage.getSandbox().updateNaviComp();
         break;
+      case Sandbox.Mode.PLAY:
+        try {
+          Storage.getSandbox().saveForPlay();
+          newFileCreated = true;
+        } catch (IOException e) {
+          this.errMsg = e.getMessage();
+        }
+        break;
       case Sandbox.Mode.SAVE:
         try {
           Storage.getSandbox().save(appContext.get(), config.getOverwrite(),
@@ -186,7 +202,7 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
     boolean hasMessage = true;
 
     if (listener != null)
-      listener.onTaskEvent(Event.FINISH, success);
+      listener.onTaskEvent(Event.FINISH, mode, success);
     Toast toastMsg = Toast.makeText(appContext.get(), "", Toast.LENGTH_LONG);
 
     if (success) {
@@ -319,6 +335,6 @@ public class SbxEditTask extends AsyncTask<SbxEditConfig, Void, String> {
   }
 
   public interface EventListener {
-    void onTaskEvent(int event, boolean success);
+    void onTaskEvent(int event, int mode, boolean success);
   }
 }

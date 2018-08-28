@@ -54,14 +54,14 @@ public class Module implements Comparable, Cloneable {
     this.saveId = saveId;
     this.partId = partId;
     this.position = new float[3];
-    this.showInSelector = SBML.VISIBILITY_MODE_VISIBLE;
+    this.showInSelector = SBML.Visibility.VISIBLE;
   }
 
   public Module(int saveId, Part part) {
     this(saveId, part.getPartId());
     if (part.isHasCargo()) {
       for (int id = 0; id < part.getCargoCount(); id++)
-        addCargo(id, SBML.CARGO_ID_BAT);
+        addCargo(id, SBML.CargoID.BAT);
     }
   }
 
@@ -72,90 +72,90 @@ public class Module implements Comparable, Cloneable {
       value = args.get(SBML.START_INDEX);
 
     switch (key) {
-      case SBML.KEY_SAVE_ID:
+      case SBML.Key.SAVE_ID:
         this.saveId = Integer.parseInt(value);
         break;
-      case SBML.KEY_PART_ID:
+      case SBML.Key.PART_ID:
         this.partId = Integer.parseInt(value);
         break;
-      case SBML.KEY_DEBUG_ID:
+      case SBML.Key.DEBUG_ID:
         this.debugId = Integer.parseInt(value);
         break;
-      case SBML.KEY_STATE:
+      case SBML.Key.STATE:
         this.state = Integer.parseInt(value);
         break;
-      case SBML.KEY_EFFECT_COUNTER:
+      case SBML.Key.EFFECT_COUNTER:
         this.effectCounter = Integer.parseInt(value);
         break;
-      case SBML.KEY_APPLY_GRAVITY:
+      case SBML.Key.APPLY_GRAVITY:
         this.applyGravity = Integer.parseInt(value);
         break;
-      case SBML.KEY_TEXTURE_ALPHA:
+      case SBML.Key.TEXTURE_ALPHA:
         this.textureAlpha = Float.parseFloat(value);
         break;
-      case SBML.KEY_TEMPERATURE:
+      case SBML.Key.TEMPERATURE:
         this.temperature = Float.parseFloat(value);
         break;
-      case SBML.KEY_SHOW_IN_SELECTOR:
+      case SBML.Key.SHOW_IN_SELECTOR:
         this.showInSelector = Integer.parseInt(value);
         break;
-      case SBML.KEY_CARGO_ITEM:
+      case SBML.Key.CARGO_ITEM:
         if (cargo == null)
           cargo = new ArrayList<>();
         cargo.add(new CargoItem(args));
         break;
-      case SBML.KEY_AIR:
+      case SBML.Key.AIR:
         this.air = Utils.stringArrayToFloatArray(args);
         break;
-      case SBML.KEY_POWER_SATATE:
+      case SBML.Key.POWER_SATATE:
         this.powerState = stringArrayToIntArray(args);
         break;
-      case SBML.KEY_NAVICOMP_SATATE:
+      case SBML.Key.NAVICOMP_SATATE:
         this.navicompState = Utils.joinStr(SBML.VAL_SEP, args);
         break;
-      case SBML.KEY_COLLISION_SATATE:
+      case SBML.Key.COLLISION_SATATE:
         this.collisionState = stringArrayToIntArray(args);
         break;
-      case SBML.KEY_POSITION:
+      case SBML.Key.POSITION:
         this.position = Utils.stringArrayToFloatArray(args);
         break;
-      case SBML.KEY_MOVEMENT:
+      case SBML.Key.MOVEMENT:
         this.movement = Utils.stringArrayToFloatArray(args);
         break;
-      case SBML.KEY_LAUNCH_TIMESTAMP:
+      case SBML.Key.LAUNCH_TIMESTAMP:
         this.launchTimestamp = Integer.parseInt(value);
         break;
-      case SBML.KEY_LAST_USED_TIMESTAMP:
+      case SBML.Key.LAST_USED_TIMESTAMP:
         this.lastUsedTimestamp = Integer.parseInt(value);
         break;
-      case SBML.KEY_ORBITAL_SATATE:
+      case SBML.Key.ORBITAL_SATATE:
         this.orbitalState = Utils.joinStr(SBML.VAL_SEP, args);
         break;
-      case SBML.KEY_FUEL_LEVELS:
+      case SBML.Key.FUEL_LEVELS:
         this.fuelLevels = Utils.stringArrayToFloatArray(args);
         break;
-      case SBML.KEY_SOLAR_PANEL_SATATE:
+      case SBML.Key.SOLAR_PANEL_SATATE:
         this.solarPanelState = Utils.joinStr(SBML.VAL_SEP, args);
         break;
-      case SBML.KEY_SIDE_PANEL_SATATE:
+      case SBML.Key.SIDE_PANEL_SATATE:
         this.sidePanelState = Utils.joinStr(SBML.VAL_SEP, args);
         break;
-      case SBML.KEY_PARENT_MODULE:
+      case SBML.Key.PARENT_MODULE:
         this.parentModule = Integer.parseInt(value);
         break;
-      case SBML.KEY_PAYLOAD_PARENT:
+      case SBML.Key.PAYLOAD_PARENT:
         this.payloadParent = Integer.parseInt(value);
         break;
-      case SBML.KEY_TRANSPONDER_ID:
+      case SBML.Key.TRANSPONDER_ID:
         this.transponderId = value;
         break;
-      case SBML.KEY_TRANSPONDER_NAME:
+      case SBML.Key.TRANSPONDER_NAME:
         this.transponderName = value;
         break;
-      case SBML.KEY_TRANSPONDER_SELECTED:
+      case SBML.Key.TRANSPONDER_SELECTED:
         this.transponderSelected = Integer.parseInt(value);
         break;
-      case SBML.KEY_DOCK_POINT:
+      case SBML.Key.DOCK_POINT:
         if (dock == null)
           dock = new ArrayList<>();
         dock.add(new DockPoint(args));
@@ -165,25 +165,25 @@ public class Module implements Comparable, Cloneable {
 
   public String getValue(String key) {
     switch (key) {
-      case SBML.KEY_SAVE_ID:
+      case SBML.Key.SAVE_ID:
         return String.valueOf(saveId);
-      case SBML.KEY_PART_ID:
+      case SBML.Key.PART_ID:
         return String.valueOf(partId);
-      case SBML.KEY_DEBUG_ID:
+      case SBML.Key.DEBUG_ID:
         return Utils.intToString(debugId);
-      case SBML.KEY_STATE:
+      case SBML.Key.STATE:
         return Utils.intToString(state);
-      case SBML.KEY_EFFECT_COUNTER:
+      case SBML.Key.EFFECT_COUNTER:
         return Utils.intToString(effectCounter);
-      case SBML.KEY_APPLY_GRAVITY:
+      case SBML.Key.APPLY_GRAVITY:
         return Utils.intToString(applyGravity);
-      case SBML.KEY_TEXTURE_ALPHA:
+      case SBML.Key.TEXTURE_ALPHA:
         return Utils.floatToString(textureAlpha, SBML.PREC_DEFAULT);
-      case SBML.KEY_TEMPERATURE:
+      case SBML.Key.TEMPERATURE:
         return Utils.floatToString(temperature, SBML.PREC_DEFAULT);
-      case SBML.KEY_SHOW_IN_SELECTOR:
+      case SBML.Key.SHOW_IN_SELECTOR:
         return Utils.intToString(showInSelector);
-      case SBML.KEY_CARGO_ITEM:
+      case SBML.Key.CARGO_ITEM:
         if (cargo == null || cargo.isEmpty())
           return null;
         if (cargoECounter == cargo.size()) {
@@ -191,45 +191,45 @@ public class Module implements Comparable, Cloneable {
           return null;
         }
         return cargo.get(cargoECounter++).export();
-      case SBML.KEY_AIR:
+      case SBML.Key.AIR:
         return Utils.joinStr(SBML.VAL_SEP,
           Utils.FloatArrayToStringArray(air, SBML.PREC_DEFAULT));
-      case SBML.KEY_POWER_SATATE:
+      case SBML.Key.POWER_SATATE:
         return Utils.joinStr(SBML.VAL_SEP, IntArrayToStringArray(powerState));
-      case SBML.KEY_NAVICOMP_SATATE:
+      case SBML.Key.NAVICOMP_SATATE:
         return navicompState;
-      case SBML.KEY_COLLISION_SATATE:
+      case SBML.Key.COLLISION_SATATE:
         return Utils.joinStr(SBML.VAL_SEP, IntArrayToStringArray(collisionState));
-      case SBML.KEY_POSITION:
+      case SBML.Key.POSITION:
         return Utils.joinStr(SBML.VAL_SEP,
           Utils.FloatArrayToStringArray(position, SBML.PREC_COORDS));
-      case SBML.KEY_MOVEMENT:
+      case SBML.Key.MOVEMENT:
         return Utils.joinStr(SBML.VAL_SEP,
           Utils.FloatArrayToStringArray(movement, SBML.PREC_COORDS));
-      case SBML.KEY_LAUNCH_TIMESTAMP:
+      case SBML.Key.LAUNCH_TIMESTAMP:
         return Utils.intToString(launchTimestamp);
-      case SBML.KEY_LAST_USED_TIMESTAMP:
+      case SBML.Key.LAST_USED_TIMESTAMP:
         return Utils.intToString(lastUsedTimestamp);
-      case SBML.KEY_ORBITAL_SATATE:
+      case SBML.Key.ORBITAL_SATATE:
         return orbitalState;
-      case SBML.KEY_FUEL_LEVELS:
+      case SBML.Key.FUEL_LEVELS:
         return Utils.joinStr(SBML.VAL_SEP,
           Utils.FloatArrayToStringArray(fuelLevels, SBML.PREC_DEFAULT));
-      case SBML.KEY_SOLAR_PANEL_SATATE:
+      case SBML.Key.SOLAR_PANEL_SATATE:
         return solarPanelState;
-      case SBML.KEY_SIDE_PANEL_SATATE:
+      case SBML.Key.SIDE_PANEL_SATATE:
         return sidePanelState;
-      case SBML.KEY_PARENT_MODULE:
+      case SBML.Key.PARENT_MODULE:
         return Utils.intToString(parentModule);
-      case SBML.KEY_PAYLOAD_PARENT:
+      case SBML.Key.PAYLOAD_PARENT:
         return Utils.intToString(payloadParent);
-      case SBML.KEY_TRANSPONDER_ID:
+      case SBML.Key.TRANSPONDER_ID:
         return transponderId;
-      case SBML.KEY_TRANSPONDER_NAME:
+      case SBML.Key.TRANSPONDER_NAME:
         return transponderName;
-      case SBML.KEY_TRANSPONDER_SELECTED:
+      case SBML.Key.TRANSPONDER_SELECTED:
         return Utils.intToString(transponderSelected);
-      case SBML.KEY_DOCK_POINT:
+      case SBML.Key.DOCK_POINT:
         if (dock == null || dock.isEmpty())
           return null;
         if (dockECounter == dock.size()) {
@@ -258,12 +258,12 @@ public class Module implements Comparable, Cloneable {
   public void setFuel(boolean refresh, boolean extend, float extendArg) {
     if (fuelLevels != null) {
       if (extend) {
-        fuelLevels[SBML.FUEL_INDEX_MAIN_CAP] *= extendArg;
-        fuelLevels[SBML.FUEL_INDEX_THR_CAP] *= extendArg;
+        fuelLevels[SBML.FuelIndex.MAIN_CAP] *= extendArg;
+        fuelLevels[SBML.FuelIndex.THR_CAP] *= extendArg;
       }
       if (refresh) {
-        fuelLevels[SBML.FUEL_INDEX_MAIN_VAL] = fuelLevels[SBML.FUEL_INDEX_MAIN_CAP];
-        fuelLevels[SBML.FUEL_INDEX_THR_VAL] = fuelLevels[SBML.FUEL_INDEX_THR_CAP];
+        fuelLevels[SBML.FuelIndex.MAIN_VAL] = fuelLevels[SBML.FuelIndex.MAIN_CAP];
+        fuelLevels[SBML.FuelIndex.THR_VAL] = fuelLevels[SBML.FuelIndex.THR_CAP];
       }
     }
   }
@@ -313,15 +313,15 @@ public class Module implements Comparable, Cloneable {
   }
 
   public boolean isVisible() {
-    return showInSelector == SBML.VISIBILITY_MODE_VISIBLE;
+    return showInSelector == SBML.Visibility.VISIBLE;
   }
 
   public boolean hasMovement() {
-    return movement != null && movement[SBML.MOVEMENT_INDEX_SPEED] > 0;
+    return movement != null && movement[SBML.MovementIndex.SPEED] > 0;
   }
 
   public boolean hasRotation() {
-    return movement != null && movement[SBML.MOVEMENT_INDEX_ROTATION_REAL] != 0;
+    return movement != null && movement[SBML.MovementIndex.ROTATION_REAL] != 0;
   }
 
   public boolean hasFuel() {
@@ -350,35 +350,35 @@ public class Module implements Comparable, Cloneable {
   }
 
   public float getPositionX() {
-    return position[SBML.POS_INDEX_X];
+    return position[SBML.PosIndex.X];
   }
 
   public float getPositionY() {
-    return position[SBML.POS_INDEX_Y];
+    return position[SBML.PosIndex.Y];
   }
 
   public float getPositionAngle() {
-    return position[SBML.POS_INDEX_ANGLE];
+    return position[SBML.PosIndex.ANGLE];
   }
 
   public float getMovementDirection() {
-    return movement[SBML.MOVEMENT_INDEX_DIRECTION];
+    return movement[SBML.MovementIndex.DIRECTION];
   }
 
   public float getMovementSpeed() {
-    return movement[SBML.MOVEMENT_INDEX_SPEED];
+    return movement[SBML.MovementIndex.SPEED];
   }
 
   public float getMovementRotation() {
-    return movement[SBML.MOVEMENT_INDEX_ROTATION_REAL];
+    return movement[SBML.MovementIndex.ROTATION_REAL];
   }
 
   public float getMainFuelCapacity() {
-    return fuelLevels[SBML.FUEL_INDEX_MAIN_CAP];
+    return fuelLevels[SBML.FuelIndex.MAIN_CAP];
   }
 
   public float getThtFuelCapacity() {
-    return fuelLevels[SBML.FUEL_INDEX_THR_CAP];
+    return fuelLevels[SBML.FuelIndex.THR_CAP];
   }
 
   public Integer getParentModule() {
@@ -411,21 +411,21 @@ public class Module implements Comparable, Cloneable {
   }
 
   public void setPosition(float posX, float posY, float angle) {
-    position[SBML.POS_INDEX_X] = posX;
-    position[SBML.POS_INDEX_Y] = posY;
-    position[SBML.POS_INDEX_ANGLE] = angle;
+    position[SBML.PosIndex.X] = posX;
+    position[SBML.PosIndex.Y] = posY;
+    position[SBML.PosIndex.ANGLE] = angle;
   }
 
   public void setPositionX(float posX) {
-    position[SBML.POS_INDEX_X] = posX;
+    position[SBML.PosIndex.X] = posX;
   }
 
   public void setPositionY(float posY) {
-    position[SBML.POS_INDEX_Y] = posY;
+    position[SBML.PosIndex.Y] = posY;
   }
 
   public void setPositionAngle(float angle) {
-    position[SBML.POS_INDEX_ANGLE] = angle;
+    position[SBML.PosIndex.ANGLE] = angle;
   }
 
   public void setMovement(float[] movement) {
@@ -434,23 +434,23 @@ public class Module implements Comparable, Cloneable {
 
   public void setMovement(float direction, float speed, float rotation) {
     this.movement = new float[4];
-    movement[SBML.MOVEMENT_INDEX_DIRECTION] = direction;
-    movement[SBML.MOVEMENT_INDEX_SPEED] = speed;
-    movement[SBML.MOVEMENT_INDEX_ROTATION_VISUAL] = rotation;
-    movement[SBML.MOVEMENT_INDEX_ROTATION_REAL] = rotation;
+    movement[SBML.MovementIndex.DIRECTION] = direction;
+    movement[SBML.MovementIndex.SPEED] = speed;
+    movement[SBML.MovementIndex.ROTATION_VISUAL] = rotation;
+    movement[SBML.MovementIndex.ROTATION_REAL] = rotation;
   }
 
   public void setMovementDirection(float direction) {
-    movement[SBML.MOVEMENT_INDEX_DIRECTION] = direction;
+    movement[SBML.MovementIndex.DIRECTION] = direction;
   }
 
   public void setMovementSpeed(float speed) {
-    movement[SBML.MOVEMENT_INDEX_SPEED] = speed;
+    movement[SBML.MovementIndex.SPEED] = speed;
   }
 
   public void setMovementRotation(float rotation) {
-    movement[SBML.MOVEMENT_INDEX_ROTATION_VISUAL] = rotation;
-    movement[SBML.MOVEMENT_INDEX_ROTATION_REAL] = rotation;
+    movement[SBML.MovementIndex.ROTATION_VISUAL] = rotation;
+    movement[SBML.MovementIndex.ROTATION_REAL] = rotation;
   }
 
   public void setOrbitalState(String orbitalState) {
@@ -576,25 +576,25 @@ public class Module implements Comparable, Cloneable {
         state = new int[5];
       else {
         state = new int[6];
-        state[SBML.DOCK_INDEX_SLAVE_PORT] = slavePort;
+        state[SBML.DockIndex.SLAVE_PORT] = slavePort;
       }
-      state[SBML.DOCK_INDEX_ID] = id;
-      state[SBML.DOCK_INDEX_POWER] = power;
-      state[SBML.DOCK_INDEX_FUEL] = fuel;
-      state[SBML.DOCK_INDEX_DOOR] = door;
-      state[SBML.DOCK_INDEX_SLAVE_ID] = slaveId;
+      state[SBML.DockIndex.ID] = id;
+      state[SBML.DockIndex.POWER] = power;
+      state[SBML.DockIndex.FUEL] = fuel;
+      state[SBML.DockIndex.DOOR] = door;
+      state[SBML.DockIndex.SLAVE_ID] = slaveId;
     }
 
     public boolean isDocked() {
-      return state[SBML.DOCK_INDEX_SLAVE_ID] != SBML.DOCK_STATE_UNDOCKED;
+      return state[SBML.DockIndex.SLAVE_ID] != SBML.DOCK_STATE_UNDOCKED;
     }
 
     public int getSlaveId() {
-      return state[SBML.DOCK_INDEX_SLAVE_ID];
+      return state[SBML.DockIndex.SLAVE_ID];
     }
 
     public void setSlaveId(int slaveId) {
-      state[SBML.DOCK_INDEX_SLAVE_ID] = slaveId;
+      state[SBML.DockIndex.SLAVE_ID] = slaveId;
     }
 
     @Override

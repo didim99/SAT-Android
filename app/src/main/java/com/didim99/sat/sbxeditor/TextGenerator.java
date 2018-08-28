@@ -170,9 +170,9 @@ public class TextGenerator {
 
       for (int dotId = 0; dotId < matrix[lineId].length; dotId++) {
         if (matrix[lineId][dotId] > 0) {
-          Module module = new Module(saveId++, SBML.PART_ID_HUB);
+          Module module = new Module(saveId++, SBML.PartID.HUB);
           module.setPosition(posX, startPosY, 0);
-          module.addCargo(0, SBML.CARGO_ID_BAT);
+          module.addCargo(0, SBML.CargoID.BAT);
           module.setTimes(time);
 
           for (int[] dockState : DOCK_PATTERN) {

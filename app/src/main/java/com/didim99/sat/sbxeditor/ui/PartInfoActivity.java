@@ -97,7 +97,7 @@ public class PartInfoActivity extends AppCompatActivity
   public void onItemClick(Part part) {
     if (!pickerEnabled) return;
     choosedPID = part.getPartId();
-    if (choosedPID == SBML.PART_ID_SOYUZ_SERVICE)
+    if (choosedPID == SBML.PartID.SOYUZ_SERVICE)
       sureDialog(MODE_DANGEROUS_PID);
     else if (!part.isStandalone())
       sureDialog(MODE_NOT_STANDALONE);

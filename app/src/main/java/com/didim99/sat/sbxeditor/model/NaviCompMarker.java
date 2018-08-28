@@ -51,25 +51,25 @@ public class NaviCompMarker {
       value = args.get(SBML.START_INDEX);
 
     switch (key) {
-      case SBML.KEY_NAV_LABEL:
+      case SBML.Key.NAV_LABEL:
         this.label = value;
         break;
-      case SBML.KEY_NAV_CENTER:
+      case SBML.Key.NAV_CENTER:
         this.center = Utils.stringArrayToFloatArray(args);
         break;
-      case SBML.KEY_NAV_POSITION:
+      case SBML.Key.NAV_POSITION:
         this.position = Utils.stringArrayToFloatArray(args);
         break;
-      case SBML.KEY_NAV_OBJECT_RADIUS:
+      case SBML.Key.NAV_OBJECT_RADIUS:
         this.objectRadius = Float.parseFloat(value);
         break;
-      case SBML.KEY_NAV_ORBIT_RADIUS:
+      case SBML.Key.NAV_ORBIT_RADIUS:
         this.orbitRadius = Float.parseFloat(value);
         break;
-      case SBML.KEY_NAV_RESCALE_RADIUS:
+      case SBML.Key.NAV_RESCALE_RADIUS:
         this.rescaleRadius = Float.parseFloat(value);
         break;
-      case SBML.KEY_NAV_SCALE:
+      case SBML.Key.NAV_SCALE:
         this.scale = Float.parseFloat(value);
         break;
     }
@@ -77,21 +77,21 @@ public class NaviCompMarker {
 
   public String getValue(String key) {
     switch (key) {
-      case SBML.KEY_NAV_LABEL:
+      case SBML.Key.NAV_LABEL:
         return label;
-      case SBML.KEY_NAV_CENTER:
+      case SBML.Key.NAV_CENTER:
         return Utils.joinStr(SBML.VAL_SEP,
           Utils.FloatArrayToStringArray(center, SBML.PREC_DEFAULT));
-      case SBML.KEY_NAV_POSITION:
+      case SBML.Key.NAV_POSITION:
         return Utils.joinStr(SBML.VAL_SEP,
           Utils.FloatArrayToStringArray(position, SBML.PREC_COORDS));
-      case SBML.KEY_NAV_OBJECT_RADIUS:
+      case SBML.Key.NAV_OBJECT_RADIUS:
         return Utils.floatToString(objectRadius, SBML.PREC_COORDS);
-      case SBML.KEY_NAV_ORBIT_RADIUS:
+      case SBML.Key.NAV_ORBIT_RADIUS:
         return Utils.floatToString(orbitRadius, SBML.PREC_COORDS);
-      case SBML.KEY_NAV_RESCALE_RADIUS:
+      case SBML.Key.NAV_RESCALE_RADIUS:
         return Utils.floatToString(rescaleRadius, SBML.PREC_COORDS);
-      case SBML.KEY_NAV_SCALE:
+      case SBML.Key.NAV_SCALE:
         return Utils.floatToString(scale, SBML.PREC_DEFAULT);
       default:
         return null;
@@ -103,17 +103,17 @@ public class NaviCompMarker {
   }
 
   public float getCenterX() {
-    return center[SBML.POS_INDEX_X];
+    return center[SBML.PosIndex.X];
   }
 
   public float getCenterY() {
-    return center[SBML.POS_INDEX_Y];
+    return center[SBML.PosIndex.Y];
   }
 
   public String getCenterStr(int precision) {
     return Utils.joinStr ("; ",
-      Utils.floatToString(center[SBML.POS_INDEX_X] / SBML.POSITION_FACTOR, precision),
-      Utils.floatToString(center[SBML.POS_INDEX_Y] / SBML.POSITION_FACTOR, precision)
+      Utils.floatToString(center[SBML.PosIndex.X] / SBML.POSITION_FACTOR, precision),
+      Utils.floatToString(center[SBML.PosIndex.Y] / SBML.POSITION_FACTOR, precision)
     );
   }
 

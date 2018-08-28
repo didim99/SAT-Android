@@ -39,8 +39,8 @@ public class Station implements Cloneable {
   public static final int MOVEMENT_MODE_STOP = 1;
   public static final int MOVEMENT_MODE_EDIT = 2;
   //visibility
-  public static final int VISIBLE = SBML.VISIBILITY_MODE_VISIBLE;
-  public static final int INVISIBLE = SBML.VISIBILITY_MODE_INVISIBLE;
+  public static final int VISIBLE = SBML.Visibility.VISIBLE;
+  public static final int INVISIBLE = SBML.Visibility.INVISIBLE;
   public static final int VISIBILITY_UNKNOWN = -1;
 
   private int id;
@@ -76,7 +76,7 @@ public class Station implements Cloneable {
     boolean hasDb = Settings.isDbLoaded();
     Module initModule = moduleSet.get(SBML.START_INDEX);
     minSaveId = maxSaveId = initModule.getSaveId();
-    minVer = SBML.VER_CODE_14;
+    minVer = SBML.VerCode.V14;
 
     for (Module module : moduleSet) {
       saveId = module.getSaveId();

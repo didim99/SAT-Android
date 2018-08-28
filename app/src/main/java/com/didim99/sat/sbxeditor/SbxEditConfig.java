@@ -173,7 +173,7 @@ public class SbxEditConfig {
     this.refreshFuel = refreshFuel;
   }
 
-  //update NaviComp/get fuel info
+  //play/update NaviComp/get fuel info
   public SbxEditConfig(int mode) {
     this.mode = mode;
   }

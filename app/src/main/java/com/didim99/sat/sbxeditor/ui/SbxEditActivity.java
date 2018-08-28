@@ -131,9 +131,9 @@ public class SbxEditActivity extends AppCompatActivity {
             config.setChangeVisibility(isChecked);
             if (isChecked) {
               if (hideModeHide.isChecked())
-                config.setHideMode(SBML.VISIBILITY_MODE_INVISIBLE);
+                config.setHideMode(SBML.Visibility.INVISIBLE);
               else if (hideModeShow.isChecked())
-                config.setHideMode(SBML.VISIBILITY_MODE_VISIBLE);
+                config.setHideMode(SBML.Visibility.VISIBLE);
             }
             break;
           case R.id.sectionAlpha:
@@ -250,10 +250,10 @@ public class SbxEditActivity extends AppCompatActivity {
         case R.id.rgHideMode:
           switch (checkedId) {
             case R.id.hideModeHide:
-              config.setHideMode(SBML.VISIBILITY_MODE_INVISIBLE);
+              config.setHideMode(SBML.Visibility.INVISIBLE);
               break;
             case R.id.hideModeShow:
-              config.setHideMode(SBML.VISIBILITY_MODE_VISIBLE);
+              config.setHideMode(SBML.Visibility.VISIBLE);
               break;
           }
           break;

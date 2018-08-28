@@ -36,6 +36,9 @@
   <string name="databaseDamaged">The database is corrupt or incompatible with the current version of the application. You can download it again or stop using it.</string>
   <!-- Системные ошибки-->
   <string name="systemErr_cacheDirsNotCreated">Failed to create temporary directories. There may not be enough free space on the device. Try to free up space and restart the application.</string>
+  <string name="externalNotFound_fileManager">No any external file manager found</string>
+  <string name="externalNotFound_textEditor">No any external text editor found</string>
+  <string name="externalNotFound_spaceAgency">Space Agency is not installed on your device</string>
   <!-- Текст экранных элементов (StartActivity) -->
   <string name="actStart_btnText_create">Create new sandbox</string>
   <string name="actStart_btnText_sbxEdit">Edit sandbox</string>
@@ -228,7 +231,8 @@
   <string name="mTitle_actionAdd_text">Text</string>
   <string name="mTitle_actionAdd_all">All modules</string>
   <string name="mTitle_actionAdd_allFont">All pixel font</string>
-  <string name="mTitle_actionSave">Save</string>
+  <string name="mTitle_actionSave">Save Sandbox</string>
+  <string name="mTitle_actionPlay">Play Sandbox</string>
   <string name="mTitle_actionDevTools">Developer tools</string>
   <string name="mTitle_actionFuelInfo">Fuel info</string>
   <!-- Названия элементов меню (menu_sbx_edit) -->

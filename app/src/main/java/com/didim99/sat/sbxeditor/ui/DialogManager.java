@@ -109,7 +109,7 @@ public class DialogManager {
     });
     if (Settings.isDevMode()) {
      adb.setNeutralButton(R.string.continueAnyway, (dialog, which) ->
-       new NetworkManager(WebAPI.LOG_EVENT_DB_USE_DAMAGED).execute());
+       new NetworkManager(WebAPI.LogEvent.DB_USE_DAMAGED).execute());
     }
     adb.setCancelable(false);
     MyLog.d(LOG_TAG, "Dialog created");
@@ -138,7 +138,7 @@ public class DialogManager {
     = new DialogInterface.OnShowListener() {
     private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SaveSandbox";
     private boolean overwrite, compress, selectorActive;
-    private int verCode = SBML.VER_CODE_21;
+    private int verCode = SBML.VerCode.V21;
 
     @Override
     public void onShow(final DialogInterface dialog) {
@@ -147,7 +147,7 @@ public class DialogManager {
       CheckBox cbCompress = ((AlertDialog) dialog).findViewById(R.id.cbCompress);
       final View compressLayout = ((AlertDialog) dialog).findViewById(R.id.compressLayout);
       selectorActive =
-        (Storage.getSandbox().getInfo().getMinVer() < SBML.VER_CODE_22) || Settings.isDevMode();
+        (Storage.getSandbox().getInfo().getMinVer() < SBML.VerCode.V22) || Settings.isDevMode();
       if (!Storage.getSandbox().isImported())
         cbOverwrite.setVisibility(View.GONE);
       overwrite = cbOverwrite.isChecked();
@@ -157,10 +157,10 @@ public class DialogManager {
         .setOnCheckedChangeListener((radioGroup, currVer) -> {
           switch (currVer) {
             case R.id.verCode20:
-              verCode = SBML.VER_CODE_20;
+              verCode = SBML.VerCode.V20;
               break;
             case R.id.verCode21:
-              verCode = SBML.VER_CODE_21;
+              verCode = SBML.VerCode.V21;
               break;
           }
           MyLog.d(LOG_TAG, "Current version code: " + verCode);
@@ -565,7 +565,7 @@ public class DialogManager {
       stateSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-          if (SBML.ORBITAL_STATES_COLONY[position] == SBML.ORBITAL_STATE_ORBITING) {
+          if (SBML.ORBITAL_STATES_COLONY[position] == SBML.OrbitalState.ORBITING) {
             speedLayout.setVisibility(View.VISIBLE);
             checkSpeed = true;
           } else {

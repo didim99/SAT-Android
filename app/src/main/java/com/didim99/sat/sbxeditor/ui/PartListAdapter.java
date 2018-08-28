@@ -66,13 +66,13 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
 
     int colorId = 0;
     switch (part.getPartSize()) {
-      case SBML.SIZE_SMALL:
+      case SBML.Size.SMALL:
         colorId = R.color.sizeSmall;
         break;
-      case SBML.SIZE_MEDIUM:
+      case SBML.Size.MEDIUM:
         colorId = R.color.sizeMedium;
         break;
-      case SBML.SIZE_LARGE:
+      case SBML.Size.LARGE:
         colorId = R.color.sizeLarge;
         break;
     }
@@ -91,8 +91,8 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
       holder.ivNav.setImageResource(R.drawable.ic_nav_off_yellow_24dp);
 
     int iconId = part.getPartId();
-    if (iconId == SBML.PART_ID_SOYUZ_SERVICE)
-      iconId = SBML.PART_ID_LOK_SERVICE;
+    if (iconId == SBML.PartID.SOYUZ_SERVICE)
+      iconId = SBML.PartID.LOK_SERVICE;
     Drawable icon = Drawable.createFromPath(String.format(SAT.ICONS_PATH, iconId));
 
     if (icon != null)

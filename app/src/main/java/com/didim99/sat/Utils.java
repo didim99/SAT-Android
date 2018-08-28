@@ -149,7 +149,7 @@ public class Utils {
     MyLog.d(LOG_TAG, "Writing completed");
   }
 
-  public static boolean isIntentSase(Context context, Intent intent) {
+  public static boolean isIntentSafe(Context context, Intent intent) {
     PackageManager packageManager = context.getPackageManager();
     List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
     return activities.size() > 0;

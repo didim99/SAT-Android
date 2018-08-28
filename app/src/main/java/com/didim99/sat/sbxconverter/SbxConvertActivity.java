@@ -1,8 +1,6 @@
 package com.didim99.sat.sbxconverter;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
+import com.didim99.sat.Utils;
 import java.io.File;
-import java.util.List;
 
 public class SbxConvertActivity extends AppCompatActivity {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SbxConvertAct";
@@ -172,7 +170,7 @@ public class SbxConvertActivity extends AppCompatActivity {
     int id = item.getItemId();
     switch (id) {
       case android.R.id.home:
-        if (!uiLocked) finish();
+        onBackPressed();
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -217,18 +215,14 @@ public class SbxConvertActivity extends AppCompatActivity {
     Intent getFileIntent = new Intent();
     getFileIntent.setAction(Intent.ACTION_GET_CONTENT);
     getFileIntent.setType("file/*");
-
-    PackageManager packageManager = getPackageManager();
-    List<ResolveInfo> activities = packageManager.queryIntentActivities(getFileIntent, 0);
-    boolean isIntentSafe = activities.size() > 0;
-
-    // Start an activity if it's safe
-    if (isIntentSafe) {
+    if (Utils.isIntentSafe(this, getFileIntent)) {
       MyLog.d(LOG_TAG, "Calling external file manager...");
       startActivityForResult(getFileIntent, GET_FILE_REQUEST);
-    }
-    else
+    } else {
       MyLog.e(LOG_TAG, "No any external file manager found");
+      toastMsg.setText(R.string.externalNotFound_fileManager);
+      toastMsg.show();
+    }
   }
 
   private void openEditor (String path) {
@@ -236,10 +230,17 @@ public class SbxConvertActivity extends AppCompatActivity {
     Intent editIntent = new Intent();
     editIntent.setAction(Intent.ACTION_VIEW);
     editIntent.setDataAndType(Uri.parse("file://" + path), "text/SBML");
-    startActivity(editIntent);
+    if (Utils.isIntentSafe(this, editIntent)) {
+      MyLog.d(LOG_TAG, "Calling external text editor...");
+      startActivity(editIntent);
+    } else {
+      MyLog.e(LOG_TAG, "No any external  text editor found");
+      toastMsg.setText(R.string.externalNotFound_textEditor);
+      toastMsg.show();
+    }
   }
 
-  void uiLock (boolean state) {
+  void uiLock(boolean state) {
     if (state) MyLog.d(LOG_TAG, "Locking UI...");
     else MyLog.d(LOG_TAG, "Unlocking UI...");
 

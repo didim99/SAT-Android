@@ -125,7 +125,7 @@ public class StartActivity extends BaseActivity {
     Intent getFileIntent = new Intent();
     getFileIntent.setAction(Intent.ACTION_GET_CONTENT);
     getFileIntent.setType("file/*");
-    if (Utils.isIntentSase(this, getFileIntent)) {
+    if (Utils.isIntentSafe(this, getFileIntent)) {
       MyLog.d(LOG_TAG, "Calling external file manager...");
       startActivityForResult(getFileIntent, GET_FILE_REQUEST);
     }
@@ -158,7 +158,7 @@ public class StartActivity extends BaseActivity {
           defaultName = SBML.DEFAULT_SANDBOX_NAME;
           break;
         case Settings.VALUE_DATE:
-          defaultName =  DateFormat.format
+          defaultName = DateFormat.format
             (NBX_NAME_DATE_FORMAT, System.currentTimeMillis()).toString();
           break;
         case Settings.VALUE_CUSTOM:
@@ -216,7 +216,7 @@ public class StartActivity extends BaseActivity {
       new DBTask(appContext, (SAT) appContext, DBTask.Mode.CREATE).execute();
     });
     adb.setNeutralButton(R.string.noAskMore, (dialog, which) -> {
-      new NetworkManager(WebAPI.LOG_EVENT_DB_IGNORE).execute();
+      new NetworkManager(WebAPI.LogEvent.DB_IGNORE).execute();
       Settings.setIgnoreDb(true);
     });
     adb.setNegativeButton(R.string.dialogButtonCancel, null);

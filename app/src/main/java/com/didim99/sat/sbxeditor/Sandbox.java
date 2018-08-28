@@ -47,9 +47,10 @@ public class Sandbox {
     public static final int EDIT = 10;
     public static final int DELETE = 11;
     public static final int OPTIMIZE = 12;
-    public static final int SAVE = 13;
-    public static final int SEND = 14;
-    public static final int FUEL_INFO = 15;
+    public static final int PLAY = 13;
+    public static final int SAVE = 14;
+    public static final int SEND = 15;
+    public static final int FUEL_INFO = 16;
   }
 
   private WeakReference<Context> appContextRef;
@@ -113,7 +114,7 @@ public class Sandbox {
     //reset max values
     info.largestStationSize = 0;
     info.maxSaveId = 0;
-    info.minVer = SBML.VER_CODE_14;
+    info.minVer = SBML.VerCode.V14;
 
     info.modulesCount = alone.size();
     for (Station station : space) {
@@ -184,7 +185,7 @@ public class Sandbox {
         module.setTimes(timestamp);
         if (part.isHasCargo()) {
           for (int id = 0; id < part.getCargoCount(); id++)
-            module.addCargo(id, SBML.CARGO_ID_BAT);
+            module.addCargo(id, SBML.CargoID.BAT);
         }
 
         group.addModule(module);
@@ -202,7 +203,7 @@ public class Sandbox {
       module.setTimes(timestamp);
       if (part.isHasCargo()) {
         for (int i = 0; i < part.getCargoCount(); i++)
-          module.addCargo(i, SBML.CARGO_ID_BAT);
+          module.addCargo(i, SBML.CargoID.BAT);
       }
       alone.add(module);
     }
@@ -229,7 +230,7 @@ public class Sandbox {
 
     boolean setMovement = false;
     float movementDirection = 270f;
-    if (state == SBML.ORBITAL_STATE_ORBITING) {
+    if (state == SBML.OrbitalState.ORBITING) {
       setMovement = true;
       if (movementSpeed < 0) {
         movementSpeed = Math.abs(movementSpeed);
@@ -285,7 +286,7 @@ public class Sandbox {
       int partId = part.getPartId();
 
       if (part.getMinVer() > verCode
-        || partId == SBML.PART_ID_SOYUZ_SERVICE)
+        || partId == SBML.PartID.SOYUZ_SERVICE)
         continue;
 
       Module module = new Module(saveId++, part);
@@ -619,27 +620,27 @@ public class Sandbox {
       args.remove(SBML.START_INDEX);
 
       switch (section) {
-        case SBML.SECTION_SYSTEM:
-        case SBML.SECTION_SANDBOX:
+        case SBML.Section.SYSTEM:
+        case SBML.Section.SANDBOX:
           try { setValue(key, args); }
           catch (IllegalArgumentException e) {
             throw new SBMLParserException(e.getMessage(), lineNum);
           }
           break;
-        case SBML.SECTION_MODSPACE:
-          if (key.equals(SBML.KEY_RECORD_COUNT)) {
+        case SBML.Section.MODSPACE:
+          if (key.equals(SBML.Key.RECORD_COUNT)) {
             continue;
-          } else if (key.equals(SBML.KEY_SAVE_ID)) {
+          } else if (key.equals(SBML.Key.SAVE_ID)) {
             space.add(new Module());
             modspacePosition++;
           }
           space.get(modspacePosition).setValue(key, args);
           break;
-        case SBML.SECTION_NAVICOMP:
-          if (key.equals(SBML.KEY_NAV_END)) {
+        case SBML.Section.NAVICOMP:
+          if (key.equals(SBML.Key.NAV_END)) {
             naviCompPosition++;
             continue;
-          } else if (key.equals(SBML.KEY_NAV_LABEL)) {
+          } else if (key.equals(SBML.Key.NAV_LABEL)) {
             naviComp.add(new NaviCompMarker());
           }
           naviComp.get(naviCompPosition).setValue(key, args);
@@ -660,7 +661,7 @@ public class Sandbox {
     //system information
     MyLog.d(LOG_TAG, "\"system\" section");
     for (String key : SBML.systemAttrSet) {
-      data.add(Utils.joinStr(SBML.VAL_SEP, SBML.SECTION_SYSTEM, key, getValue(key)));
+      data.add(Utils.joinStr(SBML.VAL_SEP, SBML.Section.SYSTEM, key, getValue(key)));
     }
 
     //sandbox information
@@ -668,24 +669,24 @@ public class Sandbox {
     for (String key : SBML.sandboxAttrSet) {
       String value = getValue(key);
       if (value != null)
-        data.add(Utils.joinStr(SBML.VAL_SEP, SBML.SECTION_SANDBOX, key, value));
+        data.add(Utils.joinStr(SBML.VAL_SEP, SBML.Section.SANDBOX, key, value));
     }
 
     //modules set
     if (space != null && !space.isEmpty()) {
       MyLog.d(LOG_TAG, "\"modspace\" section");
       data.add(Utils.joinStr(SBML.VAL_SEP,
-        SBML.SECTION_MODSPACE, SBML.KEY_RECORD_COUNT, String.valueOf(space.size())));
+        SBML.Section.MODSPACE, SBML.Key.RECORD_COUNT, String.valueOf(space.size())));
       for (Module module : space) {
         for (String key : SBML.moduleAttrSet) {
           String value = module.getValue(key);
           if (value != null) {
-            if (key.equals(SBML.KEY_CARGO_ITEM) || key.equals(SBML.KEY_DOCK_POINT)) {
+            if (key.equals(SBML.Key.CARGO_ITEM) || key.equals(SBML.Key.DOCK_POINT)) {
               do {
-                data.add(Utils.joinStr(SBML.VAL_SEP, SBML.SECTION_MODSPACE, key, value));
+                data.add(Utils.joinStr(SBML.VAL_SEP, SBML.Section.MODSPACE, key, value));
               } while ((value = module.getValue(key)) != null);
             } else
-              data.add(Utils.joinStr(SBML.VAL_SEP, SBML.SECTION_MODSPACE, key, value));
+              data.add(Utils.joinStr(SBML.VAL_SEP, SBML.Section.MODSPACE, key, value));
           }
         }
       }
@@ -696,11 +697,11 @@ public class Sandbox {
       MyLog.d(LOG_TAG, "\"navicomp\" section");
       for (NaviCompMarker marker : naviComp) {
         for (String key : SBML.naviCompAttrSet) {
-          if (key.equals(SBML.KEY_NAV_END))
-            data.add(Utils.joinStr(SBML.VAL_SEP, SBML.SECTION_NAVICOMP, key));
+          if (key.equals(SBML.Key.NAV_END))
+            data.add(Utils.joinStr(SBML.VAL_SEP, SBML.Section.NAVICOMP, key));
           else
             data.add(Utils.joinStr(
-              SBML.VAL_SEP, SBML.SECTION_NAVICOMP, key, marker.getValue(key)));
+              SBML.VAL_SEP, SBML.Section.NAVICOMP, key, marker.getValue(key)));
         }
       }
     }
@@ -711,6 +712,7 @@ public class Sandbox {
 
   void save(Context context, boolean overwrite, boolean compress, int verCode)
     throws IOException {
+    MyLog.d(LOG_TAG, "Saving Sandbox");
     String fileName = this.fileName;
     if (overwrite)
       fileName = this.inputFileName;
@@ -723,6 +725,12 @@ public class Sandbox {
         throw new IOException("Can't compress sandbox");
     }
     modified = false;
+  }
+
+  void saveForPlay()
+    throws IOException {
+    MyLog.d(LOG_TAG, "Saving Sandbox for instant play");
+    writeFile(fileName, exportData(mergeStations()));
   }
 
   private ArrayList<String> readFile(String fileName)
@@ -755,10 +763,10 @@ public class Sandbox {
   private boolean isCompressed(String fileName)
     throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(fileName));
-    char[] buff = new char[SBML.SECTION_SYSTEM.length()];
+    char[] buff = new char[SBML.Section.SYSTEM.length()];
     reader.read(buff, SBML.START_INDEX, buff.length);
     reader.close();
-    boolean isCompressed = !(new String(buff).equals(SBML.SECTION_SYSTEM));
+    boolean isCompressed = !(new String(buff).equals(SBML.Section.SYSTEM));
     if (isCompressed)
       MyLog.w(LOG_TAG, "Sandbox file compressed");
     return isCompressed;
@@ -771,22 +779,22 @@ public class Sandbox {
       value = args.get(SBML.START_INDEX);
 
     switch (key) {
-      case SBML.KEY_FORMAT_VERSION:
+      case SBML.Key.FORMAT_VERSION:
         this.formatVersion = Integer.parseInt(value);
         break;
-      case SBML.KEY_FILE_TYPE:
+      case SBML.Key.FILE_TYPE:
         this.fileType = Integer.parseInt(value);
         break;
-      case SBML.KEY_VERSION:
+      case SBML.Key.VERSION:
         this.sbxVersion = Integer.parseInt(value);
         break;
-      case SBML.KEY_NAME:
+      case SBML.Key.NAME:
         this.sbxName = value;
         break;
-      case SBML.KEY_HIGH_MISSION:
+      case SBML.Key.HIGH_MISSION:
         this.sbxHighMission = Integer.parseInt(value);
         break;
-      case SBML.KEY_UID:
+      case SBML.Key.UID:
         this.sbxUid = value == null ? null : Integer.parseInt(value);
         break;
       default:
@@ -796,17 +804,17 @@ public class Sandbox {
 
   private String getValue(String key) {
     switch (key) {
-      case SBML.KEY_FORMAT_VERSION:
+      case SBML.Key.FORMAT_VERSION:
         return String.valueOf(formatVersion);
-      case SBML.KEY_FILE_TYPE:
+      case SBML.Key.FILE_TYPE:
         return String.valueOf(fileType);
-      case SBML.KEY_VERSION:
+      case SBML.Key.VERSION:
         return String.valueOf(sbxVersion);
-      case SBML.KEY_NAME:
+      case SBML.Key.NAME:
         return sbxName;
-      case SBML.KEY_HIGH_MISSION:
+      case SBML.Key.HIGH_MISSION:
         return Utils.intToString(sbxHighMission);
-      case SBML.KEY_UID:
+      case SBML.Key.UID:
         return sbxUid == null ? "" : String.valueOf(sbxUid);
       default:
         return null;
@@ -871,7 +879,7 @@ public class Sandbox {
     private int largestStationSize = 0;
     private int modulesCount = 0;
     private int maxSaveId = 0;
-    private int minVer = SBML.VER_CODE_14;
+    private int minVer = SBML.VerCode.V14;
 
     public String getSbxName() {
       return sbxName;
