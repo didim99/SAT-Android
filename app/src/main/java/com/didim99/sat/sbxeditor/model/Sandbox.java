@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor;
+package com.didim99.sat.sbxeditor.model;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -6,12 +6,12 @@ import android.util.SparseArray;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.Utils;
 import com.didim99.sat.sbxconverter.SbxConverter;
-import com.didim99.sat.sbxeditor.model.Module;
-import com.didim99.sat.sbxeditor.model.NaviCompMarker;
-import com.didim99.sat.sbxeditor.model.Part;
-import com.didim99.sat.sbxeditor.model.Planet;
-import com.didim99.sat.sbxeditor.model.SBML;
-import com.didim99.sat.sbxeditor.TextGenerator.IllegalCharException;
+import com.didim99.sat.sbxeditor.model.TextGenerator.IllegalCharException;
+import com.didim99.sat.sbxeditor.model.wrapper.Module;
+import com.didim99.sat.sbxeditor.model.wrapper.NaviCompMarker;
+import com.didim99.sat.sbxeditor.model.wrapper.Part;
+import com.didim99.sat.sbxeditor.model.wrapper.Planet;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -115,6 +115,10 @@ public class Sandbox {
     info.largestStationSize = 0;
     info.maxSaveId = 0;
     info.minVer = SBML.VerCode.V14;
+    info.creationTime = Integer.MAX_VALUE;
+
+    boolean hasTime = false;
+    Integer time;
 
     info.modulesCount = alone.size();
     for (Station station : space) {
@@ -127,6 +131,14 @@ public class Sandbox {
         info.maxSaveId = staInfo.getMaxSaveId();
       if (staInfo.getMinVer() > info.minVer)
         info.minVer = staInfo.getMinVer();
+
+      time = staInfo.getLaunchTimestamp();
+      if (time != null) {
+        if (time == SBML.TIMESTAMP_UNDEFINED)
+          hasTime = true;
+        else if (time < info.creationTime)
+          info.creationTime = time;
+      }
     }
     for (Module module : alone) {
       if (Settings.isDbLoaded()) {
@@ -136,7 +148,18 @@ public class Sandbox {
       }
       if (module.getSaveId() > info.maxSaveId)
         info.maxSaveId = module.getSaveId();
+
+      time = module.getLaunchTimestamp();
+      if (time != null) {
+        if (time == SBML.TIMESTAMP_UNDEFINED)
+          hasTime = true;
+        else if (time < info.creationTime)
+          info.creationTime = time;
+      }
     }
+
+    if (info.creationTime == Integer.MAX_VALUE)
+      info.creationTime = hasTime ? SBML.TIMESTAMP_UNDEFINED : null;
     MyLog.d(LOG_TAG, "Sandbox info updated");
   }
 
@@ -461,7 +484,7 @@ public class Sandbox {
     for (Module module : alone) {
       if (module.hasFuel()) {
         fuelInfo.add(String.format(Locale.US, SBML.FUEL_INFO_FORMAT, module.getPartId(),
-          module.getMainFuelCapacity(), module.getThtFuelCapacity()));
+          module.getMainFuelCapacity(), module.getThrFuelCapacity()));
       }
     }
 
@@ -514,7 +537,6 @@ public class Sandbox {
       }
     }
     space.clear();
-    space = null;
     //getting all relations completed
 
     //get stand-alone modules
@@ -614,10 +636,10 @@ public class Sandbox {
       if (args.size() < 2)
         throw new SBMLParserException("Incorrect SBML statement", lineNum);
 
-      String section = args.get(SBML.START_INDEX);
-      args.remove(SBML.START_INDEX);
-      String key = args.get(SBML.START_INDEX);
-      args.remove(SBML.START_INDEX);
+      String section = args.get(0);
+      args.remove(0);
+      String key = args.get(0);
+      args.remove(0);
 
       switch (section) {
         case SBML.Section.SYSTEM:
@@ -764,7 +786,7 @@ public class Sandbox {
     throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(fileName));
     char[] buff = new char[SBML.Section.SYSTEM.length()];
-    reader.read(buff, SBML.START_INDEX, buff.length);
+    reader.read(buff, 0, buff.length);
     reader.close();
     boolean isCompressed = !(new String(buff).equals(SBML.Section.SYSTEM));
     if (isCompressed)
@@ -776,7 +798,7 @@ public class Sandbox {
     String value = null;
 
     if (args.size() == 1)
-      value = args.get(SBML.START_INDEX);
+      value = args.get(0);
 
     switch (key) {
       case SBML.Key.FORMAT_VERSION:
@@ -880,6 +902,7 @@ public class Sandbox {
     private int modulesCount = 0;
     private int maxSaveId = 0;
     private int minVer = SBML.VerCode.V14;
+    private Integer creationTime;
 
     public String getSbxName() {
       return sbxName;
@@ -919,6 +942,10 @@ public class Sandbox {
 
     public int getMinVer() {
       return minVer;
+    }
+
+    public Integer getCreationTime() {
+      return creationTime;
     }
 
     public void setSbxName(String name) {

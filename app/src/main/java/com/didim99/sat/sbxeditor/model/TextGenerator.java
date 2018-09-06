@@ -1,12 +1,12 @@
-package com.didim99.sat.sbxeditor;
+package com.didim99.sat.sbxeditor.model;
 
 import android.content.Context;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.Utils;
-import com.didim99.sat.sbxeditor.model.Module;
-import com.didim99.sat.sbxeditor.model.NaviCompMarker;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.wrapper.Module;
+import com.didim99.sat.sbxeditor.model.wrapper.NaviCompMarker;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class TextGenerator {
     else font = Storage.getFont();
   }
 
-  Station createText(SbxEditConfig config, ArrayList<NaviCompMarker> naviComp) {
+  public Station createText(SbxEditConfig config, ArrayList<NaviCompMarker> naviComp) {
     int startSaveId = config.getStartSaveId();
     String text = config.getText();
     int align = config.getAlign();
@@ -86,7 +86,7 @@ public class TextGenerator {
     return station;
   }
 
-  Station createAllFont(SbxEditConfig config, ArrayList<NaviCompMarker> naviComp) {
+  public Station createAllFont(SbxEditConfig config, ArrayList<NaviCompMarker> naviComp) {
     StringBuilder builder = new StringBuilder(font.size());
     int inLine = config.getInLine();
     Character[] chars = font.keySet().toArray(new Character[0]);

@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor.model;
+package com.didim99.sat.sbxeditor.model.wrapper;
 
 /**
  * SBML constants
@@ -24,8 +24,8 @@ public final class SBML {
   public static final String FUEL_INFO_FIRST_LINE = "PID: MAIN     THR";
   public static final String FUEL_INFO_FORMAT = "%3d: %7.2f, %7.2f";
   public static final String FUEL_INFO_FILENAME = "fuel_info.txt";
+  public static final int TIMESTAMP_UNDEFINED = 1;
   public static final int POSITION_FACTOR = 100;
-  public static final int START_INDEX = 0;
   public static final int PREC_DEFAULT = 2;
   static final int PREC_COORDS = 6;
   public static final int DOCK_STATE_UNDOCKED = -1;

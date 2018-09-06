@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.didim99.sat.R;
 import com.didim99.sat.Utils;
-import com.didim99.sat.sbxeditor.Sandbox;
-import com.didim99.sat.sbxeditor.Station;
+import com.didim99.sat.sbxeditor.model.Sandbox;
+import com.didim99.sat.sbxeditor.model.Station;
 
 /**
  * Created by didim99 on 09.05.18.

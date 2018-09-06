@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,12 +26,14 @@ import com.didim99.sat.Utils;
 import com.didim99.sat.db.DBTask;
 import com.didim99.sat.network.NetworkManager;
 import com.didim99.sat.network.WebAPI;
-import com.didim99.sat.sbxeditor.Sandbox;
-import com.didim99.sat.sbxeditor.SbxEditConfig;
-import com.didim99.sat.sbxeditor.Station;
-import com.didim99.sat.sbxeditor.Storage;
-import com.didim99.sat.sbxeditor.model.InputValidator;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.Sandbox;
+import com.didim99.sat.sbxeditor.model.SbxEditConfig;
+import com.didim99.sat.sbxeditor.model.Station;
+import com.didim99.sat.sbxeditor.model.Storage;
+import com.didim99.sat.sbxeditor.model.utils.InputValidator;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
+import com.didim99.sat.sbxeditor.ui.view.RatioBar;
+import com.didim99.sat.sbxeditor.ui.view.ValueBar;
 import com.didim99.sat.settings.Settings;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -42,14 +46,15 @@ public class DialogManager {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_DialogManager";
 
   private static final DialogManager ourInstance = new DialogManager();
+  public static DialogManager getInstance() {
+    return ourInstance;
+  }
+
+  private static SparseIntArray cargoViewIDs;
   private static final int NUMBER_DECIMAL_SIGNED = InputType.TYPE_CLASS_NUMBER
     | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
   private static final int NUMBER_DECIMAL = InputType.TYPE_CLASS_NUMBER
     | InputType.TYPE_NUMBER_FLAG_DECIMAL;
-
-  public static DialogManager getInstance() {
-    return ourInstance;
-  }
 
   static class DialogID {
     static final int EXIT = 1;
@@ -84,6 +89,11 @@ public class DialogManager {
   private DialogManager() {
     uiManager = UIManager.getInstance();
     inputValidator = InputValidator.getInstance();
+    cargoViewIDs = new SparseIntArray();
+    cargoViewIDs.append(SBML.CargoID.O2, R.id.oxygenBar);
+    cargoViewIDs.append(SBML.CargoID.CO2, R.id.carbonBar);
+    cargoViewIDs.append(SBML.CargoID.H2O, R.id.waterBar);
+    cargoViewIDs.append(SBML.CargoID.BAT, R.id.batteryBar);
   }
 
   public void updateContext(Context context, EventListener listener) {
@@ -233,6 +243,9 @@ public class DialogManager {
     ((TextView) dialogView.findViewById(R.id.tvMarkerCount))
       .setText(Utils.intToString(sbxInfo.getMarkerCount()));
 
+    uiManager.setTimeString(sbxInfo.getCreationTime(),
+      dialogView.findViewById(R.id.tvCreationTime));
+
     AlertDialog.Builder adb = new AlertDialog.Builder(contextRef.get());
     adb.setTitle(R.string.mTitle_actionSbxInfo);
     adb.setView(dialogView);
@@ -313,6 +326,9 @@ public class DialogManager {
     } else
       ((TextView) dialogView.findViewById(R.id.tvMinVer)).setText(R.string.needDB);
 
+    uiManager.setTimeString(staInfo.getLaunchTimestamp(),
+      dialogView.findViewById(R.id.tvLaunchTime));
+
     ImageView ivMovement = dialogView.findViewById(R.id.ivMovement);
     TextView tvMovement = dialogView.findViewById(R.id.tvMovement);
     ImageView ivRotation = dialogView.findViewById(R.id.ivRotation);
@@ -349,9 +365,44 @@ public class DialogManager {
     adb.setTitle(titleId);
     adb.setView(dialogView);
     adb.setPositiveButton(R.string.dialogButtonOk, null);
-    AlertDialog dialog = adb.create();
+    adb.setNeutralButton(R.string.dialogButtonStat,
+      (dialog, which) -> StationStatDialog(station));
     MyLog.d(LOG_TAG, "StationInfo dialog created");
-    dialog.show();
+    adb.create().show();
+  }
+
+  private void StationStatDialog(Station station) {
+    MyLog.d(LOG_TAG, "StationStat dialog called");
+    View dialogView = inflater.inflate(R.layout.dialog_station_stat, null);
+    Station.Statistics stat = station.getStat();
+
+    ((RatioBar) dialogView.findViewById(R.id.powerTotalBar))
+      .setValueInteger(stat.getPowerGen(), stat.getPowerUse());
+    ((ValueBar) dialogView.findViewById(R.id.mainFuelBar))
+      .setValueDouble(stat.getMainFuelCap(), stat.getMainFuelVal());
+    ((ValueBar) dialogView.findViewById(R.id.thrFuelBar))
+      .setValueDouble(stat.getThrFuelCap(), stat.getThrFuelVal());
+    ((ValueBar) dialogView.findViewById(R.id.cargoTotalBar))
+      .setValueInteger(stat.getCargoTotal(), stat.getCargoUsed());
+
+    Station.ResourceState resState;
+    SparseArray<Station.ResourceState> resStates = stat.getResState();
+    for (int i = 0; i < cargoViewIDs.size(); i++) {
+      if ((resState = resStates.get(cargoViewIDs.keyAt(i))) != null) {
+        ((ValueBar) dialogView.findViewById(cargoViewIDs.valueAt(i)))
+          .setValueDouble(resState.getTotal(), resState.getUsed());
+      } else {
+        ((ValueBar) dialogView.findViewById(cargoViewIDs.valueAt(i)))
+          .setValueInteger(0, 0);
+      }
+    }
+
+    AlertDialog.Builder adb = new AlertDialog.Builder(contextRef.get());
+    adb.setTitle(R.string.dialogButtonStat);
+    adb.setView(dialogView);
+    adb.setPositiveButton(R.string.dialogButtonOk, null);
+    MyLog.d(LOG_TAG, "StationInfo dialog created");
+    adb.create().show();
   }
 
   void createDialog(int dialogId) {

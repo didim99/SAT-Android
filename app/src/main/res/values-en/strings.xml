@@ -14,6 +14,8 @@
   <string name="dialogButtonSave">Save</string>
   <string name="dialogButtonEdit">Edit</string>
   <string name="dialogButtonExit">Exit</string>
+  <string name="dialogButtonStat">Statistics</string>
+  <string name="longTimeAgo">Long time ago</string>
   <string name="distanceTo_M">%.2fM to %s</string>
   <string name="distanceTo_K">%.2fK to %s</string>
   <string name="distanceTo_U">%.2f to %s</string>
@@ -141,6 +143,8 @@
   <string name="diaTitle_groupInfo">Group info</string>
   <string name="diaTitle_textInfo">Text info</string>
   <string name="diaSbxInfo_minVer">Min SA version</string>
+  <string name="diaSbxInfo_creationTime">Creation date</string>
+  <string name="diaSbxInfo_launchTime">Launch date</string>
   <string name="diaSbxInfo_modCount">Modules total</string>
   <string name="diaSbxInfo_objCount">Objects total</string>
   <string name="diaSbxInfo_stationCount">Stations</string>

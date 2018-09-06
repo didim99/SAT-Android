@@ -4,6 +4,12 @@
   <dimen name="toastPosX">0dp</dimen>
   <dimen name="toastPosY">300dp</dimen>
   <dimen name="actStart_btnPadding">20dp</dimen>
+  <dimen name="valueBarRadius">44dp</dimen>
+  <dimen name="valueBarThickness">6dp</dimen>
+  <dimen name="valueBreCircle_containerSize">100dp</dimen>
+  <dimen name="valueBreCircle_valuePadding">5dp</dimen>
+  <dimen name="valueBreCircle_txtSizeMain">20sp</dimen>
+  <dimen name="valueBreCircle_txtSizeSub">16sp</dimen>
   <!-- Dialog (generic) -->
   <dimen name="dialogView_Padding">8dp</dimen>
   <dimen name="dialogView_PaddingLarge">20dp</dimen>
@@ -17,6 +23,8 @@
   <dimen name="infoDialog_textSizeSecond">16sp</dimen>
   <dimen name="infoDialog_divHeight">1dp</dimen>
   <dimen name="infoDialog_divVMargin">4dp</dimen>
+  <!-- Statistics dialog -->
+  <dimen name="statDialog_itemHMargin">10dp</dimen>
   <!-- Help dialog (generic) -->
   <dimen name="HelpDialog_itemVMargin">3dp</dimen>
   <dimen name="HelpDialog_iconPadding">12dp</dimen>

@@ -24,6 +24,7 @@ import java.util.Locale;
 
 public class Utils {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_Utils";
+  public static final String DATE_FORMAT = "yyyy.MM.dd";
 
   public static String joinStr (String delimiter, String... args) {
     if (args == null || args.length == 0)

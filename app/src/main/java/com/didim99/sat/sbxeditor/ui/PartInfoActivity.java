@@ -21,10 +21,10 @@ import android.widget.TextView;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
-import com.didim99.sat.sbxeditor.Storage;
-import com.didim99.sat.sbxeditor.model.Part;
-import com.didim99.sat.sbxeditor.model.PartComparator;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.Storage;
+import com.didim99.sat.sbxeditor.model.wrapper.Part;
+import com.didim99.sat.sbxeditor.model.utils.PartComparator;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 
 public class PartInfoActivity extends AppCompatActivity

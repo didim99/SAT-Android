@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor;
+package com.didim99.sat.sbxeditor.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.Utils;
-import com.didim99.sat.sbxeditor.TextGenerator.IllegalCharException;
+import com.didim99.sat.sbxeditor.model.TextGenerator.IllegalCharException;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 

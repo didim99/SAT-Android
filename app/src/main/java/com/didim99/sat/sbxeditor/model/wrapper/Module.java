@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor.model;
+package com.didim99.sat.sbxeditor.model.wrapper;
 
 import android.support.annotation.NonNull;
 import com.didim99.sat.MyLog;
@@ -45,6 +45,7 @@ public class Module implements Comparable, Cloneable {
   private String transponderName;
   private Integer transponderSelected;
   private ArrayList<DockPoint> dock;
+  //Internal service fields
   private int cargoECounter = 0;
   private int dockECounter = 0;
 
@@ -69,7 +70,7 @@ public class Module implements Comparable, Cloneable {
     String value = null;
 
     if (args.size() == 1)
-      value = args.get(SBML.START_INDEX);
+      value = args.get(0);
 
     switch (key) {
       case SBML.Key.SAVE_ID:
@@ -312,6 +313,10 @@ public class Module implements Comparable, Cloneable {
     );
   }
 
+  public int getCargoCount() {
+    return cargo == null ? 0 : cargo.size();
+  }
+
   public boolean isVisible() {
     return showInSelector == SBML.Visibility.VISIBLE;
   }
@@ -349,6 +354,10 @@ public class Module implements Comparable, Cloneable {
     return partId;
   }
 
+  public ArrayList<CargoItem> getCargo() {
+    return cargo;
+  }
+
   public float getPositionX() {
     return position[SBML.PosIndex.X];
   }
@@ -377,8 +386,20 @@ public class Module implements Comparable, Cloneable {
     return fuelLevels[SBML.FuelIndex.MAIN_CAP];
   }
 
-  public float getThtFuelCapacity() {
+  public float getMainFuelValue() {
+    return fuelLevels[SBML.FuelIndex.MAIN_VAL];
+  }
+
+  public float getThrFuelCapacity() {
     return fuelLevels[SBML.FuelIndex.THR_CAP];
+  }
+
+  public float getThrFuelValue() {
+    return fuelLevels[SBML.FuelIndex.THR_VAL];
+  }
+
+  public Integer getLaunchTimestamp() {
+    return launchTimestamp;
   }
 
   public Integer getParentModule() {
@@ -527,7 +548,7 @@ public class Module implements Comparable, Cloneable {
     return clone;
   }
 
-  static class CargoItem implements Cloneable {
+  public static class CargoItem implements Cloneable {
     int id;
     int resId;
     float value;
@@ -551,6 +572,14 @@ public class Module implements Comparable, Cloneable {
     String export() {
       return id + SBML.VAL_SEP + resId + SBML.VAL_SEP
         + Utils.floatToString(value, SBML.PREC_DEFAULT);
+    }
+
+    public int getResId() {
+      return resId;
+    }
+
+    public float getResValue() {
+      return value;
     }
 
     @Override

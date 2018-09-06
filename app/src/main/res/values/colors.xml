@@ -4,7 +4,10 @@
   <color name="colorPrimary">#3f51b5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#6aa4f5</color>
-  <color name="textSelectionBg">#806aa4f5</color>
+  <color name="colorAccentBg">#806aa4f5</color>
+  <color name="textSelectionBg">@color/colorAccentBg</color>
+  <color name="valueBarBg">@color/colorAccentBg</color>
+  <color name="valueBarFg">@color/colorAccent</color>
   <!-- Generic -->
   <color name="dividerMain">#606060</color>
   <color name="textActive">#ffffff</color>
@@ -43,4 +46,19 @@
   <color name="sizeLarge">#a60300</color>
   <color name="sizeMedium">#35a600</color>
   <color name="sizeSmall">#0016a6</color>
+  <!-- Station statistics -->
+  <color name="valueBar_powerBg">@color/colorEmpty</color>
+  <color name="valueBar_powerFg">@color/colorFull</color>
+  <color name="valueBar_fuelBg">#40fd9c3a</color>
+  <color name="valueBar_fuelFg">#fd9c3a</color>
+  <color name="valueBar_cargoBg">#40d2d2d2</color>
+  <color name="valueBar_cargoFg">#d2d2d2</color>
+  <color name="valueBar_oxygenBg">#4000afff</color>
+  <color name="valueBar_oxygenFg">#00afff</color>
+  <color name="valueBar_carbonBg">#40ff3b3b</color>
+  <color name="valueBar_carbonFg">#ff3b3b</color>
+  <color name="valueBar_waterBg">#403d3dff</color>
+  <color name="valueBar_waterFg">#3d3dff</color>
+  <color name="valueBar_batteryBg">#4000ffaa</color>
+  <color name="valueBar_batteryFg">#00ffaa</color>
 </resources>

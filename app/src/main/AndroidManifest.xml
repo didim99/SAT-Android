@@ -47,6 +47,23 @@
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
       </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.EDIT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="*"/>
+        <data android:scheme="file"/>
+        <data android:mimeType="*/*"/>
+        <data android:pathPattern=".*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gsf"/>
+      </intent-filter>
     </activity>
 
     <activity
@@ -86,6 +103,23 @@
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
         <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.sasbx"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <action android:name="android.intent.action.EDIT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="*"/>
+        <data android:scheme="file"/>
+        <data android:mimeType="*/*"/>
+        <data android:pathPattern=".*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.gsf"/>
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.gsf"/>
       </intent-filter>
     </activity>
 

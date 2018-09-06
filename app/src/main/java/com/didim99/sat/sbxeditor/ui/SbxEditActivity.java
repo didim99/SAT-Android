@@ -17,11 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
-import com.didim99.sat.sbxeditor.SbxEditConfig;
-import com.didim99.sat.sbxeditor.Station;
-import com.didim99.sat.sbxeditor.Storage;
-import com.didim99.sat.sbxeditor.model.InputValidator;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.SbxEditConfig;
+import com.didim99.sat.sbxeditor.model.Station;
+import com.didim99.sat.sbxeditor.model.Storage;
+import com.didim99.sat.sbxeditor.model.utils.InputValidator;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 
 public class SbxEditActivity extends AppCompatActivity {

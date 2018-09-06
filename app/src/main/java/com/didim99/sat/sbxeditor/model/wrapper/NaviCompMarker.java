@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor.model;
+package com.didim99.sat.sbxeditor.model.wrapper;
 
 import com.didim99.sat.MyLog;
 import com.didim99.sat.Utils;
@@ -48,7 +48,7 @@ public class NaviCompMarker {
     String value = null;
 
     if (args.size() == 1)
-      value = args.get(SBML.START_INDEX);
+      value = args.get(0);
 
     switch (key) {
       case SBML.Key.NAV_LABEL:

@@ -1,8 +1,10 @@
-package com.didim99.sat.sbxeditor;
+package com.didim99.sat.sbxeditor.model;
 
 import android.util.SparseArray;
-import com.didim99.sat.sbxeditor.model.Part;
-import com.didim99.sat.sbxeditor.model.Planet;
+
+import com.didim99.sat.sbxeditor.model.wrapper.Part;
+import com.didim99.sat.sbxeditor.model.wrapper.Planet;
+
 import java.util.ArrayList;
 import java.util.Map;
 

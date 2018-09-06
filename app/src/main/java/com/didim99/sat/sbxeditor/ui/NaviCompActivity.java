@@ -24,12 +24,12 @@ import android.widget.Toast;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.Utils;
-import com.didim99.sat.sbxeditor.Sandbox;
-import com.didim99.sat.sbxeditor.Storage;
-import com.didim99.sat.sbxeditor.model.InputValidator;
-import com.didim99.sat.sbxeditor.model.NaviCompMarker;
-import com.didim99.sat.sbxeditor.model.Planet;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.Sandbox;
+import com.didim99.sat.sbxeditor.model.Storage;
+import com.didim99.sat.sbxeditor.model.utils.InputValidator;
+import com.didim99.sat.sbxeditor.model.wrapper.NaviCompMarker;
+import com.didim99.sat.sbxeditor.model.wrapper.Planet;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.util.ArrayList;
 

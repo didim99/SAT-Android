@@ -9,7 +9,13 @@
   <string name="actLabel_filePicker">Выбор файла</string>
   <string name="actLabel_dirPicker">Выбор каталога</string>
   <string name="actLabel_pickModule">Выбор модуля</string>
+  <!-- Custom view -->
+  <string name="valueBar_ratio" translatable="false">%.2f</string>
+  <string name="valueBar_percentage" translatable="false">%d%%</string>
+  <string name="valueBar_valueFloat" translatable="false">%.1f / %.0f</string>
+  <string name="valueBar_valueInteger" translatable="false">%d / %d</string>
   <!-- Общее -->
+  <string name="NA" translatable="false">N/A</string>
   <string name="valueDegrees" translatable="false">&#176;</string>
   <string name="valuePercent" translatable="false">%</string>
   <string name="valueNCU" translatable="false">NCU</string>
@@ -22,9 +28,11 @@
   <string name="dialogButtonSave">Сохранить</string>
   <string name="dialogButtonEdit">Редактировать</string>
   <string name="dialogButtonExit">Выход</string>
+  <string name="dialogButtonStat">Статистика</string>
   <string name="slashDivider" translatable="false">/</string>
   <string name="positionX" translatable="false">X:</string>
   <string name="positionY" translatable="false">Y:</string>
+  <string name="longTimeAgo">Очень давно</string>
   <string name="distanceTo_M">%.2fM до %s</string>
   <string name="distanceTo_K">%.2fK до %s</string>
   <string name="distanceTo_U">%.2f до %s</string>
@@ -156,6 +164,8 @@
   <string name="diaTitle_colonyInfo">Информация о колонии</string>
   <string name="diaTitle_textInfo">Информация о тексте</string>
   <string name="diaSbxInfo_minVer">Мин. версия SA</string>
+  <string name="diaSbxInfo_creationTime">Дата создания</string>
+  <string name="diaSbxInfo_launchTime">Дата запуска</string>
   <string name="diaSbxInfo_modCount">Всего модулей</string>
   <string name="diaSbxInfo_objCount">Всего объектов</string>
   <string name="diaSbxInfo_stationCount">Станций</string>

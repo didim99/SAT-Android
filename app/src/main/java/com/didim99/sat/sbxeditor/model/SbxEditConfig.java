@@ -1,7 +1,8 @@
-package com.didim99.sat.sbxeditor;
+package com.didim99.sat.sbxeditor.model;
 
 import com.didim99.sat.MyLog;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
+
 import java.util.ArrayList;
 
 /**

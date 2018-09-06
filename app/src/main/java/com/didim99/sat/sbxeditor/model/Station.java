@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor;
+package com.didim99.sat.sbxeditor.model;
 
 import android.content.Context;
 import android.util.SparseArray;
@@ -6,10 +6,10 @@ import android.util.SparseIntArray;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.Utils;
-import com.didim99.sat.sbxeditor.model.Module;
-import com.didim99.sat.sbxeditor.model.NaviCompMarker;
-import com.didim99.sat.sbxeditor.model.Part;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.wrapper.Module;
+import com.didim99.sat.sbxeditor.model.wrapper.NaviCompMarker;
+import com.didim99.sat.sbxeditor.model.wrapper.Part;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -47,6 +47,7 @@ public class Station implements Cloneable {
   private int type;
   private ArrayList<Module> moduleSet;
   private Info info;
+  private Statistics stat;
 
   Station(int size) {
     moduleSet = new ArrayList<>(size);
@@ -58,7 +59,7 @@ public class Station implements Cloneable {
     this.type = type;
   }
 
-  Station init(ArrayList<NaviCompMarker> naviComp) {
+  public Station init(ArrayList<NaviCompMarker> naviComp) {
     MyLog.d(LOG_TAG, "New station init");
     moduleSet.trimToSize();
     analyze(naviComp);
@@ -68,13 +69,15 @@ public class Station implements Cloneable {
   void analyze(ArrayList<NaviCompMarker> naviComp) {
     MyLog.d(LOG_TAG, "Collecting station info...");
     int minSaveId, maxSaveId, saveId, visibility, minVer, ver;
-    boolean hasMovement = false, hasRotation = false, allVisible = true, allInvisible = true;
+    boolean hasMovement = false, hasRotation = false,
+      allVisible = true, allInvisible = true, hasTime = false;
     Float movementDirection = null, movementSpeed = null, rotationSpeed = null;
     ArrayList<String> names = new ArrayList<>();
     SparseArray<Part> partInfo = Storage.getPartInfo();
+    Integer launchTime = Integer.MAX_VALUE, time;
 
     boolean hasDb = Settings.isDbLoaded();
-    Module initModule = moduleSet.get(SBML.START_INDEX);
+    Module initModule = moduleSet.get(0);
     minSaveId = maxSaveId = initModule.getSaveId();
     minVer = SBML.VerCode.V14;
 
@@ -104,6 +107,14 @@ public class Station implements Cloneable {
         }
       }
 
+      time = module.getLaunchTimestamp();
+      if (time != null) {
+        if (time == SBML.TIMESTAMP_UNDEFINED)
+          hasTime = true;
+        else if (time < launchTime)
+          launchTime = time;
+      }
+
       if (allVisible && !module.isVisible())
         allVisible = false;
       if (allInvisible && module.isVisible())
@@ -112,6 +123,9 @@ public class Station implements Cloneable {
       if (module.hasTransponderName())
         names.add(module.getTransponderName());
     }
+
+    if (launchTime == Integer.MAX_VALUE)
+      launchTime = hasTime ? SBML.TIMESTAMP_UNDEFINED : null;
 
     if (allVisible)
       visibility = VISIBLE;
@@ -132,21 +146,25 @@ public class Station implements Cloneable {
     }
 
     id = minSaveId;
-    info = new Info(minSaveId, maxSaveId, hasMovement, movementDirection,
-      movementSpeed, hasRotation, rotationSpeed, visibility, minVer
+    info = new Info(
+      minSaveId, maxSaveId, launchTime,
+      hasMovement, movementDirection, movementSpeed,
+      hasRotation, rotationSpeed, visibility, minVer
     );
 
     analyzePosition();
     analyzeMap(naviComp);
     if (!names.isEmpty())
       info.names = names;
+    if (hasDb)
+      collectStatistics();
     MyLog.d(LOG_TAG, info.toString());
   }
 
   private void analyzePosition() {
     MyLog.d(LOG_TAG, "Collecting position info...");
     float minPosX, maxPosX, posX, minPosY, maxPosY, posY;
-    Module initModule = moduleSet.get(SBML.START_INDEX);
+    Module initModule = moduleSet.get(0);
     minPosX = maxPosX = initModule.getPositionX();
     minPosY = maxPosY = initModule.getPositionY();
 
@@ -183,7 +201,6 @@ public class Station implements Cloneable {
         info.distance = minDistance;
         nearMarker = marker;
       }
-      MyLog.d(LOG_TAG, "Navigation info collected");
     }
 
     if (nearMarker != null) {
@@ -196,6 +213,54 @@ public class Station implements Cloneable {
       info.navDirection = 0;
       info.distance = null;
     }
+
+    MyLog.d(LOG_TAG, "Navigation info collected");
+  }
+
+  private void collectStatistics() {
+    MyLog.d(LOG_TAG, "Collecting station statistics...");
+    SparseArray<Part> partInfo = Storage.getPartInfo();
+    this.stat = new Statistics();
+
+    int partID, cargoID, NOT_EXISTS = -1;
+    for (Module module : moduleSet) {
+      partID = module.getPartId();
+      Part part = partInfo.get(partID);
+
+      if (stat.partCount.get(partID, NOT_EXISTS) == NOT_EXISTS)
+        stat.partCount.append(partID, 1);
+      else
+        stat.partCount.put(partID, stat.partCount.get(partID) + 1);
+
+      if (module.hasFuel()) {
+        stat.mainFuelCap += module.getMainFuelCapacity();
+        stat.mainFuelVal += module.getMainFuelValue();
+        stat.thrFuelCap += module.getThrFuelCapacity();
+        stat.thrFuelVal += module.getThrFuelValue();
+      }
+
+      stat.powerGen += part.getPowerGen();
+      stat.powerUse += part.getPowerUse();
+      stat.cargoTotal += part.getCargoCount();
+      stat.cargoUsed += module.getCargoCount();
+      if (module.getCargoCount() > 0) {
+        for (Module.CargoItem cargoItems : module.getCargo()) {
+          cargoID = cargoItems.getResId();
+          ResourceState cargoState = stat.resState.get(cargoID);
+
+          if (cargoState == null)
+            stat.resState.put(cargoID,
+              new ResourceState(cargoItems.getResValue()));
+          else {
+            cargoState.updateTotal();
+            cargoState.updateUsed(cargoItems.getResValue());
+          }
+        }
+      }
+    }
+
+    MyLog.d(LOG_TAG, "Statistics collected");
+    MyLog.d(LOG_TAG, stat.toString());
   }
 
   void saveIdChange(int startSid) {
@@ -340,7 +405,7 @@ public class Station implements Cloneable {
     moduleSet.add(module);
   }
 
-  void addModules(ArrayList<Module> modules) {
+  public void addModules(ArrayList<Module> modules) {
     moduleSet.addAll(modules);
   }
 
@@ -354,6 +419,10 @@ public class Station implements Cloneable {
 
   public Info getInfo() {
     return info;
+  }
+
+  public Statistics getStat() {
+    return stat;
   }
 
   @Override
@@ -373,6 +442,7 @@ public class Station implements Cloneable {
     for (Module module : this.moduleSet)
       clone.moduleSet.add(module.clone());
     clone.info = this.info.clone();
+    clone.stat = this.stat.clone();
     return clone;
   }
 
@@ -407,6 +477,7 @@ public class Station implements Cloneable {
     private Float movementSpeed;
     private boolean hasRotation;
     private Float rotationSpeed;
+    private Integer launchTimestamp;
     private int visibility;
     private int minVer;
     private ArrayList<String> names;
@@ -414,7 +485,7 @@ public class Station implements Cloneable {
     private float navDirection;
     private Double distance;
 
-    Info(int minSaveId, int maxSaveId,
+    Info(int minSaveId, int maxSaveId, Integer launchTimestamp,
          boolean hasMovement, Float movementDirection, Float movementSpeed,
          boolean hasRotation, Float rotationSpeed, int visibility, int minVer) {
       this.minSaveId = minSaveId;
@@ -424,6 +495,7 @@ public class Station implements Cloneable {
       this.movementSpeed = movementSpeed;
       this.hasRotation = hasRotation;
       this.rotationSpeed = rotationSpeed;
+      this.launchTimestamp = launchTimestamp;
       this.visibility = visibility;
       this.minVer = minVer;
     }
@@ -556,6 +628,10 @@ public class Station implements Cloneable {
       return rotationSpeed;
     }
 
+    public Integer getLaunchTimestamp() {
+      return launchTimestamp;
+    }
+
     public int getVisibility() {
       return visibility;
     }
@@ -580,17 +656,15 @@ public class Station implements Cloneable {
 
     @Override
     public String toString() {
-      return "Station info:"
+      return "\nStation info:"
         + "\n  saveIdRange: " + getSaveIdRange()
-        + "\n  minPosX: " + minPosX
-        + "\n  minPosY: " + minPosY
-        + "\n  maxPosX: " + maxPosX
-        + "\n  maxPosY: " + maxPosY
-        + "\n  centerPosX: " + centerPosX
-        + "\n  centerPosY: " + centerPosY
+        + "\n  Position X: " + minPosX + "/" + maxPosX
+        + "\n  Position Y: " + minPosY + "/" + maxPosY
+        + "\n  Center position: " + centerPosX + ", " + centerPosY
         + "\n  movementDirection: " + movementDirection
         + "\n  movementSpeed: " + movementSpeed
         + "\n  rotationSpeed: " + rotationSpeed
+        + "\n  launchTimestamp: " + launchTimestamp
         + "\n  visibility: " + visibility
         + "\n  minVer: " + minVer
         + "\n  names: " + (names == null ? null : names.toString())
@@ -606,6 +680,115 @@ public class Station implements Cloneable {
       if (this.names != null)
         clone.names = new ArrayList<>(this.names);
       return clone;
+    }
+  }
+
+  public static class Statistics implements Cloneable {
+    private float
+      mainFuelCap = 0, mainFuelVal = 0,
+      thrFuelCap = 0, thrFuelVal = 0;
+    private int
+      cargoTotal = 0, cargoUsed = 0,
+      powerGen = 0, powerUse = 0;
+    private SparseArray<ResourceState> resState;
+    private SparseIntArray partCount;
+
+    private Statistics() {
+      resState = new SparseArray<>(4);
+      partCount = new SparseIntArray();
+    }
+
+    public float getMainFuelCap() {
+      return mainFuelCap;
+    }
+
+    public float getMainFuelVal() {
+      return mainFuelVal;
+    }
+
+    public float getThrFuelCap() {
+      return thrFuelCap;
+    }
+
+    public float getThrFuelVal() {
+      return thrFuelVal;
+    }
+
+    public int getPowerGen() {
+      return powerGen;
+    }
+
+    public int getPowerUse() {
+      return powerUse;
+    }
+
+    public int getCargoTotal() {
+      return cargoTotal;
+    }
+
+    public int getCargoUsed() {
+      return cargoUsed;
+    }
+
+    public SparseIntArray getPartCount() {
+      return partCount;
+    }
+
+    public SparseArray<ResourceState> getResState() {
+      return resState;
+    }
+
+    @Override
+    public String toString() {
+      return "\nStation statistics:"
+        + "\n  Main fuel: " + mainFuelCap + "/" + mainFuelVal
+        + "\n  Thr fuel: " + thrFuelCap + "/" + thrFuelVal
+        + "\n  Power: " + powerGen + "/" + powerUse
+        + "\n  Cargo: " + cargoTotal + "/" + cargoUsed
+        + "\n  Cargo state: " + resState.toString()
+        + "\n  Part count: " + partCount.toString();
+    }
+
+    @Override
+    protected Statistics clone() throws CloneNotSupportedException {
+      Statistics clone = (Statistics) super.clone();
+      clone.partCount = this.partCount.clone();
+      clone.resState = new SparseArray<>(this.resState.size());
+      for (int i = 0; i < this.resState.size(); i++) {
+        clone.resState.put(this.resState.keyAt(i),
+          this.resState.valueAt(i).clone());
+      }
+      return clone;
+    }
+  }
+
+  public static class ResourceState implements Cloneable {
+    private float total, used;
+
+    ResourceState(float used) {
+      this.total = 1f;
+      this.used = used;
+    }
+
+    void updateTotal() {
+      this.total += 1f;
+    }
+
+    void updateUsed(float used) {
+      this.used += used;
+    }
+
+    public float getTotal() { return total; }
+    public float getUsed() { return used; }
+
+    @Override
+    public String toString() {
+      return total + "/" + used;
+    }
+
+    @Override
+    protected ResourceState clone() throws CloneNotSupportedException {
+      return (ResourceState) super.clone();
     }
   }
 }

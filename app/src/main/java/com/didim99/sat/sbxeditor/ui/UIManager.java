@@ -3,11 +3,14 @@ package com.didim99.sat.sbxeditor.ui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.didim99.sat.R;
-import com.didim99.sat.sbxeditor.Station;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.Utils;
+import com.didim99.sat.sbxeditor.model.Station;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 
 /**
  * Created by didim99 on 09.05.18.
@@ -95,5 +98,18 @@ public class UIManager {
       view.setVisibility(View.INVISIBLE);
       view.setRotation(0);
     }
+  }
+
+  void setTimeString(Integer launchTime, View textView) {
+    CharSequence launchTimeStr;
+    if (launchTime == null)
+      launchTimeStr = res.getString(R.string.NA);
+    else if (launchTime == SBML.TIMESTAMP_UNDEFINED)
+      launchTimeStr = res.getString(R.string.longTimeAgo);
+    else {
+      launchTimeStr = DateFormat.format(Utils.DATE_FORMAT,
+        Utils.timestampToMillis(launchTime));
+    }
+    ((TextView) textView).setText(launchTimeStr);
   }
 }

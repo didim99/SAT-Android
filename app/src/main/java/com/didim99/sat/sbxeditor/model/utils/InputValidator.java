@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor.model;
+package com.didim99.sat.sbxeditor.model.utils;
 
 import android.content.Context;
 import android.widget.EditText;
@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.didim99.sat.BuildConfig;
 import com.didim99.sat.MyLog;
 import com.didim99.sat.R;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 
 /**
  * Input values validator and converter

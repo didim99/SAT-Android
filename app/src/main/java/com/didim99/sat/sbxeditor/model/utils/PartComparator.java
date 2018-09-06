@@ -1,5 +1,6 @@
-package com.didim99.sat.sbxeditor.model;
+package com.didim99.sat.sbxeditor.model.utils;
 
+import com.didim99.sat.sbxeditor.model.wrapper.Part;
 import java.util.Comparator;
 
 /**

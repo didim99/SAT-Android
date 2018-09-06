@@ -26,8 +26,8 @@ import com.didim99.sat.db.DBTask;
 import com.didim99.sat.network.AppUpdateInfo;
 import com.didim99.sat.network.NetworkManager;
 import com.didim99.sat.network.WebAPI;
-import com.didim99.sat.sbxeditor.Storage;
-import com.didim99.sat.sbxeditor.model.InputValidator;
+import com.didim99.sat.sbxeditor.model.Storage;
+import com.didim99.sat.sbxeditor.model.utils.InputValidator;
 import com.google.gson.Gson;
 
 /**
@@ -39,7 +39,6 @@ public class SettingsFragment extends PreferenceFragment
   implements SharedPreferences.OnSharedPreferenceChangeListener,
   DBTask.EventListener, NetworkManager.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_setFrag";
-  private static final String DATE_FORMAT = "dd.MM.yyyy";
 
   private Context appContext;
   private ListPreference convType, sbxName, language;
@@ -239,7 +238,7 @@ public class SettingsFragment extends PreferenceFragment
       if (Settings.isDevMode()) {
         prefUpdateDb.setSummary(getString(R.string.pSummary_updateDbAdvanced,
           getString(R.string.pSummary_updateDb),
-          DateFormat.format(DATE_FORMAT, Utils.timestampToMillis(Settings.getDbVer())),
+          DateFormat.format(Utils.DATE_FORMAT, Utils.timestampToMillis(Settings.getDbVer())),
           Storage.getSAVerInfo().get(Settings.getDbGameVer())));
       } else
         prefUpdateDb.setSummary(R.string.pSummary_updateDb);
@@ -259,7 +258,7 @@ public class SettingsFragment extends PreferenceFragment
       AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
       if (Settings.isDevMode()) {
         adb.setMessage(getString(R.string.dbTask_newDbAvailableAdvanced,
-          DateFormat.format(DATE_FORMAT, Utils.timestampToMillis(newVersion))));
+          DateFormat.format(Utils.DATE_FORMAT, Utils.timestampToMillis(newVersion))));
       } else {
         adb.setMessage(R.string.dbTask_newDbAvailable);
       }

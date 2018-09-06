@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.didim99.sat.R;
-import com.didim99.sat.sbxeditor.Sandbox;
-import com.didim99.sat.sbxeditor.model.NaviCompMarker;
+import com.didim99.sat.sbxeditor.model.Sandbox;
+import com.didim99.sat.sbxeditor.model.wrapper.NaviCompMarker;
 import com.didim99.sat.settings.Settings;
 import java.util.ArrayList;
 

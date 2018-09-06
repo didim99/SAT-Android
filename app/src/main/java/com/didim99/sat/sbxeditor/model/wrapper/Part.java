@@ -1,4 +1,4 @@
-package com.didim99.sat.sbxeditor.model;
+package com.didim99.sat.sbxeditor.model.wrapper;
 
 import com.google.gson.annotations.SerializedName;
 

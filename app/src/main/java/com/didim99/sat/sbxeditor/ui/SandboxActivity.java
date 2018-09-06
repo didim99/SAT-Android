@@ -18,12 +18,12 @@ import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.Utils;
 import com.didim99.sat.dirpicker.DirPickerActivity;
-import com.didim99.sat.sbxeditor.Sandbox;
-import com.didim99.sat.sbxeditor.SbxEditConfig;
-import com.didim99.sat.sbxeditor.SbxEditTask;
-import com.didim99.sat.sbxeditor.Station;
-import com.didim99.sat.sbxeditor.Storage;
-import com.didim99.sat.sbxeditor.model.SBML;
+import com.didim99.sat.sbxeditor.model.Sandbox;
+import com.didim99.sat.sbxeditor.model.SbxEditConfig;
+import com.didim99.sat.sbxeditor.model.SbxEditTask;
+import com.didim99.sat.sbxeditor.model.Station;
+import com.didim99.sat.sbxeditor.model.Storage;
+import com.didim99.sat.sbxeditor.model.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.io.File;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class SandboxActivity extends BaseActivity
   //view-elements
   private MenuItem
     actionSave, actionSbxInfo, actionNav, actionOptimize,
-    actionAdd, actionPartInfo, actionDevTools;
+    actionAdd, actionPartInfo, actionDevTools, actionPlay;
   private ProgressBar sbxProgressBar;
   private RecyclerView rvStationList;
   private ActionMode actionMode;
@@ -127,6 +127,7 @@ public class SandboxActivity extends BaseActivity
   public boolean onCreateOptionsMenu(Menu menu) {
     MyLog.d(LOG_TAG, "Creating menu...");
     getMenuInflater().inflate(R.menu.menu_sandbox, menu);
+    actionPlay = menu.findItem(R.id.action_play);
     actionSave = menu.findItem(R.id.action_save);
     actionSbxInfo = menu.findItem(R.id.action_sbxInfo);
     actionOptimize = menu.findItem(R.id.action_optimize);
@@ -147,6 +148,7 @@ public class SandboxActivity extends BaseActivity
     }
 
     if (uiLocked) {
+      actionPlay.setVisible(false);
       actionSave.setVisible(false);
       actionSbxInfo.setVisible(false);
       actionOptimize.setVisible(false);
@@ -467,6 +469,8 @@ public class SandboxActivity extends BaseActivity
     else MyLog.d(LOG_TAG, "Unlocking UI...");
 
     uiLocked = state;
+    if (actionPlay != null)
+      actionPlay.setVisible(!state);
     if (actionSave != null)
       actionSave.setVisible(!state);
     if (actionSbxInfo != null)
