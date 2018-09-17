@@ -3,7 +3,7 @@ package com.didim99.sat.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.didim99.sat.MyLog;
+import com.didim99.sat.utils.MyLog;
 
 /**
  * Settings manager and storage class

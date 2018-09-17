@@ -3,7 +3,7 @@ package com.didim99.sat.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.didim99.sat.MyLog;
+import com.didim99.sat.utils.MyLog;
 
 /*
  * Created by didim99 on 08.03.18.

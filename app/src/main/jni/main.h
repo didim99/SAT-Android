@@ -14,19 +14,19 @@
 #define LOG_V(...) __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
 
 JNIEXPORT jlong JNICALL
-Java_com_didim99_sat_sbxconverter_SbxConverter_compressFile
+Java_com_didim99_sat_core_sbxconverter_SbxConverter_compressFile
     (JNIEnv *env, jobject obj, jstring _fileName, jint verCode);
 
 JNIEXPORT jlong JNICALL
-Java_com_didim99_sat_sbxconverter_SbxConverter_uncompressFile(
+Java_com_didim99_sat_core_sbxconverter_SbxConverter_uncompressFile(
     JNIEnv *env, jobject obj, jstring _fileName);
 
 JNIEXPORT jlong JNICALL
-Java_com_didim99_sat_resconverter_TexConverter_compressTexture(
+Java_com_didim99_sat_core_resconverter_TexConverter_compressTexture(
     JNIEnv *env, jobject obj, jstring _name, jint sizeX, jint sizeY);
 
 JNIEXPORT jintArray JNICALL
-Java_com_didim99_sat_resconverter_TexConverter_uncompressTexture(
+Java_com_didim99_sat_core_resconverter_TexConverter_uncompressTexture(
     JNIEnv *env, jobject obj, jstring _name);
 
 #endif //SAT_MAIN_H

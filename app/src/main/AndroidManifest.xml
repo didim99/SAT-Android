@@ -14,14 +14,14 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".StartActivity">
+    <activity android:name=".ui.StartActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
 
-    <activity android:name=".sbxeditor.ui.SandboxActivity">
+    <activity android:name=".ui.sbxeditor.SandboxActivity">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <action android:name="android.intent.action.EDIT"/>
@@ -67,15 +67,15 @@
     </activity>
 
     <activity
-      android:name=".sbxeditor.ui.SbxEditActivity"
+      android:name=".ui.sbxeditor.SbxEditActivity"
       android:launchMode="singleTop"/>
 
     <activity
-      android:name=".resconverter.ResConvertActivity"
+      android:name=".ui.resconverter.ResConvertActivity"
       android:launchMode="singleTop"/>
 
     <activity
-      android:name=".sbxconverter.SbxConvertActivity"
+      android:name=".ui.sbxconverter.SbxConvertActivity"
       android:icon="@mipmap/ic_sbx_converter"
       android:label="@string/moduleName_sbxConverter"
       android:launchMode="singleTop">
@@ -124,17 +124,17 @@
     </activity>
 
     <activity
-      android:name=".dirpicker.DirPickerActivity"
+      android:name=".ui.dirpicker.DirPickerActivity"
       android:label="@string/actLabel_dirPicker"
       android:launchMode="singleTop"
       android:theme="@style/AppThemeDialog"/>
 
     <activity
-      android:name=".sbxeditor.ui.PartInfoActivity"
+      android:name=".ui.sbxeditor.PartInfoActivity"
       android:label="@string/mTitle_actionPartInfo"/>
 
     <activity
-      android:name=".sbxeditor.ui.NaviCompActivity"
+      android:name=".ui.sbxeditor.NaviCompActivity"
       android:label="@string/mTitle_actionNav"/>
 
     <activity

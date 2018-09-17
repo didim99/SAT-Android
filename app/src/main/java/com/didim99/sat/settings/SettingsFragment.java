@@ -19,15 +19,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.didim99.sat.BuildConfig;
-import com.didim99.sat.MyLog;
+import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
-import com.didim99.sat.Utils;
+import com.didim99.sat.utils.Timer;
+import com.didim99.sat.utils.Utils;
 import com.didim99.sat.db.DBTask;
 import com.didim99.sat.network.AppUpdateInfo;
 import com.didim99.sat.network.NetworkManager;
 import com.didim99.sat.network.WebAPI;
-import com.didim99.sat.sbxeditor.model.Storage;
-import com.didim99.sat.sbxeditor.model.utils.InputValidator;
+import com.didim99.sat.core.sbxeditor.Storage;
+import com.didim99.sat.core.sbxeditor.utils.InputValidator;
 import com.google.gson.Gson;
 
 /**
@@ -50,7 +51,7 @@ public class SettingsFragment extends PreferenceFragment
   private static final int DEV_MODE_FINISH = 0;
   private static final long DEV_MODE_DELAY = 300;
   private int devModeCounter = DEV_MODE_START;
-  private Utils.Timer devTimer;
+  private Timer devTimer;
   private DBTask task;
 
   @Override
@@ -97,7 +98,7 @@ public class SettingsFragment extends PreferenceFragment
     if (!Settings.isDevMode()) {
       prefAbout.setOnPreferenceClickListener(preference -> {
         if (devModeCounter == DEV_MODE_START) {
-          devTimer = new Utils.Timer();
+          devTimer = new Timer();
           devTimer.start();
           devModeCounter--;
         } else if (devModeCounter > DEV_MODE_FINISH) {

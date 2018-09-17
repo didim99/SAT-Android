@@ -2,8 +2,8 @@ package com.didim99.sat.network;
 
 import android.os.AsyncTask;
 import com.didim99.sat.BuildConfig;
-import com.didim99.sat.MyLog;
-import com.didim99.sat.Utils;
+import com.didim99.sat.utils.MyLog;
+import com.didim99.sat.utils.Utils;
 import com.didim99.sat.settings.Settings;
 import java.io.IOException;
 import java.util.HashMap;

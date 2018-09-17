@@ -13,7 +13,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.didim99.sat.sbxeditor.ui.view.RatioBar
+    <com.didim99.sat.ui.sbxeditor.view.RatioBar
       android:id="@+id/powerTotalBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
       app:colorForeground="@color/colorFull"
       app:iconID="@drawable/ic_power_24dp"/>
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/mainFuelBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
       app:colorForeground="@color/valueBar_fuelFg"
       app:iconID="@drawable/ic_fuel_main_24dp"/>
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/thrFuelBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
       app:colorForeground="@color/valueBar_fuelFg"
       app:iconID="@drawable/ic_fuel_thr_24dp"/>
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/cargoTotalBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp">
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/oxygenBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
       app:colorForeground="@color/valueBar_oxygenFg"
       app:iconID="@drawable/ic_oxygen_24dp"/>
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/carbonBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
       app:colorForeground="@color/valueBar_carbonFg"
       app:iconID="@drawable/ic_carbon_24dp"/>
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/waterBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
       app:colorForeground="@color/valueBar_waterFg"
       app:iconID="@drawable/ic_water_24dp"/>
 
-    <com.didim99.sat.sbxeditor.ui.view.ValueBar
+    <com.didim99.sat.ui.sbxeditor.view.ValueBar
       android:id="@+id/batteryBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

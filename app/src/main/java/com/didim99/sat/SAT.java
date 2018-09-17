@@ -9,11 +9,13 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 import com.didim99.sat.db.DBTask;
-import com.didim99.sat.sbxconverter.RootShell;
-import com.didim99.sat.sbxeditor.model.utils.InputValidator;
-import com.didim99.sat.sbxeditor.model.wrapper.SBML;
-import com.didim99.sat.sbxeditor.ui.UIManager;
+import com.didim99.sat.core.sbxconverter.RootShell;
+import com.didim99.sat.core.sbxeditor.utils.InputValidator;
+import com.didim99.sat.core.sbxeditor.wrapper.SBML;
+import com.didim99.sat.ui.sbxeditor.UIManager;
 import com.didim99.sat.settings.Settings;
+import com.didim99.sat.utils.MyLog;
+import com.didim99.sat.utils.Utils;
 import java.io.File;
 import java.util.Locale;
 
@@ -222,7 +224,7 @@ public class SAT extends Application implements DBTask.EventListener {
   }
 
   private void genDeviceUuid() {
-    String uuid = Utils.md5 (
+    String uuid = Utils.md5(
       Build.BOARD + "\n" + Build.BOOTLOADER + "\n"
         + Build.BRAND + "\n" + Build.DEVICE + "\n"
         + Build.DISPLAY + "\n" + Build.FINGERPRINT + "\n"
