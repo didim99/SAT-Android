@@ -5,7 +5,7 @@ import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.utils.Utils;
 import com.didim99.sat.core.sbxeditor.wrapper.Module;
-import com.didim99.sat.core.sbxeditor.wrapper.NaviCompMarker;
+import com.didim99.sat.core.sbxeditor.wrapper.NCMarker;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.io.BufferedReader;
@@ -54,7 +54,7 @@ public class TextGenerator {
     else font = Storage.getFont();
   }
 
-  public Station createText(SbxEditConfig config, ArrayList<NaviCompMarker> naviComp) {
+  public Station createText(SbxEditConfig config, ArrayList<NCMarker> naviComp) {
     int startSaveId = config.getStartSaveId();
     String text = config.getText();
     int align = config.getAlign();
@@ -86,7 +86,7 @@ public class TextGenerator {
     return station;
   }
 
-  public Station createAllFont(SbxEditConfig config, ArrayList<NaviCompMarker> naviComp) {
+  public Station createAllFont(SbxEditConfig config, ArrayList<NCMarker> naviComp) {
     StringBuilder builder = new StringBuilder(font.size());
     int inLine = config.getInLine();
     Character[] chars = font.keySet().toArray(new Character[0]);

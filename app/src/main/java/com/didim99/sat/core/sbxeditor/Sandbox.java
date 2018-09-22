@@ -8,7 +8,7 @@ import com.didim99.sat.utils.Utils;
 import com.didim99.sat.core.sbxconverter.SbxConverter;
 import com.didim99.sat.core.sbxeditor.TextGenerator.IllegalCharException;
 import com.didim99.sat.core.sbxeditor.wrapper.Module;
-import com.didim99.sat.core.sbxeditor.wrapper.NaviCompMarker;
+import com.didim99.sat.core.sbxeditor.wrapper.NCMarker;
 import com.didim99.sat.core.sbxeditor.wrapper.Part;
 import com.didim99.sat.core.sbxeditor.wrapper.Planet;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
@@ -64,7 +64,7 @@ public class Sandbox {
   //data set
   private ArrayList<Station> space;
   private ArrayList<Module> alone;
-  private ArrayList<NaviCompMarker> naviComp;
+  private ArrayList<NCMarker> naviComp;
   //system fields
   private boolean modified = false;
   private boolean naviCompModified = false;
@@ -85,7 +85,7 @@ public class Sandbox {
     this.info = new Info();
     if (config.isAddMarkers()) {
       for (Planet planet : Storage.getPlanetInfo())
-        naviComp.add(new NaviCompMarker(planet));
+        naviComp.add(new NCMarker(planet));
     }
     MyLog.d(LOG_TAG, this.toString());
   }
@@ -428,22 +428,22 @@ public class Sandbox {
     analyze(true);
   }
 
-  public void addMarker(NaviCompMarker marker) {
+  public void addMarker(NCMarker marker) {
     MyLog.d(LOG_TAG, "Adding marker: " + marker.getLabel()
       + " (" + marker.getCenterStr(2) + ")");
     naviComp.add(marker);
     naviCompModified = true;
   }
 
-  public void markerReplace(NaviCompMarker oldMarker, NaviCompMarker newMarker) {
+  public void markerReplace(NCMarker oldMarker, NCMarker newMarker) {
     int markerId = naviComp.indexOf(oldMarker);
     MyLog.d(LOG_TAG, "Replacing marker (" + markerId + ")");
     naviComp.set(markerId, newMarker);
     naviCompModified = true;
   }
 
-  public void markerDelete (ArrayList<NaviCompMarker> markers) {
-    for (NaviCompMarker marker : markers) {
+  public void markerDelete (ArrayList<NCMarker> markers) {
+    for (NCMarker marker : markers) {
       MyLog.d(LOG_TAG, "Deleting marker (" + marker.getLabel() + ")");
       naviComp.remove(marker);
     }
@@ -663,7 +663,7 @@ public class Sandbox {
             naviCompPosition++;
             continue;
           } else if (key.equals(SBML.Key.NAV_LABEL)) {
-            naviComp.add(new NaviCompMarker());
+            naviComp.add(new NCMarker());
           }
           naviComp.get(naviCompPosition).setValue(key, args);
           break;
@@ -717,7 +717,7 @@ public class Sandbox {
     //markers set
     if (!naviComp.isEmpty()) {
       MyLog.d(LOG_TAG, "\"navicomp\" section");
-      for (NaviCompMarker marker : naviComp) {
+      for (NCMarker marker : naviComp) {
         for (String key : SBML.naviCompAttrSet) {
           if (key.equals(SBML.Key.NAV_END))
             data.add(Utils.joinStr(SBML.VAL_SEP, SBML.Section.NAVICOMP, key));
@@ -858,7 +858,7 @@ public class Sandbox {
     return fileName;
   }
 
-  public ArrayList<NaviCompMarker> getNaviComp() {
+  public ArrayList<NCMarker> getNaviComp() {
     return naviComp;
   }
 

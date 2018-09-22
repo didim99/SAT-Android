@@ -1,99 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingLeft="@dimen/dialogView_PaddingLarge"
-              android:paddingRight="@dimen/dialogView_PaddingLarge"
-              android:paddingTop="@dimen/dialogView_Padding"
-              android:paddingBottom="@dimen/dialogView_Padding">
-
-  <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <com.didim99.sat.ui.sbxeditor.view.RatioBar
-      android:id="@+id/powerTotalBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:colorBackground="@color/colorEmpty"
-      app:colorForeground="@color/colorFull"
-      app:iconID="@drawable/ic_power_24dp"/>
-
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/mainFuelBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/statDialog_itemHMargin"
-      android:layout_marginStart="@dimen/statDialog_itemHMargin"
-      app:colorBackground="@color/valueBar_fuelBg"
-      app:colorForeground="@color/valueBar_fuelFg"
-      app:iconID="@drawable/ic_fuel_main_24dp"/>
-
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/thrFuelBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/statDialog_itemHMargin"
-      android:layout_marginStart="@dimen/statDialog_itemHMargin"
-      app:colorBackground="@color/valueBar_fuelBg"
-      app:colorForeground="@color/valueBar_fuelFg"
-      app:iconID="@drawable/ic_fuel_thr_24dp"/>
-
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/cargoTotalBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/statDialog_itemHMargin"
-      android:layout_marginStart="@dimen/statDialog_itemHMargin"
-      app:colorBackground="@color/valueBar_cargoBg"
-      app:colorForeground="@color/valueBar_cargoFg"
-      app:iconID="@drawable/ic_cargo_24dp"/>
-  </LinearLayout>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:paddingLeft="@dimen/dialogView_Padding"
+  android:paddingRight="@dimen/dialogView_Padding"
+  android:paddingTop="@dimen/dialogView_Padding"
+  android:paddingBottom="@dimen/dialogView_Padding"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp">
+    android:orientation="vertical">
 
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/oxygenBar"
+    <TableLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <TableRow>
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/mainFuelBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:colorBackground="@color/valueBar_fuelBg"
+          app:colorForeground="@color/valueBar_fuelFg"
+          app:iconID="@drawable/ic_fuel_main_24dp"/>
+
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/thrFuelBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/statDialog_itemHMargin"
+          android:layout_marginStart="@dimen/statDialog_itemHMargin"
+          app:colorBackground="@color/valueBar_fuelBg"
+          app:colorForeground="@color/valueBar_fuelFg"
+          app:iconID="@drawable/ic_fuel_thr_24dp"/>
+      </TableRow>
+
+      <TableRow
+        android:layout_marginTop="@dimen/statDialog_itemVMargin">
+
+        <com.didim99.sat.ui.sbxeditor.view.RatioBar
+          android:id="@+id/powerTotalBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:colorBackground="@color/colorEmpty"
+          app:colorForeground="@color/colorFull"
+          app:iconID="@drawable/ic_power_24dp"/>
+
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/cargoTotalBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/statDialog_itemHMargin"
+          android:layout_marginStart="@dimen/statDialog_itemHMargin"
+          app:colorBackground="@color/valueBar_cargoBg"
+          app:colorForeground="@color/valueBar_cargoFg"
+          app:iconID="@drawable/ic_cargo_24dp"/>
+      </TableRow>
+
+      <TableRow
+        android:layout_marginTop="@dimen/statDialog_itemVMargin">
+
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/oxygenBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:colorBackground="@color/valueBar_oxygenBg"
+          app:colorForeground="@color/valueBar_oxygenFg"
+          app:iconID="@drawable/ic_oxygen_24dp"/>
+
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/carbonBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/statDialog_itemHMargin"
+          android:layout_marginStart="@dimen/statDialog_itemHMargin"
+          app:colorBackground="@color/valueBar_carbonBg"
+          app:colorForeground="@color/valueBar_carbonFg"
+          app:iconID="@drawable/ic_carbon_24dp"/>
+      </TableRow>
+
+      <TableRow
+        android:layout_marginTop="@dimen/statDialog_itemVMargin">
+
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/waterBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:colorBackground="@color/valueBar_waterBg"
+          app:colorForeground="@color/valueBar_waterFg"
+          app:iconID="@drawable/ic_water_24dp"/>
+
+        <com.didim99.sat.ui.sbxeditor.view.ValueBar
+          android:id="@+id/batteryBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/statDialog_itemHMargin"
+          android:layout_marginStart="@dimen/statDialog_itemHMargin"
+          app:colorBackground="@color/valueBar_batteryBg"
+          app:colorForeground="@color/valueBar_batteryFg"
+          app:iconID="@drawable/ic_battery_24dp"/>
+      </TableRow>
+    </TableLayout>
+
+    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:colorBackground="@color/valueBar_oxygenBg"
-      app:colorForeground="@color/valueBar_oxygenFg"
-      app:iconID="@drawable/ic_oxygen_24dp"/>
+      android:layout_marginTop="@dimen/statDialog_itemVMargin"
+      android:layout_marginLeft="@dimen/statDialog_modItemHMargin"
+      android:layout_marginStart="@dimen/statDialog_modItemHMargin"
+      android:text="@string/diaStaStat_modulesList"
+      android:textSize="@dimen/actSbxEdit_textSize_main"
+      android:textColor="@color/textActive"/>
 
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/carbonBar"
-      android:layout_width="wrap_content"
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/rvPartList"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/statDialog_itemHMargin"
-      android:layout_marginStart="@dimen/statDialog_itemHMargin"
-      app:colorBackground="@color/valueBar_carbonBg"
-      app:colorForeground="@color/valueBar_carbonFg"
-      app:iconID="@drawable/ic_carbon_24dp"/>
+      android:layout_marginTop="@dimen/actSbx_layoutMargin"/>
 
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/waterBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/statDialog_itemHMargin"
-      android:layout_marginStart="@dimen/statDialog_itemHMargin"
-      app:colorBackground="@color/valueBar_waterBg"
-      app:colorForeground="@color/valueBar_waterFg"
-      app:iconID="@drawable/ic_water_24dp"/>
-
-    <com.didim99.sat.ui.sbxeditor.view.ValueBar
-      android:id="@+id/batteryBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/statDialog_itemHMargin"
-      android:layout_marginStart="@dimen/statDialog_itemHMargin"
-      app:colorBackground="@color/valueBar_batteryBg"
-      app:colorForeground="@color/valueBar_batteryFg"
-      app:iconID="@drawable/ic_battery_24dp"/>
   </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

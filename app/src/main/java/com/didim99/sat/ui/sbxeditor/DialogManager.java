@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -365,8 +367,11 @@ public class DialogManager {
     adb.setTitle(titleId);
     adb.setView(dialogView);
     adb.setPositiveButton(R.string.dialogButtonOk, null);
-    adb.setNeutralButton(R.string.dialogButtonStat,
-      (dialog, which) -> StationStatDialog(station));
+    if (Settings.isDbLoaded()) {
+      adb.setNeutralButton(R.string.dialogButtonStat,
+        (dialog, which) -> StationStatDialog(station));
+    }
+
     MyLog.d(LOG_TAG, "StationInfo dialog created");
     adb.create().show();
   }
@@ -396,6 +401,11 @@ public class DialogManager {
           .setValueInteger(0, 0);
       }
     }
+
+    RecyclerView rvPartList = dialogView.findViewById(R.id.rvPartList);
+    rvPartList.setLayoutManager(new LinearLayoutManager(contextRef.get()));
+    rvPartList.setAdapter(new PartStatAdapter(contextRef.get(), stat.getPartCount()));
+    rvPartList.setHasFixedSize(true);
 
     AlertDialog.Builder adb = new AlertDialog.Builder(contextRef.get());
     adb.setTitle(R.string.dialogButtonStat);

@@ -26,7 +26,7 @@ public class SbxConvertTask extends AsyncTask<SbxConverter.Config, Void, String>
   private String result;
   private Timer timer;
 
-  SbxConvertTask(Context ctx) {
+  public SbxConvertTask(Context ctx) {
     appContext = new WeakReference<>(ctx);
     this.timer = new Timer();
   }

@@ -15,6 +15,7 @@
   <string name="dialogButtonEdit">Edit</string>
   <string name="dialogButtonExit">Exit</string>
   <string name="dialogButtonStat">Statistics</string>
+  <string name="sbxShortInfo">Objects: %d, Markers: %d</string>
   <string name="longTimeAgo">Long time ago</string>
   <string name="distanceTo_M">%.2fM to %s</string>
   <string name="distanceTo_K">%.2fK to %s</string>
@@ -132,7 +133,7 @@
   <string name="actSbxConv_btnText_btnEdit">Open in editor</string>
   <string name="actSbxConv_tvContent_selectVersion">Choose version (only for encryption)</string>
   <string name="actSbxConv_rBtnText_verCode21">v1.5.0 or newer</string>
-  <!-- Текст экранных элементов (layodialog_sandbox_savedbox) -->
+  <!-- Текст экранных элементов (layout: dialog_sandbox_save) -->
   <string name="diaSbxSave_title">Save sandbox</string>
   <string name="diaSbxSave_cbText_Overwrite">Overwrite original file</string>
   <string name="diaSbxSave_cbText_Compress">Encrypt sandbox</string>
@@ -155,6 +156,8 @@
   <string name="diaSbxInfo_size">Size</string>
   <string name="diaSbxInfo_movement">Movement</string>
   <string name="diaSbxInfo_planet">Planet</string>
+  <!-- Текст экранных элементов (layout: dialog_station_stat) -->
+  <string name="diaStaStat_modulesList">Modules list</string>
   <!-- Текст экранных элементов (layout: dialog_station_copy) -->
   <string name="diaTitle_multipleCopy">Copy multiple objects</string>
   <string name="diaTitle_staCopy">Copy station</string>
@@ -417,8 +420,8 @@
   </string-array>
   <string name="pTitle_sbxEditorCustomName">Custom sandbox name</string>
   <string name="pSummary_sbxEditorCustomName">Not defined</string>
-  <string name="pTitle_sbxNameInHeader">Sandbox name in window title</string>
-  <string name="pSummary_sbxNameInHeader">Show current sandbox name in the editor window title</string>
+  <string name="pTitle_sbxInfoInHeader">Sandbox info in window title</string>
+  <string name="pSummary_sbxInfoInHeader">Show short info about current sandbox in the editor window title</string>
   <string name="pTitle_confirm_exitEditMode">Confirm exit from editor setup</string>
   <string name="pSummary_confirm_exitEditMode">Ask for confirmation when exiting station editor configuration mode</string>
   <string name="pTitle_internalSender">Internal Sandbox saver</string>

@@ -32,6 +32,7 @@
   <string name="slashDivider" translatable="false">/</string>
   <string name="positionX" translatable="false">X:</string>
   <string name="positionY" translatable="false">Y:</string>
+  <string name="sbxShortInfo">Объектов: %d, Маркеров: %d</string>
   <string name="longTimeAgo">Очень давно</string>
   <string name="distanceTo_M">%.2fM до %s</string>
   <string name="distanceTo_K">%.2fK до %s</string>
@@ -176,6 +177,8 @@
   <string name="diaSbxInfo_size">Размер</string>
   <string name="diaSbxInfo_movement">Движение</string>
   <string name="diaSbxInfo_planet">Планета</string>
+  <!-- Текст экранных элементов (layout: dialog_station_stat) -->
+  <string name="diaStaStat_modulesList">Список модулей</string>
   <!-- Текст экранных элементов (layout: dialog_station_copy) -->
   <string name="diaTitle_multipleCopy">Скопировать несколько объектов</string>
   <string name="diaTitle_staCopy">Скопировать станцию</string>
@@ -447,8 +450,8 @@
   </string-array>
   <string name="pTitle_sbxEditorCustomName">Пользовательское имя sandbox\'а</string>
   <string name="pSummary_sbxEditorCustomName">Не задано</string>
-  <string name="pTitle_sbxNameInHeader">Имя sandbox\'а в заголовке окна</string>
-  <string name="pSummary_sbxNameInHeader">Отображать имя текущего sandbox\'а в заголовке окна редактора</string>
+  <string name="pTitle_sbxInfoInHeader">Инфо о sandbox\'е в заголовке окна</string>
+  <string name="pSummary_sbxInfoInHeader">Отображать краткую информацию о текущем sandbox\'е в заголовке окна редактора</string>
   <string name="pTitle_confirm_exitEditMode">Подтверждение выхода из конфигуратора</string>
   <string name="pSummary_confirm_exitEditMode">Спрашивать подтверждение при выходе из режима настройки редактирования станции</string>
   <string name="pTitle_internalSender">Встроенный проводник для сохранения</string>

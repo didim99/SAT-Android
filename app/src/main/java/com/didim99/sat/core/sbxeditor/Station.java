@@ -7,7 +7,7 @@ import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.utils.Utils;
 import com.didim99.sat.core.sbxeditor.wrapper.Module;
-import com.didim99.sat.core.sbxeditor.wrapper.NaviCompMarker;
+import com.didim99.sat.core.sbxeditor.wrapper.NCMarker;
 import com.didim99.sat.core.sbxeditor.wrapper.Part;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
@@ -59,14 +59,14 @@ public class Station implements Cloneable {
     this.type = type;
   }
 
-  public Station init(ArrayList<NaviCompMarker> naviComp) {
+  public Station init(ArrayList<NCMarker> naviComp) {
     MyLog.d(LOG_TAG, "New station init");
     moduleSet.trimToSize();
     analyze(naviComp);
     return this;
   }
 
-  void analyze(ArrayList<NaviCompMarker> naviComp) {
+  void analyze(ArrayList<NCMarker> naviComp) {
     MyLog.d(LOG_TAG, "Collecting station info...");
     int minSaveId, maxSaveId, saveId, visibility, minVer, ver;
     boolean hasMovement = false, hasRotation = false,
@@ -76,7 +76,7 @@ public class Station implements Cloneable {
     SparseArray<Part> partInfo = Storage.getPartInfo();
     Integer launchTime = Integer.MAX_VALUE, time;
 
-    boolean hasDb = Settings.isDbLoaded();
+    boolean dbLoaded = Settings.isDbLoaded();
     Module initModule = moduleSet.get(0);
     minSaveId = maxSaveId = initModule.getSaveId();
     minVer = SBML.VerCode.V14;
@@ -88,7 +88,7 @@ public class Station implements Cloneable {
         minSaveId = saveId;
       else if (saveId > maxSaveId)
         maxSaveId = saveId;
-      if (hasDb) {
+      if (dbLoaded) {
         ver = partInfo.get(module.getPartId()).getMinVer();
         if (ver > minVer)
           minVer = ver;
@@ -156,8 +156,8 @@ public class Station implements Cloneable {
     analyzeMap(naviComp);
     if (!names.isEmpty())
       info.names = names;
-    if (hasDb)
-      collectStatistics();
+    if (dbLoaded)
+      collectStatistics(partInfo);
     MyLog.d(LOG_TAG, info.toString());
   }
 
@@ -185,13 +185,13 @@ public class Station implements Cloneable {
     MyLog.d(LOG_TAG, "Position info collected");
   }
 
-  void analyzeMap(ArrayList<NaviCompMarker> naviComp) {
+  void analyzeMap(ArrayList<NCMarker> naviComp) {
     MyLog.d(LOG_TAG, "Collecting navigation info...");
     double centerX = (double) info.centerPosX;
     double centerY = (double) info.centerPosY;
     double minDistance = Double.MAX_VALUE;
-    NaviCompMarker nearMarker = null;
-    for (NaviCompMarker marker : naviComp) {
+    NCMarker nearMarker = null;
+    for (NCMarker marker : naviComp) {
       double distance = Math.sqrt(
         Math.pow(centerX - (double) marker.getCenterX(), 2)
           + Math.pow(centerY - (double) marker.getCenterY(), 2)
@@ -217,9 +217,9 @@ public class Station implements Cloneable {
     MyLog.d(LOG_TAG, "Navigation info collected");
   }
 
-  private void collectStatistics() {
+  private void collectStatistics(SparseArray<Part> partInfo) {
     MyLog.d(LOG_TAG, "Collecting station statistics...");
-    SparseArray<Part> partInfo = Storage.getPartInfo();
+    SparseIntArray partCount = new SparseIntArray(moduleSet.size());
     this.stat = new Statistics();
 
     int partID, cargoID, NOT_EXISTS = -1;
@@ -227,10 +227,10 @@ public class Station implements Cloneable {
       partID = module.getPartId();
       Part part = partInfo.get(partID);
 
-      if (stat.partCount.get(partID, NOT_EXISTS) == NOT_EXISTS)
-        stat.partCount.append(partID, 1);
+      if (partCount.get(partID, NOT_EXISTS) == NOT_EXISTS)
+        partCount.append(partID, 1);
       else
-        stat.partCount.put(partID, stat.partCount.get(partID) + 1);
+        partCount.put(partID, partCount.get(partID) + 1);
 
       if (module.hasFuel()) {
         stat.mainFuelCap += module.getMainFuelCapacity();
@@ -248,15 +248,20 @@ public class Station implements Cloneable {
           cargoID = cargoItems.getResId();
           ResourceState cargoState = stat.resState.get(cargoID);
 
-          if (cargoState == null)
+          if (cargoState == null) {
             stat.resState.put(cargoID,
               new ResourceState(cargoItems.getResValue()));
-          else {
+          } else {
             cargoState.updateTotal();
             cargoState.updateUsed(cargoItems.getResValue());
           }
         }
       }
+    }
+
+    for (int i = 0; i < partCount.size(); i++) {
+      stat.partCount.add(new PartStatEntry(partCount.valueAt(i),
+        partInfo.get(partCount.keyAt(i))));
     }
 
     MyLog.d(LOG_TAG, "Statistics collected");
@@ -392,7 +397,7 @@ public class Station implements Cloneable {
   }
 
   Station copy(int newStartSid, int moveMode, float deltaX, float deltaY,
-                ArrayList<NaviCompMarker> navCiomp)
+                ArrayList<NCMarker> navCiomp)
     throws CloneNotSupportedException {
     Station copy = this.clone();
     copy.saveIdChange(newStartSid);
@@ -569,12 +574,10 @@ public class Station implements Cloneable {
       if (distance > 1000000.0) {
         formatStr = ctx.getString(R.string.distanceTo_M);
         distance /= 1000000;
-      }
-      else if (distance > 1000.0) {
+      } else if (distance > 1000.0) {
         formatStr = ctx.getString(R.string.distanceTo_K);
         distance /= 1000;
-      }
-      else {
+      } else {
         formatStr = ctx.getString(R.string.distanceTo_U);
       }
       return String.format(Locale.US, formatStr, distance, nearestMarker);
@@ -691,11 +694,11 @@ public class Station implements Cloneable {
       cargoTotal = 0, cargoUsed = 0,
       powerGen = 0, powerUse = 0;
     private SparseArray<ResourceState> resState;
-    private SparseIntArray partCount;
+    private ArrayList<PartStatEntry> partCount;
 
     private Statistics() {
       resState = new SparseArray<>(4);
-      partCount = new SparseIntArray();
+      partCount = new ArrayList<>();
     }
 
     public float getMainFuelCap() {
@@ -730,7 +733,7 @@ public class Station implements Cloneable {
       return cargoUsed;
     }
 
-    public SparseIntArray getPartCount() {
+    public ArrayList<PartStatEntry> getPartCount() {
       return partCount;
     }
 
@@ -752,13 +755,38 @@ public class Station implements Cloneable {
     @Override
     protected Statistics clone() throws CloneNotSupportedException {
       Statistics clone = (Statistics) super.clone();
-      clone.partCount = this.partCount.clone();
+      clone.partCount = new ArrayList<>(this.partCount.size());
+      for (PartStatEntry state : partCount)
+        clone.partCount.add(state.clone());
       clone.resState = new SparseArray<>(this.resState.size());
       for (int i = 0; i < this.resState.size(); i++) {
         clone.resState.put(this.resState.keyAt(i),
           this.resState.valueAt(i).clone());
       }
       return clone;
+    }
+  }
+
+  public static class PartStatEntry implements Cloneable {
+    private Part part;
+    private int count;
+
+    public Part getPart() { return part; }
+    public int getCount() { return count; }
+
+    PartStatEntry(int count, Part part) {
+      this.part = part;
+      this.count = count;
+    }
+
+    @Override
+    public String toString() {
+      return part.getPartId() + ":" + count;
+    }
+
+    @Override
+    protected PartStatEntry clone() throws CloneNotSupportedException {
+      return (PartStatEntry) super.clone();
     }
   }
 

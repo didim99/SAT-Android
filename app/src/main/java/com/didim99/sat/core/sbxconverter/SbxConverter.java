@@ -153,7 +153,7 @@ public class SbxConverter {
     private int action;
     private int verCode;
 
-    Config(String path) {
+    public Config(String path) {
       this.path = path;
     }
 

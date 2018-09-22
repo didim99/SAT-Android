@@ -10,7 +10,7 @@ import java.util.Arrays;
  * Created by didim99 on 14.02.18.
  */
 
-public class NaviCompMarker {
+public class NCMarker {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_NCMarker";
 
   private String label;
@@ -21,10 +21,10 @@ public class NaviCompMarker {
   private float rescaleRadius;
   private float scale;
 
-  public NaviCompMarker() {}
+  public NCMarker() {}
 
-  public NaviCompMarker(String label, float centerX, float centerY,
-                        float objR, float orbR, float rescaleR, float scale) {
+  public NCMarker(String label, float centerX, float centerY,
+                  float objR, float orbR, float rescaleR, float scale) {
     this.label = label;
     this.center = new float[] {centerX, centerY};
     this.position = new float[] {centerX, centerY};
@@ -34,7 +34,7 @@ public class NaviCompMarker {
     this.scale = scale;
   }
 
-  public NaviCompMarker(Planet planet) {
+  public NCMarker(Planet planet) {
     this.label = planet.getLabel();
     this.center = new float[] {planet.getPositionX(), planet.getPositionY()};
     this.position = new float[] {planet.getPositionX(), planet.getPositionY()};
@@ -147,9 +147,9 @@ public class NaviCompMarker {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof NaviCompMarker))
+    if (!(obj instanceof NCMarker))
       return false;
-    NaviCompMarker other = (NaviCompMarker) obj;
+    NCMarker other = (NCMarker) obj;
     return other.label.equals(label)
       && Arrays.equals(other.center, center)
       && other.objectRadius == objectRadius

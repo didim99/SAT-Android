@@ -3,7 +3,8 @@
   <!-- Generic -->
   <dimen name="toastPosX">0dp</dimen>
   <dimen name="toastPosY">300dp</dimen>
-  <dimen name="actStart_btnPadding">20dp</dimen>
+  <dimen name="btnPaddingLarge">20dp</dimen>
+  <!-- ValueBar -->
   <dimen name="valueBarRadius">44dp</dimen>
   <dimen name="valueBarThickness">6dp</dimen>
   <dimen name="valueBreCircle_containerSize">100dp</dimen>
@@ -25,6 +26,8 @@
   <dimen name="infoDialog_divVMargin">4dp</dimen>
   <!-- Statistics dialog -->
   <dimen name="statDialog_itemHMargin">10dp</dimen>
+  <dimen name="statDialog_itemVMargin">15dp</dimen>
+  <dimen name="statDialog_modItemHMargin">5dp</dimen>
   <!-- Help dialog (generic) -->
   <dimen name="HelpDialog_itemVMargin">3dp</dimen>
   <dimen name="HelpDialog_iconPadding">12dp</dimen>

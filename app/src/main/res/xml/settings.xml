@@ -55,9 +55,9 @@
       android:enabled="false"/>
 
     <SwitchPreference
-      android:key="sbxNameInHeader"
-      android:title="@string/pTitle_sbxNameInHeader"
-      android:summary="@string/pSummary_sbxNameInHeader"
+      android:key="sbxInfoInHeader"
+      android:title="@string/pTitle_sbxInfoInHeader"
+      android:summary="@string/pSummary_sbxInfoInHeader"
       android:defaultValue="true"/>
 
     <SwitchPreference

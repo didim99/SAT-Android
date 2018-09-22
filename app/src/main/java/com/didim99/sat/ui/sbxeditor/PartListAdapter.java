@@ -2,6 +2,7 @@ package com.didim99.sat.ui.sbxeditor;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -47,14 +48,15 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
       Collections.sort(partList, PartComparator.create(sortMain, sortSecond, reverse));
   }
 
+  @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = inflater.inflate(R.layout.item_part, parent, false);
     return new ViewHolder(view);
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     holder.itemView.setOnClickListener(v -> listener.onItemClick(getItemAt(position)));
     Part part = getItemAt(position);
 

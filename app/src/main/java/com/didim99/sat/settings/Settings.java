@@ -39,7 +39,7 @@ public class Settings {
   private static final String KEY_DEVELOPER_MODE = "devMode";
   private static final String KEY_REQUEST_ROOT = "requestRoot";
   private static final String KEY_CONFIRM_EXIT_EDIT_MODE = "confirm_exitEditMode";
-  private static final String KEY_SBX_NAME_IN_HEADER = "sbxNameInHeader";
+  private static final String KEY_SBX_INFO_IN_HEADER = "sbxInfoInHeader";
   private static final String KEY_CREATE_WITH_MARKERS = "createWithMarkers";
   private static final String KEY_USE_INTERNAL_SENDER = "internalSender";
   private static final String KEY_SBX_OPT_SID = "sbxOpt_saveId";
@@ -77,7 +77,7 @@ public class Settings {
   private static final boolean DEFVALUE_USE_INTERNAL_SENDER = false;
   private static final String DEFVALUE_SBX_EDITOR_DEFAULT_NAME = "default";
   private static final String DEFVALUE_SBX_EDITOR_CUSTOM_NAME = "";
-  private static final boolean DEFVALUE_SBX_NAME_IN_HEADER = true;
+  private static final boolean DEFVALUE_SBX_INFO_IN_HEADER = true;
   private static final boolean DEFVALUE_SBX_OPT_SID = true;
   private static final boolean DEFVALUE_SBX_OPT_CARGO = true;
   private static final boolean DEFVALUE_SBX_OPT_FUEL = true;
@@ -116,7 +116,7 @@ public class Settings {
   private static String customSbxName;
   private static boolean createWithMarkers;
   private static boolean useInternalSender;
-  private static boolean sbxNameInHeader;
+  private static boolean sbxInfoInHeader;
   private static boolean sbxOptSID;
   private static boolean sbxOptCargo;
   private static boolean sbxOptFuel;
@@ -149,7 +149,7 @@ public class Settings {
       KEY_SBX_EDITOR_CUSTOM_NAME, DEFVALUE_SBX_EDITOR_CUSTOM_NAME);
     createWithMarkers = settings.getBoolean(KEY_CREATE_WITH_MARKERS, DEFVALUE_CREATE_WITH_MARKERS);
     useInternalSender = settings.getBoolean(KEY_USE_INTERNAL_SENDER, DEFVALUE_USE_INTERNAL_SENDER);
-    sbxNameInHeader = settings.getBoolean(KEY_SBX_NAME_IN_HEADER, DEFVALUE_SBX_NAME_IN_HEADER);
+    sbxInfoInHeader = settings.getBoolean(KEY_SBX_INFO_IN_HEADER, DEFVALUE_SBX_INFO_IN_HEADER);
     sbxOptSID = settings.getBoolean(KEY_SBX_OPT_SID, DEFVALUE_SBX_OPT_SID);
     sbxOptCargo = settings.getBoolean(KEY_SBX_OPT_CARGO, DEFVALUE_SBX_OPT_CARGO);
     sbxOptFuel = settings.getBoolean(KEY_SBX_OPT_FUEL, DEFVALUE_SBX_OPT_FUEL);
@@ -187,7 +187,7 @@ public class Settings {
       + "\n  customSbxName: " + customSbxName
       + "\n  createWithMarkers: " + createWithMarkers
       + "\n  useInternalSender: " + useInternalSender
-      + "\n  sbxNameInHeader: " + sbxNameInHeader
+      + "\n  sbxInfoInHeader: " + sbxInfoInHeader
       + "\n  sbxOptSID: " + sbxOptSID
       + "\n  sbxOptCargo: " + sbxOptCargo
       + "\n  sbxOptFuel: " + sbxOptFuel
@@ -222,8 +222,8 @@ public class Settings {
       case KEY_SBX_EDITOR_CUSTOM_NAME:
         customSbxName = settings.getString(key, DEFVALUE_SBX_EDITOR_CUSTOM_NAME);
         break;
-      case KEY_SBX_NAME_IN_HEADER:
-        sbxNameInHeader = settings.getBoolean(key, DEFVALUE_SBX_NAME_IN_HEADER);
+      case KEY_SBX_INFO_IN_HEADER:
+        sbxInfoInHeader = settings.getBoolean(key, DEFVALUE_SBX_INFO_IN_HEADER);
         break;
       case KEY_CONFIRM_EXIT_EDIT_MODE:
         confirmExitEditMode = settings.getBoolean(key, DEFVALUE_CONFIRM_EXIT_EDIT_MODE);
@@ -338,8 +338,8 @@ public class Settings {
     return useInternalSender;
   }
 
-  public static boolean isSbxNameInHeader() {
-    return sbxNameInHeader;
+  public static boolean isSbxInfoInHeader() {
+    return sbxInfoInHeader;
   }
 
   public static boolean isSbxOptSID() {

@@ -27,14 +27,14 @@ import com.didim99.sat.utils.Utils;
 import com.didim99.sat.core.sbxeditor.Sandbox;
 import com.didim99.sat.core.sbxeditor.Storage;
 import com.didim99.sat.core.sbxeditor.utils.InputValidator;
-import com.didim99.sat.core.sbxeditor.wrapper.NaviCompMarker;
+import com.didim99.sat.core.sbxeditor.wrapper.NCMarker;
 import com.didim99.sat.core.sbxeditor.wrapper.Planet;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.util.ArrayList;
 
 public class NaviCompActivity extends AppCompatActivity
-  implements NavListAdapter.EventListener<NaviCompMarker> {
+  implements NavListAdapter.EventListener<NCMarker> {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_NavAct";
 
   //marker processing modes
@@ -48,7 +48,7 @@ public class NaviCompActivity extends AppCompatActivity
   private ActionMode actionMode;
   private Toast toastMsg;
   private int mode;
-  private ArrayList<NaviCompMarker> selected;
+  private ArrayList<NCMarker> selected;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +165,7 @@ public class NaviCompActivity extends AppCompatActivity
   }
 
   @Override
-  public void onItemClick(View view, NaviCompMarker marker) {
+  public void onItemClick(View view, NCMarker marker) {
     selected = new ArrayList<>(2);
     selected.add(marker);
     openContextMenu(view);
@@ -258,9 +258,9 @@ public class NaviCompActivity extends AppCompatActivity
           MyLog.d(LOG_TAG, "Checking values...");
           Sandbox sandbox = Storage.getSandbox();
           Planet planet = planets.get(markerSelector.getSelectedItemPosition());
-          NaviCompMarker existingMarker = null;
+          NCMarker existingMarker = null;
 
-          for (NaviCompMarker marker : sandbox.getNaviComp()) {
+          for (NCMarker marker : sandbox.getNaviComp()) {
             if (marker.getLabel().equals(planet.getLabel())) {
               existingMarker = marker;
               break;
@@ -270,7 +270,7 @@ public class NaviCompActivity extends AppCompatActivity
           if (existingMarker != null)
             alreadyExistsDialog(existingMarker, planet);
           else {
-            sandbox.addMarker(new NaviCompMarker(planet));
+            sandbox.addMarker(new NCMarker(planet));
             adapter.refreshData(sandbox);
             toastMsg.setText(R.string.sbxProcessing_markerAdd_success);
             toastMsg.show();
@@ -366,7 +366,7 @@ public class NaviCompActivity extends AppCompatActivity
           scale = setDefaultIfNull(scale, SBML.MARKER_SCALE);
 
           Sandbox sandbox = Storage.getSandbox();
-          NaviCompMarker newMarker = new NaviCompMarker(
+          NCMarker newMarker = new NCMarker(
             label, posX, posY, objR, orbR, rescaleR, scale);
           switch (mode) {
             case MODE_ADD_CUSTOM:
@@ -386,12 +386,12 @@ public class NaviCompActivity extends AppCompatActivity
     }
   };
 
-  private void alreadyExistsDialog(final NaviCompMarker marker, final Planet planet) {
+  private void alreadyExistsDialog(final NCMarker marker, final Planet planet) {
     MyLog.d(LOG_TAG, "alreadyExists dialog called");
     AlertDialog.Builder adb = new AlertDialog.Builder(this);
     adb.setTitle(getString(R.string.diaTitle_markerExists, planet.getLabel()));
     adb.setPositiveButton(R.string.dialogButtonOk, (dialog, which) -> {
-      Storage.getSandbox().markerReplace(marker, new NaviCompMarker(planet));
+      Storage.getSandbox().markerReplace(marker, new NCMarker(planet));
       adapter.refreshData(Storage.getSandbox());
       toastMsg.setText(R.string.sbxProcessing_markerReplace_success);
       toastMsg.show();
@@ -406,7 +406,7 @@ public class NaviCompActivity extends AppCompatActivity
     MyLog.d(LOG_TAG, "markerInfo dialog called");
     View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_marker_info, null);
 
-    NaviCompMarker marker = selected.get(0);
+    NCMarker marker = selected.get(0);
     ((TextView) dialogView.findViewById(R.id.tvMarkerLabel))
       .setText(marker.getLabel());
     ((TextView) dialogView.findViewById(R.id.tvPosition))
@@ -434,7 +434,7 @@ public class NaviCompActivity extends AppCompatActivity
     View dialogView = LayoutInflater.from(this)
       .inflate(R.layout.dialog_add_marker_custom, null);
 
-    NaviCompMarker marker = selected.get(0);
+    NCMarker marker = selected.get(0);
     ((EditText) dialogView.findViewById(R.id.etLabel))
       .setText(marker.getLabel());
     ((EditText) dialogView.findViewById(R.id.etPositionX)).setText(Utils
@@ -483,12 +483,12 @@ public class NaviCompActivity extends AppCompatActivity
 
   private void markerAddAllStd() {
     MyLog.d(LOG_TAG, "Adding all standard markers");
-    ArrayList<NaviCompMarker> naviComp = Storage.getSandbox().getNaviComp();
+    ArrayList<NCMarker> naviComp = Storage.getSandbox().getNaviComp();
 
     int count = planets.size();
     for (Planet planet : planets) {
       boolean exists = false;
-      for (NaviCompMarker marker : naviComp) {
+      for (NCMarker marker : naviComp) {
         if (planet.getLabel().equals(marker.getLabel())) {
           exists = true;
           count--;
@@ -497,7 +497,7 @@ public class NaviCompActivity extends AppCompatActivity
       }
 
       if (!exists) {
-        NaviCompMarker marker = new NaviCompMarker(planet);
+        NCMarker marker = new NCMarker(planet);
         if (naviComp.size() > planet.getId())
           naviComp.add(planet.getId(), marker);
         else

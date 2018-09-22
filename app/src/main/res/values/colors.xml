@@ -46,6 +46,9 @@
   <color name="sizeLarge">#a60300</color>
   <color name="sizeMedium">#35a600</color>
   <color name="sizeSmall">#0016a6</color>
+  <color name="sizeLargeBg">#40a60300</color>
+  <color name="sizeMediumBg">#4035a600</color>
+  <color name="sizeSmallBg">#400016a6</color>
   <!-- Station statistics -->
   <color name="valueBar_powerBg">@color/colorEmpty</color>
   <color name="valueBar_powerFg">@color/colorFull</color>

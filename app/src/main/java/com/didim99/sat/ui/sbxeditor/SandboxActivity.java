@@ -529,10 +529,14 @@ public class SandboxActivity extends BaseActivity
   }
 
   private void updateActionBar() {
-    if (Settings.isSbxNameInHeader()) {
+    if (Settings.isSbxInfoInHeader()) {
       ActionBar bar = getSupportActionBar();
-      if (bar != null)
-        bar.setTitle(Storage.getSandbox().getInfo().getSbxName());
+      if (bar != null) {
+        Sandbox.Info info = Storage.getSandbox().getInfo();
+        bar.setTitle(info.getSbxName());
+        bar.setSubtitle(getString(R.string.sbxShortInfo,
+          info.getObjectsCount(), info.getMarkerCount()));
+      }
     }
   }
 

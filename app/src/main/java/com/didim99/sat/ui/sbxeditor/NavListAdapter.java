@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.didim99.sat.R;
 import com.didim99.sat.core.sbxeditor.Sandbox;
-import com.didim99.sat.core.sbxeditor.wrapper.NaviCompMarker;
+import com.didim99.sat.core.sbxeditor.wrapper.NCMarker;
 import com.didim99.sat.settings.Settings;
 import java.util.ArrayList;
 
@@ -20,18 +20,18 @@ import java.util.ArrayList;
  * Created by didim99 on 09.05.18.
  */
 
-class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.ViewHolder>
+class NavListAdapter extends MultiSelectAdapter<NCMarker, NavListAdapter.ViewHolder>
   implements View.OnCreateContextMenuListener {
 
   private final LayoutInflater inflater;
   private final MenuInflater menuInflater;
-  private ArrayList<NaviCompMarker> naviComp;
+  private ArrayList<NCMarker> naviComp;
   private ArrayList<String> planetNames;
   private boolean screenLarge;
 
   NavListAdapter(Context context, MenuInflater menuInflater, boolean screenLarge,
                  Sandbox sandbox, ArrayList<String> planetNames,
-                 EventListener<NaviCompMarker> listener) {
+                 EventListener<NCMarker> listener) {
     super(context, listener);
     this.inflater = LayoutInflater.from(context);
     this.menuInflater = menuInflater;
@@ -52,7 +52,7 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    NaviCompMarker marker = getItemAt(position);
+    NCMarker marker = getItemAt(position);
     super.onBindViewHolder(holder, position);
 
     //Enable top divider for first item
@@ -86,7 +86,7 @@ class NavListAdapter extends MultiSelectAdapter<NaviCompMarker, NavListAdapter.V
   }
 
   @Override
-  NaviCompMarker getItemAt(int position) {
+  NCMarker getItemAt(int position) {
     return naviComp.get(position);
   }
 
