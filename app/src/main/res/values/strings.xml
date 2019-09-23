@@ -381,7 +381,7 @@
   <string name="errorCode_already_packed">Исходный файл уже запакован</string>
   <string name="errorCode_incorrect_format">Некорректный формат исходного файла</string>
   <!-- Текст сообщений (RootShell) -->
-  <string name="rootUnalailable">На вашем устройстве не получен Root-доступ</string>
+  <string name="rootUnavailable">На вашем устройстве не получен Root-доступ</string>
   <!-- Текст сообщений (DBTask) -->
   <string name="dbTask_DbUnwritable">Не удается открыть локальную БД на запись. Возможно на устройстве недостаточно свободного места.</string>
   <string name="dbTask_webUnavailable">Не удается получить даннные от сервера. Проверьте соедиение с Интернетом.</string>

@@ -360,7 +360,7 @@
   <string name="errorCode_already_packed">Input file is already packed</string>
   <string name="errorCode_incorrect_format">Incorrect source file format</string>
   <!-- Текст сообщений (RootShell) -->
-  <string name="rootUnalailable">Root-access unavailable on your device</string>
+  <string name="rootUnavailable">Root-access unavailable on your device</string>
   <!-- Текст сообщений (DBTask) -->
   <string name="dbTask_DbUnwritable">Unable to open local database for writing. There may not be enough free space on the device.</string>
   <string name="dbTask_webUnavailable">Can\'t get data from the server. Check the connection to the Internet.</string>

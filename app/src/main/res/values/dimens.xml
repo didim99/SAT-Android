@@ -12,6 +12,8 @@
   <dimen name="valueBreCircle_txtSizeMain">20sp</dimen>
   <dimen name="valueBreCircle_txtSizeSub">16sp</dimen>
   <!-- Dialog (generic) -->
+  <dimen name="dialog_textSize_title">20sp</dimen>
+  <dimen name="dialog_closeBtn_padding">2dp</dimen>
   <dimen name="dialogView_Padding">8dp</dimen>
   <dimen name="dialogView_PaddingLarge">20dp</dimen>
   <dimen name="dialogView_subHeaderHMargin">14dp</dimen>
@@ -65,7 +67,7 @@
   <dimen name="actResConv_textSize_main">18sp</dimen>
   <dimen name="actResConv_textSize_selector">16sp</dimen>
   <dimen name="actResConv_layoutHMargin">5dp</dimen>
-  <!-- DirPickerActivity -->
+  <!-- DirPicker -->
   <dimen name="dirPicker_textSize_path">18sp</dimen>
   <dimen name="dirPicker_layoutHMargin">5dp</dimen>
   <dimen name="dirPicker_itemTextSize">16sp</dimen>

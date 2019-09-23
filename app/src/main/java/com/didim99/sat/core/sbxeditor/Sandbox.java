@@ -3,6 +3,7 @@ package com.didim99.sat.core.sbxeditor;
 import android.content.Context;
 import android.graphics.PointF;
 import android.util.SparseArray;
+import android.util.SparseBooleanArray;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.utils.Utils;
 import com.didim99.sat.core.sbxconverter.SbxConverter;
@@ -23,7 +24,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Locale;
 
 /**
@@ -478,7 +478,7 @@ public class Sandbox {
     return new PointF((minX + maxX) / 2, (minY + maxY) / 2);
   }
 
-  public String getFuelInfo() throws IOException {
+  String getFuelInfo() throws IOException {
     ArrayList<String> fuelInfo = new ArrayList<>();
     fuelInfo.add(SBML.FUEL_INFO_FIRST_LINE);
     for (Module module : alone) {
@@ -549,54 +549,19 @@ public class Sandbox {
       newSpace.delete(aloneId);
     }
 
-    ArrayList<HashSet<Integer>> stations = new ArrayList<>();
-    int stationCount = 0, count1, count2;
-    boolean flag;
-
-    if (rels.size() > 0) {
-      //search stations
-      while (rels.size() > 0) {
-        //new station init
-        stations.add(new HashSet<>());
-        stations.get(stationCount).add(rels.keyAt(0));
-        flag = true;
-        //station init completed
-
-        //included modules search
-        while (flag) {
-          flag = false;
-          count1 = stations.get(stationCount).size();
-
-          //add current module relations
-          Integer[] station = stations.get(stationCount).toArray(new Integer[0]);
-          for (Integer master : station)
-            stations.get(stationCount).addAll(rels.get(master));
-
-          count2 = stations.get(stationCount).size();
-          if (count2 > count1)
-            flag = true;
-        }
-        //included modules search completed
-
-        for (Integer processed : stations.get(stationCount))
-          rels.delete(processed);
-        stationCount++;
-      }
-      //stations search completed
-    }
+    ArrayList<ArrayList<Integer>> stations = new StationSearcher(rels).search();
 
     int cnt = 1;
     this.space = new ArrayList<>(stations.size());
     StringBuilder sb = new StringBuilder();
     sb.append("  Stations: ").append(stations.size());
-    for (HashSet<Integer> station : stations) {
-      sb.append("\n    Station ").append(cnt++).append(" -> ")
-        .append(station.size());
+    for (ArrayList<Integer> station : stations) {
+      sb.append("\n    Station ").append(cnt++)
+        .append(" -> ").append(station.size());
 
-      Integer[] moduleSet = station.toArray(new Integer[0]);
-      Arrays.sort(moduleSet);
+      Collections.sort(station);
       Station newStation = new Station(station.size());
-      for (Integer id : moduleSet)
+      for (Integer id : station)
         newStation.addModule(newSpace.get(id));
       this.space.add(newStation.init(naviComp));
     }
@@ -1005,7 +970,7 @@ public class Sandbox {
     }
   }
 
-  class SBMLParserException extends Exception {
+  static class SBMLParserException extends Exception {
     private int lineNum;
 
     SBMLParserException(String msg, int line) {
@@ -1013,8 +978,41 @@ public class Sandbox {
       lineNum = line;
     }
 
-    public int getLineNum() {
+    int getLineNum() {
       return lineNum;
+    }
+  }
+
+  private static class StationSearcher {
+    private SparseArray<ArrayList<Integer>> graph;
+    private SparseBooleanArray visited;
+    private ArrayList<Integer> station;
+
+    StationSearcher(SparseArray<ArrayList<Integer>> graph) {
+      this.graph = graph;
+      this.station = new ArrayList<>(graph.size());
+      this.visited = new SparseBooleanArray(graph.size());
+      for (int i = 0; i < graph.size(); i++)
+        visited.put(graph.keyAt(i), false);
+    }
+
+    ArrayList<ArrayList<Integer>> search() {
+      ArrayList<ArrayList<Integer>> stations = new ArrayList<>();
+      for (int i = 0; i < graph.size(); i++) {
+        if (!visited.valueAt(i)) {
+          station.clear();
+          explore(graph.keyAt(i));
+          stations.add(new ArrayList<>(station));
+        }
+      }
+      return stations;
+    }
+
+    private void explore(int master) {
+      visited.put(master, true);
+      station.add(master);
+      for (Integer slave : graph.get(master))
+        if (!visited.get(slave)) explore(slave);
     }
   }
 }

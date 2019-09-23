@@ -7,8 +7,8 @@
 #include "main.h"
 
 JNIEXPORT jlong JNICALL
-  Java_com_didim99_sat_core_sbxconverter_SbxConverter_compressFile(
-      JNIEnv *env, jobject obj, jstring _fileName, jint verCode) {
+Java_com_didim99_sat_core_sbxconverter_SbxConverter_compressFile(
+      JNIEnv *env, jclass type, jstring _fileName, jint verCode) {
 
   const char *fileName = (*env)->GetStringUTFChars(env, _fileName, 0);
 
@@ -21,8 +21,8 @@ JNIEXPORT jlong JNICALL
 }
 
 JNIEXPORT jlong JNICALL
-  Java_com_didim99_sat_core_sbxconverter_SbxConverter_uncompressFile(
-      JNIEnv *env, jobject obj, jstring _fileName) {
+Java_com_didim99_sat_core_sbxconverter_SbxConverter_uncompressFile(
+      JNIEnv *env, jclass type, jstring _fileName) {
 
   const char *fileName = (*env)->GetStringUTFChars(env, _fileName, 0);
 
@@ -36,7 +36,7 @@ JNIEXPORT jlong JNICALL
 
 JNIEXPORT jlong JNICALL
 Java_com_didim99_sat_core_resconverter_TexConverter_compressTexture(
-    JNIEnv *env, jobject obj, jstring _name, jint sizeX, jint sizeY) {
+    JNIEnv *env, jclass type, jstring _name, jint sizeX, jint sizeY) {
   const char *name = (*env)->GetStringUTFChars(env, _name, 0);
 
   LOG_D("Compressing texture:\n  %s\n  size: %dx%d", name, sizeX, sizeY);
@@ -49,7 +49,7 @@ Java_com_didim99_sat_core_resconverter_TexConverter_compressTexture(
 
 JNIEXPORT jintArray JNICALL
 Java_com_didim99_sat_core_resconverter_TexConverter_uncompressTexture(
-    JNIEnv *env, jobject obj, jstring _name) {
+    JNIEnv *env, jclass type, jstring _name) {
   const char *name = (*env)->GetStringUTFChars(env, _name, 0);
 
   LOG_D("Uncompressing texture:\n  %s", name);

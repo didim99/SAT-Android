@@ -26,8 +26,8 @@ public class SbxConverter {
   private int lastAction;
   private long status;
 
-  private native long compressFile (String fileName, int verCode);
-  private native long uncompressFile (String fileName);
+  private static native long compressFile (String fileName, int verCode);
+  private static native long uncompressFile (String fileName);
 
   // Used to load the 'crypto' library.
   static {

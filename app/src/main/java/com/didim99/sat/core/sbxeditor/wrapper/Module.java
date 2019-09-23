@@ -194,7 +194,7 @@ public class Module implements Comparable, Cloneable {
         return cargo.get(cargoECounter++).export();
       case SBML.Key.AIR:
         return Utils.joinStr(SBML.VAL_SEP,
-          Utils.FloatArrayToStringArray(air, SBML.PREC_DEFAULT));
+          Utils.floatArrayToStringArray(air, SBML.PREC_DEFAULT));
       case SBML.Key.POWER_SATATE:
         return Utils.joinStr(SBML.VAL_SEP, IntArrayToStringArray(powerState));
       case SBML.Key.NAVICOMP_SATATE:
@@ -203,10 +203,10 @@ public class Module implements Comparable, Cloneable {
         return Utils.joinStr(SBML.VAL_SEP, IntArrayToStringArray(collisionState));
       case SBML.Key.POSITION:
         return Utils.joinStr(SBML.VAL_SEP,
-          Utils.FloatArrayToStringArray(position, SBML.PREC_COORDS));
+          Utils.floatArrayToStringArray(position, SBML.PREC_COORDS));
       case SBML.Key.MOVEMENT:
         return Utils.joinStr(SBML.VAL_SEP,
-          Utils.FloatArrayToStringArray(movement, SBML.PREC_COORDS));
+          Utils.floatArrayToStringArray(movement, SBML.PREC_COORDS));
       case SBML.Key.LAUNCH_TIMESTAMP:
         return Utils.intToString(launchTimestamp);
       case SBML.Key.LAST_USED_TIMESTAMP:
@@ -215,7 +215,7 @@ public class Module implements Comparable, Cloneable {
         return orbitalState;
       case SBML.Key.FUEL_LEVELS:
         return Utils.joinStr(SBML.VAL_SEP,
-          Utils.FloatArrayToStringArray(fuelLevels, SBML.PREC_DEFAULT));
+          Utils.floatArrayToStringArray(fuelLevels, SBML.PREC_DEFAULT));
       case SBML.Key.SOLAR_PANEL_SATATE:
         return solarPanelState;
       case SBML.Key.SIDE_PANEL_SATATE:
@@ -342,6 +342,7 @@ public class Module implements Comparable, Cloneable {
       for (DockPoint point : dock)
         if (point.isDocked()) return true;
     }
+
     return false;
   }
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import com.didim99.sat.SAT;
 import com.didim99.sat.ui.sbxeditor.DialogManager;
 import com.didim99.sat.utils.MyLog;
@@ -43,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity
   @Override
   @CallSuper
   public void onGlobalEvent(SAT.GlobalEvent event) {
-    MyLog.d(LOG_TAG, "Global event received");
+    MyLog.d(LOG_TAG, "Global event received: " + event);
     switch (event) {
       case DB_DAMAGED:
         dialogManager.dbDamaged((SAT) getApplication());

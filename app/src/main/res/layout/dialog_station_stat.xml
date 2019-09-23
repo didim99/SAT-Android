@@ -2,6 +2,7 @@
 <ScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:paddingLeft="@dimen/dialogView_Padding"
   android:paddingRight="@dimen/dialogView_Padding"
   android:paddingTop="@dimen/dialogView_Padding"
@@ -119,7 +120,8 @@
       android:id="@+id/rvPartList"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/actSbx_layoutMargin"/>
+      android:layout_marginTop="@dimen/actSbx_layoutMargin"
+      tools:listitem="@layout/item_part_stat"/>
 
   </LinearLayout>
 </ScrollView>

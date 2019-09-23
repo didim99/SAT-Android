@@ -15,20 +15,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.didim99.sat.core.resconverter.ResConvertTask;
 import com.didim99.sat.core.resconverter.ResConverter;
-import com.didim99.sat.utils.MyLog;
-import com.didim99.sat.R;
-import com.didim99.sat.utils.Utils;
-import com.didim99.sat.ui.dirpicker.DirPickerActivity;
 import com.didim99.sat.settings.Settings;
+import com.didim99.sat.ui.dirpicker.DirPickerActivity;
+import com.didim99.sat.utils.MyLog;
+import com.didim99.sat.utils.Utils;
+import com.didim99.sat.R;
 import java.io.File;
 
 public class ResConvertActivity extends AppCompatActivity
@@ -110,53 +108,41 @@ public class ResConvertActivity extends AppCompatActivity
 
     convertMode = selectMode.isChecked() ?
       ResConverter.Mode.DIRECTORY : ResConverter.Mode.SINGLE_FILE;
-    btnPack.setOnClickListener(actionListener);
-    btnUnpack.setOnClickListener(actionListener);
-    selectMode.setOnCheckedChangeListener(modeListener);
+    btnPack.setOnClickListener(this::onAction);
+    btnUnpack.setOnClickListener(this::onAction);
+
+    selectMode.setOnCheckedChangeListener((button, c) -> {
+      MyLog.d(LOG_TAG, "Convert mode: " + (c ? "directory" : "single file"));
+      convertMode = c ? ResConverter.Mode.DIRECTORY : ResConverter.Mode.SINGLE_FILE;
+    });
 
     MyLog.d(LOG_TAG, "ResConvertActivity started");
   }
 
-  View.OnClickListener actionListener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-      int id = view.getId();
-      String startPath = inputStartPath.getText().toString().trim();
-      if (!checkPath(startPath))
-        return;
+  public void onAction(View view) {
+    int id = view.getId();
+    String startPath = inputStartPath.getText().toString().trim();
+    if (!Utils.checkPath(ResConvertActivity.this, startPath,
+      convertMode == ResConverter.Mode.DIRECTORY))
+      return;
 
-      switch (id) {
-        case R.id.btnPack:
-          currAction = ResConverter.Action.PACK;
-          sysMsg.setText(R.string.resProcessing_packing);
-          break;
-        case R.id.btnUnpack:
-          currAction = ResConverter.Action.UNPACK;
-          sysMsg.setText(R.string.resProcessing_unpacking);
-          break;
-      }
-
-      MyLog.d(LOG_TAG, "Creating new background task...");
-      resTask = new ResConvertTask(getApplicationContext(), convertType);
-      resTask.registerEventListener(ResConvertActivity.this);
-      MyLog.d(LOG_TAG, "Background task created successful (" + resTask.hashCode() + ")");
-      resTask.execute(new ResConverter.Config(startPath, convertMode, currAction));
+    switch (id) {
+      case R.id.btnPack:
+        currAction = ResConverter.Action.PACK;
+        sysMsg.setText(R.string.resProcessing_packing);
+        break;
+      case R.id.btnUnpack:
+        currAction = ResConverter.Action.UNPACK;
+        sysMsg.setText(R.string.resProcessing_unpacking);
+        break;
     }
-  };
 
-  CompoundButton.OnCheckedChangeListener modeListener = new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-      if (isChecked) {
-        MyLog.d(LOG_TAG, "Convert mode: directory");
-        convertMode = ResConverter.Mode.DIRECTORY;
-      }
-      else {
-        MyLog.d(LOG_TAG, "Convert mode: single file");
-        convertMode = ResConverter.Mode.SINGLE_FILE;
-      }
-    }
-  };
+    MyLog.d(LOG_TAG, "Creating new background task...");
+    resTask = new ResConvertTask(getApplicationContext(), convertType);
+    resTask.registerEventListener(ResConvertActivity.this);
+    MyLog.d(LOG_TAG, "Background task created successful (" + resTask.hashCode() + ")");
+    resTask.execute(new ResConverter.Config(startPath, convertMode, currAction));
+  }
 
   @Override
   public ResConvertTask onRetainCustomNonConfigurationInstance() {
@@ -344,40 +330,6 @@ public class ResConvertActivity extends AppCompatActivity
           MyLog.e(LOG_TAG, "No any external file manager found");
       }
     }
-  }
-
-  private boolean checkPath(String path) {
-    MyLog.d(LOG_TAG, "Path checking...\n  " + path);
-    String logMsg = "Path check failed: ";
-    String fileStatus = "";
-    boolean flag = false;
-
-    if (path.equals(""))
-      fileStatus = getString(R.string.emptyPath);
-    else {
-      File file = new File(path);
-
-      if (!file.exists())
-        fileStatus = getString(R.string.fileNotExist);
-      else if (file.isDirectory() && convertMode == ResConverter.Mode.SINGLE_FILE)
-        fileStatus = getString(R.string.fileIsDir);
-      else if (!file.isDirectory() && convertMode == ResConverter.Mode.DIRECTORY)
-        fileStatus = getString(R.string.fileIsNotDir);
-      else if (!file.canRead()) {
-        fileStatus = getString(R.string.fileNotReadable);
-      } else if (!file.canWrite())
-        fileStatus = getString(R.string.fileNotWritable);
-      else flag = true;
-    }
-
-    if (flag)
-      MyLog.d(LOG_TAG, "Path check done");
-    else {
-      MyLog.e(LOG_TAG, logMsg + fileStatus);
-      toastMsg.setText(getString(R.string.error, fileStatus));
-      toastMsg.show();
-    }
-    return flag;
   }
 
   private void internalExplorerDialog() {

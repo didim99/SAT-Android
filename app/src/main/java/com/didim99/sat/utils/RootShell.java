@@ -1,8 +1,7 @@
-package com.didim99.sat.core.sbxconverter;
+package com.didim99.sat.utils;
 
 import android.content.Context;
 import android.widget.Toast;
-import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.BuildConfig;
 import com.didim99.sat.R;
 import com.didim99.sat.settings.Settings;
@@ -26,9 +25,7 @@ public class RootShell {
   private static String outBuf = null;
   private static String errBuf = null;
 
-  private static void startSession()
-    throws IOException {
-
+  private static void startSession() throws IOException {
     MyLog.d(LOG_TAG, "Starting new root shell session...");
     shell = Runtime.getRuntime().exec("su");
     stdin = new DataOutputStream(shell.getOutputStream());
@@ -44,7 +41,7 @@ public class RootShell {
       MyLog.d(LOG_TAG, "Root-access available");
     } catch (IOException e) {
       MyLog.w(LOG_TAG, "Root-access unavailable");
-      Toast.makeText(appContext, R.string.rootUnalailable, Toast.LENGTH_LONG).show();
+      Toast.makeText(appContext, R.string.rootUnavailable, Toast.LENGTH_LONG).show();
       Settings.setRequestRoot(false);
     }
   }
@@ -78,16 +75,15 @@ public class RootShell {
 
     try {
       MyLog.d(LOG_TAG, "executing: " + command);
-      stdin.writeBytes("exec " + command + "\n");
+      stdin.writeBytes(String.format("exec %s\n", command));
       stdin.flush();
 
       BufferedReader br = new BufferedReader(new InputStreamReader(stderr));
       StringBuilder builder = new StringBuilder();
       String line;
 
-      while ((line = br.readLine()) != null) {
+      while ((line = br.readLine()) != null)
         builder.append(line).append("\n");
-      }
       br.close();
       errBuf = builder.toString();
       MyLog.v(LOG_TAG, "cmd err:\n  " + errBuf);
@@ -95,9 +91,8 @@ public class RootShell {
       br = new BufferedReader(new InputStreamReader(stdout));
       builder = new StringBuilder();
 
-      while ((line = br.readLine()) != null) {
+      while ((line = br.readLine()) != null)
         builder.append(line).append("\n");
-      }
       br.close();
       outBuf = builder.toString();
       MyLog.v(LOG_TAG, "cmd out:\n  " + outBuf);

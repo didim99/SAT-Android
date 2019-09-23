@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.util.Base64;
+import android.widget.Toast;
 import com.didim99.sat.BuildConfig;
+import com.didim99.sat.R;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +28,9 @@ public class Utils {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_Utils";
   public static final String DATE_FORMAT = "yyyy.MM.dd";
 
-  public static String joinStr (String delimiter, String... args) {
+  /* ======== STRING UTILS =========== */
+
+  public static String joinStr(String delimiter, String... args) {
     if (args == null || args.length == 0)
       return null;
     StringBuilder builder = new StringBuilder();
@@ -37,7 +41,7 @@ public class Utils {
     return builder.toString();
   }
 
-  public static String joinStr (String delimiter, ArrayList<String> args) {
+  public static String joinStr(String delimiter, ArrayList<String> args) {
     if (args == null || args.isEmpty())
       return null;
     StringBuilder builder = new StringBuilder();
@@ -48,17 +52,41 @@ public class Utils {
     return builder.toString();
   }
 
-  public static String floatToString (Float value, int precision) {
+  public static String md5(String str) {
+    try {
+      // Create MD5 Hash
+      MessageDigest digest = MessageDigest.getInstance("MD5");
+      digest.update(str.getBytes());
+
+      // Create Hex String
+      StringBuilder hexString = new StringBuilder();
+      for (byte digit : digest.digest())
+        hexString.append(String.format("%02x", digit & 0xFF));
+      return hexString.toString();
+    } catch (NoSuchAlgorithmException e) {
+      if (BuildConfig.DEBUG)
+        e.printStackTrace();
+      return "";
+    }
+  }
+
+  public static String base64Encode(String str) {
+    return new String(Base64.encode(str.getBytes(), Base64.DEFAULT)).trim();
+  }
+
+  /* ======== TYPE CONVERT UTILS =========== */
+
+  public static String floatToString(Float value, int precision) {
     if (value == null)
       return null;
     return String.format(Locale.US, "%." + precision + "f", value);
   }
 
-  public static String intToString (Integer value) {
+  public static String intToString(Integer value) {
     return value == null ? null : String.valueOf(value);
   }
 
-  public static float[] stringArrayToFloatArray (ArrayList<String> args) {
+  public static float[] stringArrayToFloatArray(ArrayList<String> args) {
     if (args == null || args.isEmpty())
       return null;
     float[] result = new float[args.size()];
@@ -70,7 +98,7 @@ public class Utils {
     return result;
   }
 
-  public static String[] FloatArrayToStringArray (float[] args, int precision) {
+  public static String[] floatArrayToStringArray(float[] args, int precision) {
     if (args == null || args.length == 0)
       return null;
     String[] result = new String[args.length];
@@ -80,12 +108,16 @@ public class Utils {
     return result;
   }
 
-  public static int arrayMax (int... args) {
+  /* ======== ARRAY UTILS =========== */
+
+  public static int arrayMax(int... args) {
     int max = Integer.MIN_VALUE;
     for (int value : args)
       if (value > max) max = value;
     return max;
   }
+
+  /* ======== TIME UTILS =========== */
 
   public static int getTimestamp() {
     return  (int) (System.currentTimeMillis() / 1000);
@@ -95,32 +127,7 @@ public class Utils {
     return (long) timestamp * 1000;
   }
 
-  public static String md5 (String str) {
-    try {
-      // Create MD5 Hash
-      MessageDigest digest = MessageDigest.getInstance("MD5");
-      digest.update(str.getBytes());
-      byte messageDigest[] = digest.digest();
-
-      // Create Hex String
-      StringBuilder hexString = new StringBuilder();
-      for (byte aMessageDigest : messageDigest) {
-        String h = Integer.toHexString(0xFF & aMessageDigest);
-        if (h.length() < 2)
-          h = "0" + h;
-        hexString.append(h);
-      }
-      return hexString.toString();
-    } catch (NoSuchAlgorithmException e) {
-      if (BuildConfig.DEBUG)
-        e.printStackTrace();
-    }
-    return "";
-  }
-
-  public static String base64Encode(String str) {
-    return new String (Base64.encode(str.getBytes(), Base64.DEFAULT)).trim();
-  }
+  /* ======== FILE UTILS =========== */
 
   public static void copyFile(String srcName, String targetName)
     throws IOException {
@@ -149,6 +156,48 @@ public class Utils {
     src.close();
     MyLog.d(LOG_TAG, "Writing completed");
   }
+
+  public static boolean checkPath(Context ctx, String path, boolean allowDir) {
+    MyLog.d(LOG_TAG, "Path checking: " + path);
+    int status = fileStatus(path, allowDir);
+    if (status != 0) {
+      String fileStatus = ctx.getString(status);
+      MyLog.e(LOG_TAG, "Path check failed: " + fileStatus);
+      Toast.makeText(ctx, ctx.getString(R.string.error, fileStatus),
+        Toast.LENGTH_LONG).show();
+      return false;
+    } else {
+      MyLog.d(LOG_TAG, "Path check done");
+      return true;
+    }
+  }
+
+  private static int fileStatus(String path, boolean allowDir) {
+    if (path.isEmpty())
+      return R.string.emptyPath;
+    File file = new File(path);
+    if (!file.exists() && !getAccessToFile(path))
+      return R.string.fileNotExist;
+    if (!allowDir && file.isDirectory())
+      return R.string.fileIsDir;
+    if (allowDir && !file.isDirectory())
+      return R.string.fileIsNotDir;
+    if (!file.canRead() && !getAccessToFile(path))
+      return R.string.fileNotReadable;
+    if (!file.canWrite() && !getAccessToFile(path))
+      return R.string.fileNotWritable;
+    return 0;
+  }
+
+  private static boolean getAccessToFile(String path) {
+    if (RootShell.hasRootAccess()) {
+      RootShell.exec(String.format("chmod 606 %s", path));
+      return !RootShell.getError().contains("No such file or directory");
+    } else
+      return false;
+  }
+
+  /* ======== ANDROID UTILS =========== */
 
   public static boolean isIntentSafe(Context context, Intent intent) {
     PackageManager packageManager = context.getPackageManager();

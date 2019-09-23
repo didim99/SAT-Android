@@ -81,10 +81,10 @@ public class NCMarker {
         return label;
       case SBML.Key.NAV_CENTER:
         return Utils.joinStr(SBML.VAL_SEP,
-          Utils.FloatArrayToStringArray(center, SBML.PREC_DEFAULT));
+          Utils.floatArrayToStringArray(center, SBML.PREC_DEFAULT));
       case SBML.Key.NAV_POSITION:
         return Utils.joinStr(SBML.VAL_SEP,
-          Utils.FloatArrayToStringArray(position, SBML.PREC_COORDS));
+          Utils.floatArrayToStringArray(position, SBML.PREC_COORDS));
       case SBML.Key.NAV_OBJECT_RADIUS:
         return Utils.floatToString(objectRadius, SBML.PREC_COORDS);
       case SBML.Key.NAV_ORBIT_RADIUS:
