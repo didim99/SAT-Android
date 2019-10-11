@@ -36,11 +36,17 @@
 -dontwarn sun.misc.**
 #-keep class com.google.gson.stream.** { *; }
 
-# Prevent proguard from stripping interface information from TypeAdapterFactory,
+# Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class * implements com.google.gson.TypeAdapter
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
+
+# Prevent R8 from leaving Data object members always null
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
 
 ##---------------End: proguard configuration for Gson  ----------
 

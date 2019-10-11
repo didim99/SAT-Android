@@ -2,7 +2,7 @@
   <!-- Application level -->
   <string name="app_name" translatable="false">Space Agency Toolkit</string>
   <string name="app_ver" translatable="false">%s ver. %s\n%s</string>
-  <string name="app_years" translatable="false">2018</string>
+  <string name="app_years" translatable="false">2018 &#8211; 2019</string>
   <string name="moduleName_sbxConverter" translatable="false">SASBX Encryptor - Decryptor</string>
   <string name="actLabel_texConverter">Конвертер текстур</string>
   <string name="actLabel_soundConverter">Конвертер звуков</string>

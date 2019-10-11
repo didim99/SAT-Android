@@ -399,7 +399,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
     nManager.notify(ID_LOADING_DB, nBuilder.build());
   }
 
-  private class DataBuffer {
+  private static class DataBuffer {
     @SerializedName("version")
     private int version;
     @SerializedName("game_version")
@@ -412,7 +412,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
     private SAVerInfo[] saVerInfo;
   }
 
-  private class SAVerInfo {
+  private static class SAVerInfo {
     @SerializedName("ver_code")
     private int verCode;
     @SerializedName("ver_name")
@@ -430,7 +430,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
     void onTaskEvent(int event, int statusCode);
   }
 
-  private class DBDamagedException extends Exception {
+  private static class DBDamagedException extends Exception {
     DBDamagedException(String message) { super(message); }
   }
 }
