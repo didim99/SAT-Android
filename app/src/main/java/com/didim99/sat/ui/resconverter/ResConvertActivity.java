@@ -24,6 +24,7 @@ import com.didim99.sat.core.resconverter.ResConverter;
 import com.didim99.sat.settings.Settings;
 import com.didim99.sat.ui.BaseActivity;
 import com.didim99.sat.ui.dirpicker.DirPickerActivity;
+import com.didim99.sat.ui.sbxeditor.UIManager;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.utils.Utils;
 import com.didim99.sat.R;
@@ -160,7 +161,7 @@ public class ResConvertActivity extends BaseActivity
 
     actionSwichType = menu.findItem(R.id.action_switch_type);
     if (convertType == ResConverter.Type.SOUNDS) {
-      actionSwichType.setIcon(R.drawable.ic_textures_white_24dp);
+      actionSwichType.setIcon(UIManager.getInstance().resolveAttr(R.attr.ic_textures));
       actionSwichType.setTitle(R.string.mTitle_switchToTextures);
     }
 

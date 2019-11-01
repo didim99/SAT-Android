@@ -25,7 +25,11 @@
   <attr name="ic_cross" format="reference"/>
   <attr name="ic_direction" format="reference"/>
   <attr name="ic_direction2" format="reference"/>
+  <attr name="ic_orbiting" format="reference"/>
+  <attr name="ic_rotation" format="reference"/>
   <attr name="ic_visibility" format="reference"/>
+  <attr name="ic_visibility_off" format="reference"/>
+  <attr name="ic_unknown" format="reference"/>
   <attr name="ic_colony" format="reference"/>
   <attr name="ic_group" format="reference"/>
   <attr name="ic_text" format="reference"/>
@@ -38,10 +42,15 @@
   <attr name="clr_textLink" format="color"/>
   <attr name="clr_textActive" format="color"/>
   <attr name="clr_textInactive" format="color"/>
+  <attr name="clr_itemSelected" format="color"/>
   <attr name="clr_subSection" format="color"/>
   <attr name="clr_infoDialog_name" format="color"/>
   <attr name="clr_infoDialog_value" format="color"/>
   <attr name="clr_partInfo_textMain" format="color"/>
   <attr name="clr_full" format="color"/>
   <attr name="clr_empty" format="color"/>
+  <attr name="clr_SALightGreen" format="color"/>
+  <attr name="clr_SAGreen" format="color"/>
+  <attr name="clr_SAOrange" format="color"/>
+  <attr name="clr_SARed" format="color"/>
 </resources>

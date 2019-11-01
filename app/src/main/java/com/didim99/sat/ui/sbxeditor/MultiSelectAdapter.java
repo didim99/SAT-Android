@@ -29,6 +29,7 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
   }
 
   protected final Context context;
+  protected final UIManager uiManager;
   protected final Resources resources;
   private final EventListener<T> listener;
   private final int[] selAttrs = { android.R.attr.selectableItemBackground };
@@ -39,12 +40,13 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
   private ArrayList<Integer> selected;
 
   MultiSelectAdapter(Context context, EventListener<T> listener) {
+    this.uiManager = UIManager.getInstance();
     this.resources = context.getResources();
     this.listener = listener;
     this.context = context;
     selected = new ArrayList<>();
-    bgSelected = resources.getColor(R.color.stationItem_selected_light);
-    bgUnselected = resources.getColor(R.color.stationItem_unselected);
+    bgSelected = resources.getColor(uiManager.resolveAttr(R.attr.clr_itemSelected));
+    bgUnselected = resources.getColor(R.color.item_unselected);
     multiSelectAvailable = getItemCount() > 1;
     multiSelectEnabled = false;
   }

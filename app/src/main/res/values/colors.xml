@@ -15,9 +15,9 @@
   <color name="textInactive_light">#b0b0b0</color>
   <color name="textActive_dark">#000000</color>
   <color name="textInactive_dark">#606060</color>
-  <color name="stationItem_selected_light">#24ffffff</color>
-  <color name="stationItem_selected_dark">#24000000</color>
-  <color name="stationItem_unselected">#00ffffff</color>
+  <color name="item_selected_light">#24ffffff</color>
+  <color name="item_selected_dark">#16000000</color>
+  <color name="item_unselected">#00ffffff</color>
   <color name="subSection_light">#c0c0c0</color>
   <color name="subSection_dark">#404040</color>
   <color name="infoDialog_divider">@color/dividerMain</color>
@@ -28,24 +28,18 @@
   <!-- Resources converter -->
   <color name="bg_texPreview">#404040</color>
   <!-- Module/station state (generic) -->
-  <color name="SALightGreen">#a8ffa8</color>
-  <color name="SAGreen">#38ff38</color>
-  <color name="SAOrange">#ffa738</color>
-  <color name="SARed">#ff6060</color>
+  <color name="SALightGreen_light">#a8ffa8</color>
+  <color name="SAGreen_light">#38ff38</color>
+  <color name="SAOrange_light">#ffa738</color>
+  <color name="SARed_light">#ff6060</color>
+  <color name="SALightGreen_dark">#76D076</color>
+  <color name="SAGreen_dark">#13B213</color>
+  <color name="SAOrange_dark">#C77B18</color>
+  <color name="SARed_dark">#AA2A2A</color>
   <color name="colorFull_light">#5cff5c</color>
   <color name="colorEmpty_light">#ff8080</color>
   <color name="colorFull_dark">#28a028</color>
   <color name="colorEmpty_dark">#a02828</color>
-  <!-- Speed -->
-  <color name="speedSubOrbital">@color/SAOrange</color>
-  <color name="speedOrbital">@color/SAGreen</color>
-  <color name="speedOverOrbital">@color/SARed</color>
-  <!-- Distance -->
-  <color name="distanceOver1000">@color/textActive_light</color>
-  <color name="distanceOver500">@color/SALightGreen</color>
-  <color name="distanceOver200">@color/SAGreen</color>
-  <color name="distanceOver100">@color/SAOrange</color>
-  <color name="distanceUnder100">@color/SARed</color>
   <!-- Part size -->
   <color name="sizeLarge">#a60300</color>
   <color name="sizeMedium">#35a600</color>

@@ -27,6 +27,7 @@ import java.util.Collections;
 class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
 
   private Context appContext;
+  private UIManager uiManager;
   private LayoutInflater inflater;
   private ArrayList<Part> partList;
   private OnItemClickListener listener;
@@ -35,6 +36,7 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
   PartListAdapter(Context context, SparseArray<Part> partStorage,
                   boolean screenLarge, OnItemClickListener listener) {
     this.appContext = context.getApplicationContext();
+    this.uiManager = UIManager.getInstance();
     this.inflater = LayoutInflater.from(context);
     this.screenLarge = screenLarge;
     this.listener = listener;
@@ -80,17 +82,17 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
     }
 
     if (part.getSaveCargo() == SBML.SAVE_CARGO_REGULAR) {
-      holder.tvCargo.setTextColor(
-        appContext.getResources().getColor(R.color.colorFull_light));
+      holder.tvCargo.setTextColor(appContext.getResources()
+        .getColor(uiManager.resolveAttr(R.attr.clr_full)));
     } else {
-      holder.tvCargo.setTextColor(
-        appContext.getResources().getColor(R.color.textActive_light));
+      holder.tvCargo.setTextColor(appContext.getResources()
+        .getColor(uiManager.resolveAttr(R.attr.clr_textActive)));
     }
 
     if (part.isHasNaviComp())
-      holder.ivNav.setImageResource(R.drawable.ic_nav_yellow_24dp);
+      holder.ivNav.setImageResource(uiManager.resolveAttr(R.attr.ic_nav_yellow));
     else
-      holder.ivNav.setImageResource(R.drawable.ic_nav_off_yellow_24dp);
+      holder.ivNav.setImageResource(uiManager.resolveAttr(R.attr.ic_nav_off_yellow));
 
     int iconId = part.getPartId();
     if (iconId == SBML.PartID.SOYUZ_SERVICE)

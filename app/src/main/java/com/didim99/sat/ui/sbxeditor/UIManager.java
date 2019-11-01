@@ -3,7 +3,9 @@ package com.didim99.sat.ui.sbxeditor;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.support.annotation.AttrRes;
 import android.text.format.DateFormat;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,9 +26,17 @@ public class UIManager {
   private UIManager() {}
 
   private Resources res;
+  private Resources.Theme theme;
+  private TypedValue typedValue;
 
   public void init(Context appContext) {
     this.res = appContext.getResources();
+    this.theme = appContext.getTheme();
+    this.typedValue = new TypedValue();
+  }
+
+  public void applyTheme(Resources.Theme theme) {
+    this.theme = theme;
   }
 
   void setMovementIcon(ImageView view, Station.Info info) {
@@ -34,17 +44,17 @@ public class UIManager {
     if (info.hasMovement()) {
       int colorId;
       if (info.getMovementSpeed() > SBML.MAX_SPEED_ORBITAL)
-        colorId = R.color.speedOverOrbital;
+        colorId = resolveAttr(R.attr.clr_SARed);
       else if (info.getMovementSpeed() > SBML.MAX_SPEED_SUB_ORBITAL)
-        colorId = R.color.speedOrbital;
+        colorId = resolveAttr(R.attr.clr_SAGreen);
       else
-        colorId = R.color.speedSubOrbital;
-      view.setImageResource(R.drawable.ic_direction_white_24dp);
+        colorId = resolveAttr(R.attr.clr_SAOrange);
+      view.setImageResource(resolveAttr(R.attr.ic_direction));
       view.setRotation(180 - info.getMovementDirection());
       view.getDrawable().setColorFilter(
         res.getColor(colorId), PorterDuff.Mode.SRC_ATOP);
     } else {
-      view.setImageResource(R.drawable.ic_cross_white_24dp);
+      view.setImageResource(resolveAttr(R.attr.ic_cross));
       view.setRotation(0);
     }
   }
@@ -55,20 +65,20 @@ public class UIManager {
       float rotationAbs = Math.abs(info.getRotationSpeed());
       int colorId;
       if (!(rotationAbs < SBML.ROTATION_SPEED_MAX_VALUE))
-        colorId = R.color.speedOverOrbital;
+        colorId = resolveAttr(R.attr.clr_SARed);
       else if (rotationAbs > SBML.ROTATION_SPEED_HIGH)
-        colorId = R.color.speedOrbital;
+        colorId = resolveAttr(R.attr.clr_SAGreen);
       else
-        colorId = R.color.speedSubOrbital;
+        colorId = resolveAttr(R.attr.clr_SAOrange);
       if (info.getObjType() == Station.Type.COLONY)
-        view.setImageResource(R.drawable.ic_orbiting_24dp);
+        view.setImageResource(resolveAttr(R.attr.ic_orbiting));
       else
-        view.setImageResource(R.drawable.ic_rotation_24dp);
+        view.setImageResource(resolveAttr(R.attr.ic_rotation));
       view.setRotationY(info.getRotationSpeed() < 0 ? 180 : 0);
       view.getDrawable().setColorFilter(
         res.getColor(colorId), PorterDuff.Mode.SRC_ATOP);
     } else {
-      view.setImageResource(R.drawable.ic_cross_white_24dp);
+      view.setImageResource(resolveAttr(R.attr.ic_cross));
       view.setRotationY(0);
     }
   }
@@ -82,15 +92,15 @@ public class UIManager {
       int colorId;
       double distance = info.getNavDistance();
       if (distance > SBML.DISTANCE_1000_NCU)
-        colorId = R.color.distanceOver1000;
+        colorId = resolveAttr(R.attr.clr_textActive);
       else if (distance > SBML.DISTANCE_500_NCU)
-        colorId = R.color.distanceOver500;
+        colorId = resolveAttr(R.attr.clr_SALightGreen);
       else if (distance > SBML.DISTANCE_200_NCU)
-        colorId = R.color.distanceOver200;
+        colorId = resolveAttr(R.attr.clr_SAGreen);
       else if (distance > SBML.DISTANCE_100_NCU)
-        colorId = R.color.distanceOver100;
+        colorId = resolveAttr(R.attr.clr_SAOrange);
       else
-        colorId = R.color.distanceUnder100;
+        colorId = resolveAttr(R.attr.clr_SARed);
       view.getDrawable().setColorFilter(
         res.getColor(colorId), PorterDuff.Mode.SRC_ATOP);
     } else {
@@ -111,5 +121,10 @@ public class UIManager {
         Utils.timestampToMillis(launchTime));
     }
     ((TextView) textView).setText(launchTimeStr);
+  }
+
+  public int resolveAttr(@AttrRes int attr) {
+    theme.resolveAttribute(attr, typedValue, true);
+    return typedValue.resourceId;
   }
 }

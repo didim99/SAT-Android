@@ -8,6 +8,7 @@ import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.settings.Settings;
 import com.didim99.sat.ui.sbxeditor.DialogManager;
+import com.didim99.sat.ui.sbxeditor.UIManager;
 import com.didim99.sat.utils.MyLog;
 
 /**
@@ -61,5 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity
       case Settings.THEME_DARK: setTheme(R.style.AppThemeDark); break;
       case Settings.THEME_LIGHT: setTheme(R.style.AppThemeLight); break;
     }
+
+    UIManager.getInstance().applyTheme(getTheme());
   }
 }

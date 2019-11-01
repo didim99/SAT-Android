@@ -28,7 +28,6 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
     static final int STATION = 2;
   }
 
-  private final UIManager uiManager;
   private final LayoutInflater inflater;
   private final MenuInflater menuInflater;
   private Sandbox sandbox;
@@ -36,7 +35,6 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
   StationListAdapter(Context context, MenuInflater menuInflater,
                      EventListener<Station> listener) {
     super(context, listener);
-    this.uiManager = UIManager.getInstance();
     this.inflater = LayoutInflater.from(context);
     this.menuInflater = menuInflater;
   }
@@ -133,28 +131,28 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
 
     switch (info.getVisibility()) {
       case Station.VISIBLE:
-        visibleId = R.drawable.ic_visibility_white_24dp;
+        visibleId = uiManager.resolveAttr(R.attr.ic_visibility);
         break;
       case Station.INVISIBLE:
-        visibleId = R.drawable.ic_visibility_off_24dp;
+        visibleId = uiManager.resolveAttr(R.attr.ic_visibility_off);
         break;
       case Station.VISIBILITY_UNKNOWN:
-        visibleId = R.drawable.ic_unknown_24dp;
+        visibleId = uiManager.resolveAttr(R.attr.ic_unknown);
         break;
     }
 
     switch (info.getObjType()) {
       case Station.Type.COLONY:
         holder.ivStatusType.setVisibility(View.VISIBLE);
-        holder.ivStatusType.setImageResource(R.drawable.ic_colony_white_24dp);
+        holder.ivStatusType.setImageResource(uiManager.resolveAttr(R.attr.ic_colony));
         break;
       case Station.Type.GROUP:
         holder.ivStatusType.setVisibility(View.VISIBLE);
-        holder.ivStatusType.setImageResource(R.drawable.ic_group_white_24dp);
+        holder.ivStatusType.setImageResource(uiManager.resolveAttr(R.attr.ic_group));
         break;
       case Station.Type.TEXT:
         holder.ivStatusType.setVisibility(View.VISIBLE);
-        holder.ivStatusType.setImageResource(R.drawable.ic_text_white_24dp);
+        holder.ivStatusType.setImageResource(uiManager.resolveAttr(R.attr.ic_text));
         break;
       default:
         holder.ivStatusType.setVisibility(View.GONE);

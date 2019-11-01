@@ -28,7 +28,11 @@
     <item name="ic_cross">@drawable/ic_cross_white_24dp</item>
     <item name="ic_direction">@drawable/ic_direction_white_24dp</item>
     <item name="ic_direction2">@drawable/ic_direction2_white_24dp</item>
+    <item name="ic_orbiting">@drawable/ic_orbiting_white_24dp</item>
+    <item name="ic_rotation">@drawable/ic_rotation_white_24dp</item>
     <item name="ic_visibility">@drawable/ic_visibility_white_24dp</item>
+    <item name="ic_visibility_off">@drawable/ic_visibility_off_white_24dp</item>
+    <item name="ic_unknown">@drawable/ic_unknown_white_24dp</item>
     <item name="ic_colony">@drawable/ic_colony_white_24dp</item>
     <item name="ic_group">@drawable/ic_group_white_24dp</item>
     <item name="ic_text">@drawable/ic_text_white_24dp</item>
@@ -42,11 +46,16 @@
     <item name="clr_textLink">@color/lightBlue</item>
     <item name="clr_textActive">@color/textActive_light</item>
     <item name="clr_textInactive">@color/textInactive_light</item>
+    <item name="clr_itemSelected">@color/item_selected_light</item>
     <item name="clr_infoDialog_name">@color/textInactive_light</item>
     <item name="clr_infoDialog_value">@color/textActive_light</item>
     <item name="clr_partInfo_textMain">@color/textActive_light</item>
     <item name="clr_full">@color/colorFull_light</item>
     <item name="clr_empty">@color/colorEmpty_light</item>
+    <item name="clr_SALightGreen">@color/SALightGreen_light</item>
+    <item name="clr_SAGreen">@color/SAGreen_light</item>
+    <item name="clr_SAOrange">@color/SAOrange_light</item>
+    <item name="clr_SARed">@color/SARed_light</item>
   </style>
 
   <style name="AppThemeLight" parent="Theme.AppCompat.Light">
@@ -76,7 +85,11 @@
     <item name="ic_cross">@drawable/ic_cross_black_24dp</item>
     <item name="ic_direction">@drawable/ic_direction_black_24dp</item>
     <item name="ic_direction2">@drawable/ic_direction2_black_24dp</item>
+    <item name="ic_orbiting">@drawable/ic_orbiting_black_24dp</item>
+    <item name="ic_rotation">@drawable/ic_rotation_black_24dp</item>
     <item name="ic_visibility">@drawable/ic_visibility_black_24dp</item>
+    <item name="ic_visibility_off">@drawable/ic_visibility_off_black_24dp</item>
+    <item name="ic_unknown">@drawable/ic_unknown_black_24dp</item>
     <item name="ic_colony">@drawable/ic_colony_black_24dp</item>
     <item name="ic_group">@drawable/ic_group_black_24dp</item>
     <item name="ic_text">@drawable/ic_text_black_24dp</item>
@@ -90,11 +103,16 @@
     <item name="clr_textLink">@color/lightBlue2</item>
     <item name="clr_textActive">@color/textActive_dark</item>
     <item name="clr_textInactive">@color/textInactive_dark</item>
+    <item name="clr_itemSelected">@color/item_selected_dark</item>
     <item name="clr_infoDialog_name">@color/textInactive_dark</item>
     <item name="clr_infoDialog_value">@color/textActive_dark</item>
     <item name="clr_partInfo_textMain">@color/textActive_dark</item>
     <item name="clr_full">@color/colorFull_dark</item>
     <item name="clr_empty">@color/colorEmpty_dark</item>
+    <item name="clr_SALightGreen">@color/SALightGreen_dark</item>
+    <item name="clr_SAGreen">@color/SAGreen_dark</item>
+    <item name="clr_SAOrange">@color/SAOrange_dark</item>
+    <item name="clr_SARed">@color/SARed_dark</item>
   </style>
 
   <style name="AppThemeDialog" parent="Theme.AppCompat.Dialog">
