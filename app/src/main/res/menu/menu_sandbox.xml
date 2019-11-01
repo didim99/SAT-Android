@@ -4,7 +4,7 @@
 
   <item
     android:id="@+id/action_add"
-    android:icon="@drawable/ic_add_24dp"
+    android:icon="?ic_add"
     android:title="@string/mTitle_actionAddObject"
     app:showAsAction="ifRoom"
     android:visible="false">
@@ -51,31 +51,31 @@
 
   <item
     android:id="@+id/action_sbxInfo"
-    android:icon="@drawable/ic_info_outline_24dp"
+    android:icon="?ic_info_outline"
     android:title="@string/mTitle_actionSbxInfo"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/action_play"
-    android:icon="@drawable/ic_play_24dp"
+    android:icon="?ic_play"
     android:title="@string/mTitle_actionPlay"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/action_save"
-    android:icon="@drawable/ic_save_24dp"
+    android:icon="?ic_save"
     android:title="@string/mTitle_actionSave"
     app:showAsAction="always"/>
 
   <item
     android:id="@+id/action_nav"
-    android:icon="@drawable/ic_nav_24dp"
+    android:icon="?ic_nav"
     android:title="@string/mTitle_actionNav"
     app:showAsAction="ifRoom"/>
 
   <item
     android:id="@+id/action_optimize"
-    android:icon="@drawable/ic_optimize_24dp"
+    android:icon="?ic_optimize"
     android:title="@string/mTitle_actionOptimize"
     app:showAsAction="ifRoom"/>
 

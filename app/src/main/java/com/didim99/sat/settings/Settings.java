@@ -20,6 +20,9 @@ public class Settings {
   public static final String VALUE_DEFAULT = "default";
   public static final String VALUE_CUSTOM = "custom";
   public static final String VALUE_DATE = "date";
+  //Theme values
+  public static final String THEME_DARK = "dark";
+  public static final String THEME_LIGHT = "light";
 
   //Settings names
   public static final String KEY_DIR_PICKER_LAST_PATH = "dirPicker_lastPath";
@@ -57,6 +60,7 @@ public class Settings {
   private static final String KEY_SYSTEM_SBX_TMP_DIR = "system.sbxTmpDir";
   private static final String KEY_SYSTEM_RES_TMP_DIR = "system.resTmpDir";
   static final String KEY_LANGUAGE = "language";
+  static final String KEY_THEME = "theme";
   static final String KEY_UPDATE_DB = "updateDb";
   static final String KEY_UPDATE_APP = "updateApp";
   static final String KEY_FEEDBACK = "feedback";
@@ -88,6 +92,7 @@ public class Settings {
   private static final int DEFVALUE_PART_INFO_SORT_SECOND = 0;
   private static final boolean DEFVALUE_PART_INFO_SORT_REVERSE = false;
   public static final String DEFVALUE_LANGUAGE = "default";
+  private static final String DEFVALUE_THEME = "dark";
   private static final String DEFVALUE_SYSTEM_CACHE_DIR = "";
   private static final String DEFVALUE_SYSTEM_SBX_TMP_DIR = "";
   private static final String DEFVALUE_SYSTEM_RES_TMP_DIR = "";
@@ -102,6 +107,7 @@ public class Settings {
   //Settings fields
   private static int lastAppVersion;
   private static String language;
+  private static String theme;
   private static boolean firstStart;
   private static boolean ignoreDb;
   private static boolean hasDB;
@@ -154,6 +160,7 @@ public class Settings {
     sbxOptCargo = settings.getBoolean(KEY_SBX_OPT_CARGO, DEFVALUE_SBX_OPT_CARGO);
     sbxOptFuel = settings.getBoolean(KEY_SBX_OPT_FUEL, DEFVALUE_SBX_OPT_FUEL);
     language = settings.getString(KEY_LANGUAGE, DEFVALUE_LANGUAGE);
+    theme = settings.getString(KEY_THEME, DEFVALUE_THEME);
     sysCacheDir = settings.getString(KEY_SYSTEM_CACHE_DIR, DEFVALUE_SYSTEM_CACHE_DIR);
     sbxTempDir = settings.getString(KEY_SYSTEM_SBX_TMP_DIR, DEFVALUE_SYSTEM_SBX_TMP_DIR);
     resTempDir = settings.getString(KEY_SYSTEM_RES_TMP_DIR, DEFVALUE_SYSTEM_RES_TMP_DIR);
@@ -174,6 +181,7 @@ public class Settings {
       + "\n  lastAppVersion: " + lastAppVersion
       + "\n  firstStart: " + firstStart
       + "\n  language: " + language
+      + "\n  theme: " + theme
       + "\n  ignoreDb: " + ignoreDb
       + "\n  hasDB: " + hasDB
       + "\n  dbVer: " + dbVer + " [" + dbGemeVer + "]"
@@ -280,6 +288,10 @@ public class Settings {
 
   public static String getLanguage() {
     return language;
+  }
+
+  public static String getTheme() {
+    return theme;
   }
 
   public static boolean isFirstStart() {

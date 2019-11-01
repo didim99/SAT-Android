@@ -1,19 +1,106 @@
 <resources>
 
-  <style name="AppTheme" parent="Theme.AppCompat">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+  <style name="AppThemeDark" parent="Theme.AppCompat">
+    <item name="colorPrimary">@color/mainBlue</item>
+    <item name="colorPrimaryDark">@color/darkBlue</item>
+    <item name="colorAccent">@color/lightBlue</item>
     <item name="android:textColorHighlight">@color/textSelectionBg</item>
 
-    <item name="actionModeBackground">@color/colorPrimary</item>
-    <item name="android:actionModeCloseDrawable">@drawable/ic_cross_24dp</item>
+    <item name="actionModeBackground">@color/mainBlue</item>
+    <item name="android:actionModeCloseDrawable">@drawable/ic_cross_white_24dp</item>
+
+    <!-- Theme-dependent drawables -->
+    <item name="ic_edit">@drawable/ic_edit_white_24dp</item>
+    <item name="ic_sounds">@drawable/ic_sounds_white_24dp</item>
+    <item name="ic_textures">@drawable/ic_textures_white_24dp</item>
+    <item name="ic_done">@drawable/ic_done_white_24dp</item>
+    <item name="ic_add">@drawable/ic_add_white_24dp</item>
+    <item name="ic_info_outline">@drawable/ic_info_outline_white_24dp</item>
+    <item name="ic_play">@drawable/ic_play_white_24dp</item>
+    <item name="ic_save">@drawable/ic_save_white_24dp</item>
+    <item name="ic_nav">@drawable/ic_nav_white_24dp</item>
+    <item name="ic_optimize">@drawable/ic_optimize_white_24dp</item>
+    <item name="ic_help_outline">@drawable/ic_help_outline_white_24dp</item>
+    <item name="ic_sort">@drawable/ic_sort_white_24dp</item>
+    <item name="ic_select_all">@drawable/ic_select_all_white_24dp</item>
+    <item name="ic_copy">@drawable/ic_copy_white_24dp</item>
+    <item name="ic_delete">@drawable/ic_delete_white_24dp</item>
+    <item name="ic_cross">@drawable/ic_cross_white_24dp</item>
+    <item name="ic_direction">@drawable/ic_direction_white_24dp</item>
+    <item name="ic_direction2">@drawable/ic_direction2_white_24dp</item>
+    <item name="ic_visibility">@drawable/ic_visibility_white_24dp</item>
+    <item name="ic_colony">@drawable/ic_colony_white_24dp</item>
+    <item name="ic_group">@drawable/ic_group_white_24dp</item>
+    <item name="ic_text">@drawable/ic_text_white_24dp</item>
+    <item name="ic_power_yellow">@drawable/ic_power_yellow_24dp</item>
+    <item name="ic_fuel_yellow">@drawable/ic_fuel_yellow_24dp</item>
+    <item name="ic_cargo_yellow">@drawable/ic_cargo_yellow_24dp</item>
+    <item name="ic_nav_yellow">@drawable/ic_nav_yellow_24dp</item>
+    <item name="ic_nav_off_yellow">@drawable/ic_nav_off_yellow_24dp</item>
+    <!-- Theme-dependent colors -->
+    <item name="clr_subSection">@color/subSection_light</item>
+    <item name="clr_textLink">@color/lightBlue</item>
+    <item name="clr_textActive">@color/textActive_light</item>
+    <item name="clr_textInactive">@color/textInactive_light</item>
+    <item name="clr_infoDialog_name">@color/textInactive_light</item>
+    <item name="clr_infoDialog_value">@color/textActive_light</item>
+    <item name="clr_partInfo_textMain">@color/textActive_light</item>
+    <item name="clr_full">@color/colorFull_light</item>
+    <item name="clr_empty">@color/colorEmpty_light</item>
+  </style>
+
+  <style name="AppThemeLight" parent="Theme.AppCompat.Light">
+    <item name="colorPrimary">@color/lightBlue</item>
+    <item name="colorPrimaryDark">@color/lightBlue2</item>
+    <item name="colorAccent">@color/darkBlue</item>
+    <item name="android:textColorHighlight">@color/textSelectionBg</item>
+
+    <item name="actionModeBackground">@color/lightBlue</item>
+    <item name="android:actionModeCloseDrawable">@drawable/ic_cross_black_24dp</item>
+    <!-- Theme-dependent drawables -->
+    <item name="ic_edit">@drawable/ic_edit_black_24dp</item>
+    <item name="ic_sounds">@drawable/ic_sounds_black_24dp</item>
+    <item name="ic_textures">@drawable/ic_textures_black_24dp</item>
+    <item name="ic_done">@drawable/ic_done_black_24dp</item>
+    <item name="ic_add">@drawable/ic_add_black_24dp</item>
+    <item name="ic_info_outline">@drawable/ic_info_outline_black_24dp</item>
+    <item name="ic_play">@drawable/ic_play_black_24dp</item>
+    <item name="ic_save">@drawable/ic_save_black_24dp</item>
+    <item name="ic_nav">@drawable/ic_nav_black_24dp</item>
+    <item name="ic_optimize">@drawable/ic_optimize_black_24dp</item>
+    <item name="ic_help_outline">@drawable/ic_help_outline_black_24dp</item>
+    <item name="ic_sort">@drawable/ic_sort_black_24dp</item>
+    <item name="ic_select_all">@drawable/ic_select_all_black_24dp</item>
+    <item name="ic_copy">@drawable/ic_copy_black_24dp</item>
+    <item name="ic_delete">@drawable/ic_delete_black_24dp</item>
+    <item name="ic_cross">@drawable/ic_cross_black_24dp</item>
+    <item name="ic_direction">@drawable/ic_direction_black_24dp</item>
+    <item name="ic_direction2">@drawable/ic_direction2_black_24dp</item>
+    <item name="ic_visibility">@drawable/ic_visibility_black_24dp</item>
+    <item name="ic_colony">@drawable/ic_colony_black_24dp</item>
+    <item name="ic_group">@drawable/ic_group_black_24dp</item>
+    <item name="ic_text">@drawable/ic_text_black_24dp</item>
+    <item name="ic_power_yellow">@drawable/ic_power_yellow_dark_24dp</item>
+    <item name="ic_fuel_yellow">@drawable/ic_fuel_yellow_dark_24dp</item>
+    <item name="ic_cargo_yellow">@drawable/ic_cargo_yellow_dark_24dp</item>
+    <item name="ic_nav_yellow">@drawable/ic_nav_yellow_dark_24dp</item>
+    <item name="ic_nav_off_yellow">@drawable/ic_nav_off_yellow_dark_24dp</item>
+    <!-- Theme-dependent colors -->
+    <item name="clr_subSection">@color/subSection_dark</item>
+    <item name="clr_textLink">@color/lightBlue2</item>
+    <item name="clr_textActive">@color/textActive_dark</item>
+    <item name="clr_textInactive">@color/textInactive_dark</item>
+    <item name="clr_infoDialog_name">@color/textInactive_dark</item>
+    <item name="clr_infoDialog_value">@color/textActive_dark</item>
+    <item name="clr_partInfo_textMain">@color/textActive_dark</item>
+    <item name="clr_full">@color/colorFull_dark</item>
+    <item name="clr_empty">@color/colorEmpty_dark</item>
   </style>
 
   <style name="AppThemeDialog" parent="Theme.AppCompat.Dialog">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorPrimary">@color/mainBlue</item>
+    <item name="colorPrimaryDark">@color/darkBlue</item>
+    <item name="colorAccent">@color/lightBlue</item>
   </style>
 
 </resources>

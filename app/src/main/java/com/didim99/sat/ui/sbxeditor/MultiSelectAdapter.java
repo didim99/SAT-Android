@@ -43,7 +43,7 @@ abstract class MultiSelectAdapter<T, VH extends RecyclerView.ViewHolder>
     this.listener = listener;
     this.context = context;
     selected = new ArrayList<>();
-    bgSelected = resources.getColor(R.color.stationItem_selected);
+    bgSelected = resources.getColor(R.color.stationItem_selected_light);
     bgUnselected = resources.getColor(R.color.stationItem_unselected);
     multiSelectAvailable = getItemCount() > 1;
     multiSelectEnabled = false;

@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import com.didim99.sat.R;
 import com.didim99.sat.SAT;
+import com.didim99.sat.settings.Settings;
 import com.didim99.sat.ui.sbxeditor.DialogManager;
 import com.didim99.sat.utils.MyLog;
 
@@ -21,6 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity
   @Override
   @CallSuper
   protected void onCreate(@Nullable Bundle savedInstanceState) {
+    updateUITheme();
     super.onCreate(savedInstanceState);
     dialogManager = DialogManager.getInstance();
   }
@@ -50,6 +53,13 @@ public abstract class BaseActivity extends AppCompatActivity
       case UI_RELOAD:
         this.recreate();
         break;
+    }
+  }
+
+  private void updateUITheme() {
+    switch (Settings.getTheme()) {
+      case Settings.THEME_DARK: setTheme(R.style.AppThemeDark); break;
+      case Settings.THEME_LIGHT: setTheme(R.style.AppThemeLight); break;
     }
   }
 }

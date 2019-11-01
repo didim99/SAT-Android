@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/partInfo_textColorMain"
+        android:textColor="?clr_partInfo_textMain"
         android:textSize="@dimen/partInfo_textSizeMain"
         android:textStyle="bold"/>
 
@@ -66,7 +66,7 @@
           android:layout_weight="8"
           android:layout_marginLeft="@dimen/partInfo_nameMargin"
           android:layout_marginStart="@dimen/partInfo_nameMargin"
-          android:textColor="@color/partInfo_textColorMain"
+          android:textColor="?clr_partInfo_textMain"
           android:textSize="@dimen/partInfo_textSizeMain"/>
 
         <TextView
@@ -76,7 +76,7 @@
           android:layout_weight="1"
           android:layout_marginLeft="@dimen/partInfo_nameMargin"
           android:layout_marginRight="@dimen/partInfo_nameMargin"
-          android:textColor="@color/partInfo_textColorMain"
+          android:textColor="?clr_partInfo_textMain"
           android:textSize="@dimen/partInfo_textSizeMain"
           android:gravity="end"/>
 
@@ -105,7 +105,7 @@
             <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              app:srcCompat="@drawable/ic_power_yellow_24dp"
+              app:srcCompat="?ic_power_yellow"
               tools:ignore="ContentDescription"/>
 
             <TextView
@@ -114,7 +114,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/partInfo_nameMargin"
               android:layout_marginStart="@dimen/partInfo_nameMargin"
-              android:textColor="@color/colorFull"
+              android:textColor="?clr_full"
               android:textSize="@dimen/partInfo_textSizeMain"/>
 
             <TextView
@@ -123,14 +123,14 @@
               android:layout_marginLeft="3dp"
               android:layout_marginRight="3dp"
               android:text="@string/slashDivider"
-              android:textColor="@color/partInfo_textColorMain"
+              android:textColor="?clr_partInfo_textMain"
               android:textSize="@dimen/partInfo_textSizeMain"/>
 
             <TextView
               android:id="@+id/tvPowerUse"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textColor="@color/colorEmpty"
+              android:textColor="?clr_empty"
               android:textSize="@dimen/partInfo_textSizeMain"/>
           </LinearLayout>
 
@@ -142,7 +142,7 @@
             <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              app:srcCompat="@drawable/ic_fuel_yellow_24dp"
+              app:srcCompat="?ic_fuel_yellow"
               tools:ignore="ContentDescription"/>
 
             <TextView
@@ -151,7 +151,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/partInfo_nameMargin"
               android:layout_marginStart="@dimen/partInfo_nameMargin"
-              android:textColor="@color/partInfo_textColorMain"
+              android:textColor="?clr_partInfo_textMain"
               android:textSize="@dimen/partInfo_textSizeMain"/>
           </LinearLayout>
 
@@ -172,7 +172,7 @@
             <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              app:srcCompat="@drawable/ic_cargo_yellow_24dp"
+              app:srcCompat="?ic_cargo_yellow"
               tools:ignore="ContentDescription"/>
 
             <TextView
@@ -181,7 +181,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/partInfo_nameMargin"
               android:layout_marginStart="@dimen/partInfo_nameMargin"
-              android:textColor="@color/partInfo_textColorMain"
+              android:textColor="?clr_partInfo_textMain"
               android:textSize="@dimen/partInfo_textSizeMain"/>
 
           </LinearLayout>
@@ -194,7 +194,7 @@
               android:id="@+id/ivNaviComp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              app:srcCompat="@drawable/ic_nav_off_yellow_24dp"
+              app:srcCompat="?ic_nav_off_yellow"
               tools:ignore="ContentDescription"/>
 
           </LinearLayout>

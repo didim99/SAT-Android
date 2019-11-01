@@ -414,7 +414,7 @@
   <string name="pSummary_internalExplorer">Always use internal file manager</string>
   <string name="pTitle_sbxEditorDefaultName">Default sandbox name</string>
   <string-array name="sbxDefaultName_names">
-    <item>My Sandbox</item>
+    <item>@string/sbxDefaultName</item>
     <item>Current date</item>
     <item>Custom string</item>
   </string-array>
@@ -435,6 +435,11 @@
   <string name="pSummary_updateApp">Check for a newer version of the application</string>
   <string name="appUpdateAvailable">New app version available (%s). Download it now?</string>
   <string name="pTitle_language">Language</string>
+  <string name="pTitle_theme">UI theme</string>
+  <string-array name="theme_names">
+    <item>Dark</item>
+    <item>Light</item>
+  </string-array>
   <string name="pTitle_feedback">Feedback</string>
   <string name="pTitle_about">About</string>
   <string name="devModeEnabled">Developer mode enabled. Please restart app</string>

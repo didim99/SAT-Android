@@ -81,10 +81,10 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
 
     if (part.getSaveCargo() == SBML.SAVE_CARGO_REGULAR) {
       holder.tvCargo.setTextColor(
-        appContext.getResources().getColor(R.color.colorFull));
+        appContext.getResources().getColor(R.color.colorFull_light));
     } else {
       holder.tvCargo.setTextColor(
-        appContext.getResources().getColor(R.color.partInfo_textColorMain));
+        appContext.getResources().getColor(R.color.textActive_light));
     }
 
     if (part.isHasNaviComp())

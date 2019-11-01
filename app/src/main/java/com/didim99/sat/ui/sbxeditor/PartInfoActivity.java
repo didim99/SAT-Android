@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.didim99.sat.ui.BaseActivity;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
@@ -27,7 +27,7 @@ import com.didim99.sat.core.sbxeditor.utils.PartComparator;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 
-public class PartInfoActivity extends AppCompatActivity
+public class PartInfoActivity extends BaseActivity
   implements PartListAdapter.OnItemClickListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_PartAct";
   

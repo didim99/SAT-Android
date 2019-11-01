@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,15 +14,15 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.didim99.sat.core.sbxconverter.SbxConvertTask;
 import com.didim99.sat.core.sbxconverter.SbxConverter;
+import com.didim99.sat.ui.BaseActivity;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.utils.Utils;
 import java.io.File;
 
-public class SbxConvertActivity extends AppCompatActivity
+public class SbxConvertActivity extends BaseActivity
   implements SbxConvertTask.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SbxConvertAct";
 

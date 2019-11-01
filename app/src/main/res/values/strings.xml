@@ -15,6 +15,7 @@
   <string name="valueBar_valueFloat" translatable="false">%.1f / %.0f</string>
   <string name="valueBar_valueInteger" translatable="false">%d / %d</string>
   <!-- Общее -->
+  <string name="sbxDefaultName" translatable="false">My Sandbox</string>
   <string name="NA" translatable="false">N/A</string>
   <string name="valueDegrees" translatable="false">&#176;</string>
   <string name="valuePercent" translatable="false">%</string>
@@ -444,7 +445,7 @@
   <string name="pSummary_internalExplorer">Всегда использовать встроенный файловый менеджер</string>
   <string name="pTitle_sbxEditorDefaultName">Имя sandbox\'а по умолчанию</string>
   <string-array name="sbxDefaultName_names">
-    <item>My Sandbox</item>
+    <item>@string/sbxDefaultName</item>
     <item>Текущая дата</item>
     <item>Пользовательская строка</item>
   </string-array>
@@ -469,6 +470,11 @@
     <item>@string/defaultValue</item>
     <item>English</item>
     <item>Русский</item>
+  </string-array>
+  <string name="pTitle_theme">Тема</string>
+  <string-array name="theme_names">
+    <item>Темная</item>
+    <item>Светлая</item>
   </string-array>
   <string name="pTitle_feedback">Обратная связь</string>
   <string name="pTitle_about">О программе</string>

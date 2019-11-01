@@ -42,7 +42,8 @@ public class SettingsFragment extends PreferenceFragment
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_setFrag";
 
   private Context appContext;
-  private ListPreference convType, sbxName, language;
+  private ListPreference convType, sbxName;
+  private ListPreference language, theme;
   private EditTextPreference sbxCustomName;
   private Preference prefAbout, prefUpdateDb;
   private Toast toastMsg;
@@ -66,9 +67,11 @@ public class SettingsFragment extends PreferenceFragment
     sbxName = (ListPreference) findPreference(Settings.KEY_SBX_EDITOR_DEFAULT_NAME);
     sbxCustomName = (EditTextPreference) findPreference(Settings.KEY_SBX_EDITOR_CUSTOM_NAME);
     language = (ListPreference) findPreference(Settings.KEY_LANGUAGE);
+    theme = (ListPreference) findPreference(Settings.KEY_THEME);
     updateListPrefSummary(convType);
     updateListPrefSummary(sbxName);
     updateListPrefSummary(language);
+    updateListPrefSummary(theme);
     updateSbxCustomNameState();
 
     sbxCustomName.setOnPreferenceChangeListener((preference, newValue) ->
@@ -174,6 +177,11 @@ public class SettingsFragment extends PreferenceFragment
         break;
       case Settings.KEY_LANGUAGE:
         updateListPrefSummary(language);
+        toastMsg.setText(R.string.restartRequired);
+        toastMsg.show();
+        break;
+      case Settings.KEY_THEME:
+        updateListPrefSummary(theme);
         toastMsg.setText(R.string.restartRequired);
         toastMsg.show();
         break;

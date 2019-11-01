@@ -27,7 +27,7 @@
       android:id="@+id/ivReverse"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:srcCompat="@drawable/ic_sort_24dp"
+      app:srcCompat="?ic_sort"
       tools:ignore="ContentDescription"/>
   </LinearLayout>
 

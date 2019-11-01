@@ -16,7 +16,7 @@
       android:layout_height="wrap_content"
       android:text="@string/diaAddMarker_enterLabel"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_name"/>
+      android:textColor="?clr_infoDialog_name"/>
 
     <TextView
       android:id="@+id/tvMarkerLabel"
@@ -25,14 +25,14 @@
       android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
       android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_value"/>
+      android:textColor="?clr_infoDialog_value"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/diaAddMarker_enterPosition"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_name"/>
+      android:textColor="?clr_infoDialog_name"/>
 
     <TextView
       android:id="@+id/tvPosition"
@@ -41,7 +41,7 @@
       android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
       android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_value"/>
+      android:textColor="?clr_infoDialog_value"/>
 
     <ImageView
       android:layout_width="match_parent"
@@ -56,7 +56,7 @@
       android:layout_height="wrap_content"
       android:text="@string/diaAddMarker_enterObjRadius"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_name"/>
+      android:textColor="?clr_infoDialog_name"/>
 
     <TextView
       android:id="@+id/tvObjectRadius"
@@ -65,14 +65,14 @@
       android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
       android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_value"/>
+      android:textColor="?clr_infoDialog_value"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/diaAddMarker_enterOrbRadius"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_name"/>
+      android:textColor="?clr_infoDialog_name"/>
 
     <TextView
       android:id="@+id/tvOrbitRadius"
@@ -81,14 +81,14 @@
       android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
       android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_value"/>
+      android:textColor="?clr_infoDialog_value"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/diaAddMarker_enterRescaleRadius"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_name"/>
+      android:textColor="?clr_infoDialog_name"/>
 
     <TextView
       android:id="@+id/tvRescaleRadius"
@@ -97,14 +97,14 @@
       android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
       android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_value"/>
+      android:textColor="?clr_infoDialog_value"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/diaAddMarker_enterScale"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_name"/>
+      android:textColor="?clr_infoDialog_name"/>
 
     <TextView
       android:id="@+id/tvScale"
@@ -113,7 +113,7 @@
       android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
       android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
       android:textSize="@dimen/infoDialog_textSizeMain"
-      android:textColor="@color/infoDialog_value"/>
+      android:textColor="?clr_infoDialog_value"/>
 
   </LinearLayout>
 

@@ -133,7 +133,7 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
 
     switch (info.getVisibility()) {
       case Station.VISIBLE:
-        visibleId = R.drawable.ic_visibility_24dp;
+        visibleId = R.drawable.ic_visibility_white_24dp;
         break;
       case Station.INVISIBLE:
         visibleId = R.drawable.ic_visibility_off_24dp;
@@ -146,15 +146,15 @@ class StationListAdapter extends MultiSelectAdapter<Station, RecyclerView.ViewHo
     switch (info.getObjType()) {
       case Station.Type.COLONY:
         holder.ivStatusType.setVisibility(View.VISIBLE);
-        holder.ivStatusType.setImageResource(R.drawable.ic_colony_24dp);
+        holder.ivStatusType.setImageResource(R.drawable.ic_colony_white_24dp);
         break;
       case Station.Type.GROUP:
         holder.ivStatusType.setVisibility(View.VISIBLE);
-        holder.ivStatusType.setImageResource(R.drawable.ic_group_24dp);
+        holder.ivStatusType.setImageResource(R.drawable.ic_group_white_24dp);
         break;
       case Station.Type.TEXT:
         holder.ivStatusType.setVisibility(View.VISIBLE);
-        holder.ivStatusType.setImageResource(R.drawable.ic_text_24dp);
+        holder.ivStatusType.setImageResource(R.drawable.ic_text_white_24dp);
         break;
       default:
         holder.ivStatusType.setVisibility(View.GONE);

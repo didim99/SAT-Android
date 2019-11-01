@@ -84,6 +84,14 @@
       android:entryValues="@array/language_values"
       android:defaultValue="default"/>
 
+    <ListPreference
+      android:key="theme"
+      android:title="@string/pTitle_theme"
+      android:summary=""
+      android:entries="@array/theme_names"
+      android:entryValues="@array/theme_values"
+      android:defaultValue="dark"/>
+
     <Preference
       android:key="updateDb"
       android:title="@string/pTitle_updateDb"

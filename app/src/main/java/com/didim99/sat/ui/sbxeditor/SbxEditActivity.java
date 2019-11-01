@@ -2,7 +2,6 @@ package com.didim99.sat.ui.sbxeditor;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.didim99.sat.ui.BaseActivity;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.core.sbxeditor.SbxEditConfig;
@@ -24,7 +24,7 @@ import com.didim99.sat.core.sbxeditor.utils.InputValidator;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 
-public class SbxEditActivity extends AppCompatActivity {
+public class SbxEditActivity extends BaseActivity {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SbxEditAct";
 
   private CheckBox rotationCommonBase,

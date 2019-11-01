@@ -58,7 +58,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/actSbx_layoutMargin"
       android:layout_marginStart="@dimen/actSbx_layoutMargin"
-      app:srcCompat="@drawable/ic_direction2_24dp"
+      app:srcCompat="?ic_direction2"
       tools:ignore="ContentDescription"/>
   </LinearLayout>
 
@@ -74,7 +74,7 @@
       android:id="@+id/ivStatusMovement"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:srcCompat="@drawable/ic_cross_24dp"
+      app:srcCompat="?ic_cross"
       tools:ignore="ContentDescription"/>
 
     <ImageView
@@ -83,7 +83,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/actSbxEdit_iconMargin"
       android:layout_marginStart="@dimen/actSbxEdit_iconMargin"
-      app:srcCompat="@drawable/ic_visibility_24dp"
+      app:srcCompat="?ic_visibility"
       tools:ignore="ContentDescription"/>
 
     <ImageView
@@ -93,7 +93,7 @@
       android:layout_marginLeft="@dimen/actSbxEdit_iconMargin"
       android:layout_marginStart="@dimen/actSbxEdit_iconMargin"
       android:visibility="gone"
-      app:srcCompat="@drawable/ic_group_24dp"
+      app:srcCompat="?ic_group"
       tools:ignore="ContentDescription"/>
   </LinearLayout>
 

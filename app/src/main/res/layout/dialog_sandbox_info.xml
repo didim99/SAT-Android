@@ -23,7 +23,7 @@
         android:layout_column="1"
         android:text="@string/createSandbox_tvText_name"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvSbxName"
@@ -33,7 +33,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <TableRow
@@ -47,7 +47,7 @@
         android:layout_column="1"
         android:text="@string/createSandbox_tvText_uid"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvSbxUid"
@@ -57,7 +57,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <TableRow
@@ -71,7 +71,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_minVer"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvMinVer"
@@ -81,7 +81,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <TableRow
@@ -95,7 +95,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_creationTime"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvCreationTime"
@@ -105,7 +105,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <ImageView
@@ -127,7 +127,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_modCount"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvModCount"
@@ -137,7 +137,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <TableRow
@@ -151,7 +151,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_objCount"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvObjCount"
@@ -161,7 +161,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <TableRow
@@ -175,7 +175,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_stationCount"
         android:textSize="@dimen/infoDialog_textSizeSecond"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvStationCount"
@@ -185,7 +185,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeSecond"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <TableRow
@@ -199,7 +199,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_aloneCount"
         android:textSize="@dimen/infoDialog_textSizeSecond"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvAloneCount"
@@ -209,7 +209,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeSecond"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
     <ImageView
@@ -231,7 +231,7 @@
         android:layout_column="1"
         android:text="@string/diaSbxInfo_markerCount"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_name"/>
+        android:textColor="?clr_infoDialog_name"/>
 
       <TextView
         android:id="@+id/tvMarkerCount"
@@ -241,7 +241,7 @@
         android:layout_marginLeft="@dimen/infoDialog_valueTextMargin"
         android:layout_marginStart="@dimen/infoDialog_valueTextMargin"
         android:textSize="@dimen/infoDialog_textSizeMain"
-        android:textColor="@color/infoDialog_value"/>
+        android:textColor="?clr_infoDialog_value"/>
     </TableRow>
 
   </TableLayout>

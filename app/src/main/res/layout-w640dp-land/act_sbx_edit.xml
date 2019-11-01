@@ -43,7 +43,7 @@
           android:enabled="@bool/default_sectionHide_enabled"
           android:text="@string/actSbxEdit_hide_hide"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"
+          android:textColor="?clr_subSection"
           android:checked="true"/>
 
         <RadioButton
@@ -53,7 +53,7 @@
           android:enabled="@bool/default_sectionHide_enabled"
           android:text="@string/actSbxEdit_hide_show"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
       </RadioGroup>
 
       <ImageView
@@ -84,7 +84,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_alpha_value"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etAlpha"
@@ -139,7 +139,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_extend_fuel_in"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etExtendFuel"
@@ -157,7 +157,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_extend_fuel_fact"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
       </LinearLayout>
 
       <ImageView
@@ -188,7 +188,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_saveId_start"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etStartSaveId"
@@ -226,7 +226,7 @@
         android:layout_marginStart="@dimen/actSbxEdit_subSectionMargin"
         android:text="@string/diaStaCopy_tvText_enterOffset"
         android:textSize="@dimen/actSbxEdit_textSize_main"
-        android:textColor="@color/actSbxEdit_colorSubSection"/>
+        android:textColor="?clr_subSection"/>
 
       <LinearLayout
         android:layout_width="match_parent"
@@ -239,7 +239,7 @@
           android:layout_height="wrap_content"
           android:text="@string/positionX"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etPositionX"
@@ -255,7 +255,7 @@
           android:layout_height="wrap_content"
           android:text="@string/positionY"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etPositionY"
@@ -283,7 +283,7 @@
           android:enabled="@bool/default_sectionPosition_enabled"
           android:text="@string/diaStaCopy_rbText_modeOffset"
           android:textSize="@dimen/actSbx_textSizeMain"
-          android:textColor="@color/actSbxEdit_colorSubSection"
+          android:textColor="?clr_subSection"
           android:checked="true"/>
 
         <RadioButton
@@ -293,7 +293,7 @@
           android:enabled="@bool/default_sectionPosition_enabled"
           android:text="@string/diaStaCopy_rbText_modeNewCenter"
           android:textSize="@dimen/actSbx_textSizeMain"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
       </RadioGroup>
 
       <ImageView
@@ -341,7 +341,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_rotate_value"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etRotateAngle"
@@ -384,7 +384,7 @@
           android:layout_height="wrap_content"
           android:text="@string/positionX"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etRotationBaseX"
@@ -401,7 +401,7 @@
           android:layout_height="wrap_content"
           android:text="@string/positionY"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etRotationBaseY"
@@ -446,7 +446,7 @@
           android:enabled="@bool/default_sectionMovement_enabled"
           android:text="@string/actSbxEdit_movement_mode_stop"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <RadioButton
           android:id="@+id/movementModeEdit"
@@ -455,7 +455,7 @@
           android:enabled="@bool/default_sectionMovement_enabled"
           android:text="@string/actSbxEdit_movement_mode_edit"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"
+          android:textColor="?clr_subSection"
           android:checked="true"/>
       </RadioGroup>
 
@@ -480,7 +480,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_movement_direction"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etMovementDirection"
@@ -514,7 +514,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_movement_speed"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etMovementSpeed"
@@ -548,7 +548,7 @@
           android:gravity="bottom"
           android:text="@string/actSbxEdit_movement_rotation"
           android:textSize="@dimen/actSbxEdit_textSize_main"
-          android:textColor="@color/actSbxEdit_colorSubSection"/>
+          android:textColor="?clr_subSection"/>
 
         <EditText
           android:id="@+id/etMovementRotation"

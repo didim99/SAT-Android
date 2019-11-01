@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -23,13 +22,14 @@ import android.widget.Toast;
 import com.didim99.sat.core.resconverter.ResConvertTask;
 import com.didim99.sat.core.resconverter.ResConverter;
 import com.didim99.sat.settings.Settings;
+import com.didim99.sat.ui.BaseActivity;
 import com.didim99.sat.ui.dirpicker.DirPickerActivity;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.utils.Utils;
 import com.didim99.sat.R;
 import java.io.File;
 
-public class ResConvertActivity extends AppCompatActivity
+public class ResConvertActivity extends BaseActivity
   implements ResConvertTask.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_TexConvertAct";
 
@@ -160,7 +160,7 @@ public class ResConvertActivity extends AppCompatActivity
 
     actionSwichType = menu.findItem(R.id.action_switch_type);
     if (convertType == ResConverter.Type.SOUNDS) {
-      actionSwichType.setIcon(R.drawable.ic_textures_24dp);
+      actionSwichType.setIcon(R.drawable.ic_textures_white_24dp);
       actionSwichType.setTitle(R.string.mTitle_switchToTextures);
     }
 
@@ -310,8 +310,7 @@ public class ResConvertActivity extends AppCompatActivity
       Intent intent = new Intent(this, DirPickerActivity.class);
       intent.putExtra(DirPickerActivity.KEY_MODE, DirPickerActivity.MODE_DIRECTORY);
       startActivityForResult(intent, REQUEST_CHOOSE_DIR);
-    }
-    else if (convertMode == ResConverter.Mode.SINGLE_FILE) {
+    } else if (convertMode == ResConverter.Mode.SINGLE_FILE) {
       if (Settings.ResConverter.isUseInternalExplorer()) {
         MyLog.d(LOG_TAG, "Choose file from DirPicker...");
         Intent intent = new Intent(this, DirPickerActivity.class);

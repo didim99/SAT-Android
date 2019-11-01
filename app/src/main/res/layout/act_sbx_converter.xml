@@ -82,7 +82,7 @@
       android:layout_width="74dp"
       android:layout_height="wrap_content"
       android:layout_weight="0"
-      app:srcCompat="@drawable/ic_edit_24dp"
+      app:srcCompat="?ic_edit"
       android:contentDescription="@string/actSbxConv_btnText_btnEdit"
       style="@style/Base.Widget.AppCompat.Button"
       tools:ignore="ButtonStyle"/>

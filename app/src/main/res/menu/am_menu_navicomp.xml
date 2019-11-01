@@ -3,12 +3,12 @@
 
   <item
     android:id="@+id/action_selectAll"
-    android:icon="@drawable/ic_select_all_24dp"
+    android:icon="?ic_select_all"
     android:title="@string/amStationList_selectAll"/>
 
   <item
     android:id="@+id/action_navDelete"
-    android:icon="@drawable/ic_delete_black_24dp"
+    android:icon="?ic_delete"
     android:title="@string/ctxMenuTitle_actionDelete"/>
 
 </menu>

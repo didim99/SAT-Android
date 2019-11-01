@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.didim99.sat.ui.BaseActivity;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
 import com.didim99.sat.utils.Utils;
@@ -33,7 +33,7 @@ import com.didim99.sat.core.sbxeditor.wrapper.SBML;
 import com.didim99.sat.settings.Settings;
 import java.util.ArrayList;
 
-public class NaviCompActivity extends AppCompatActivity
+public class NaviCompActivity extends BaseActivity
   implements NavListAdapter.EventListener<NCMarker> {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_NavAct";
 

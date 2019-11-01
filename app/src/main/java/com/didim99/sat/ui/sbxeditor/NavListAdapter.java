@@ -63,11 +63,11 @@ class NavListAdapter extends MultiSelectAdapter<NCMarker, NavListAdapter.ViewHol
 
     if (Settings.isDbLoaded()) {
       if (planetNames.contains(marker.getLabel())) {
-        holder.tvLabel.setTextColor(resources.getColor(R.color.textActive));
-        holder.tvCenter.setTextColor(resources.getColor(R.color.textActive));
+        holder.tvLabel.setTextColor(resources.getColor(R.color.textActive_light));
+        holder.tvCenter.setTextColor(resources.getColor(R.color.textActive_light));
       } else {
-        holder.tvLabel.setTextColor(resources.getColor(R.color.textInactive));
-        holder.tvCenter.setTextColor(resources.getColor(R.color.textInactive));
+        holder.tvLabel.setTextColor(resources.getColor(R.color.textInactive_light));
+        holder.tvCenter.setTextColor(resources.getColor(R.color.textInactive_light));
       }
     }
 

@@ -39,12 +39,12 @@ public class UIManager {
         colorId = R.color.speedOrbital;
       else
         colorId = R.color.speedSubOrbital;
-      view.setImageResource(R.drawable.ic_direction_24dp);
+      view.setImageResource(R.drawable.ic_direction_white_24dp);
       view.setRotation(180 - info.getMovementDirection());
       view.getDrawable().setColorFilter(
         res.getColor(colorId), PorterDuff.Mode.SRC_ATOP);
     } else {
-      view.setImageResource(R.drawable.ic_cross_24dp);
+      view.setImageResource(R.drawable.ic_cross_white_24dp);
       view.setRotation(0);
     }
   }
@@ -68,7 +68,7 @@ public class UIManager {
       view.getDrawable().setColorFilter(
         res.getColor(colorId), PorterDuff.Mode.SRC_ATOP);
     } else {
-      view.setImageResource(R.drawable.ic_cross_24dp);
+      view.setImageResource(R.drawable.ic_cross_white_24dp);
       view.setRotationY(0);
     }
   }
