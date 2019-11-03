@@ -198,7 +198,9 @@ public class DialogManager {
         .setOnClickListener(v -> {
             dialog.dismiss();
             listener.onDialogEvent(DialogID.SBX_SAVE, Event.OK,
-              new SbxEditConfig(Sandbox.Mode.SAVE, overwrite, compress, verCode));
+              new SbxEditConfig.Builder(Sandbox.Mode.SAVE)
+                .setOverwrite(overwrite).setCompress(compress)
+                .setVerCode(verCode).build());
           }
         );
     }
@@ -562,8 +564,9 @@ public class DialogManager {
 
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.ADD_MODULE, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.ADD_MODULE,
-              addModulePID, posX, posY, count, offset, inLine));
+            new SbxEditConfig.Builder(Sandbox.Mode.ADD_MODULE)
+              .setPartId(addModulePID).setPositionX(posX).setPositionY(posY)
+              .setCount(count).setOffset(offset).setInLine(inLine).build());
         }
       );
     }
@@ -704,8 +707,10 @@ public class DialogManager {
 
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.ADD_COLONY, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.ADD_COLONY, planetId, addModulePID,
-              state, count, orbHeight, hUnits, gap, rotate, speed));
+            new SbxEditConfig.Builder(Sandbox.Mode.ADD_COLONY).setPlanetId(planetId)
+              .setPartId(addModulePID).setOrbitalState(state).setCount(count)
+              .setOrbHeight(orbHeight).setUnits(hUnits).setGap(gap)
+              .setPositionAngle(rotate).setMovementSpeed(speed).build());
         }
       );
     }
@@ -755,7 +760,9 @@ public class DialogManager {
           int inLine = res.getInteger(R.integer.addModule_defaultInLine);
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.ADD_ALL_MODULES, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.ADD_ALL, verCode, posX, posY, offset, inLine));
+            new SbxEditConfig.Builder(Sandbox.Mode.ADD_ALL)
+              .setVerCode(verCode).setPositionX(posX).setPositionY(posY)
+              .setOffset(offset).setInLine(inLine).build());
         });
     }
   };
@@ -817,7 +824,9 @@ public class DialogManager {
 
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.ADD_TEXT, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.ADD_TEXT, posX, posY, text, align, margin));
+            new SbxEditConfig.Builder(Sandbox.Mode.ADD_TEXT)
+              .setPositionX(posX).setPositionY(posY).setText(text)
+              .setAlign(align).setMargin(margin).build());
         });
     }
   };
@@ -867,7 +876,9 @@ public class DialogManager {
 
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.ADD_ALL_FONT, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.ADD_ALL_FONT, posX, posY, inLine));
+            new SbxEditConfig.Builder(Sandbox.Mode.ADD_ALL_FONT)
+              .setPositionX(posX).setPositionY(posY)
+              .setInLine(inLine).build());
         }
       );
     }
@@ -913,7 +924,8 @@ public class DialogManager {
 
           dialogInterface.dismiss();
           listener.onDialogEvent(DialogID.SBX_OPTIMIZE, Event.OK,
-            new SbxEditConfig(Sandbox.Mode.OPTIMIZE, optSaveId, refreshCargo, refreshFuel));
+            new SbxEditConfig.Builder(Sandbox.Mode.OPTIMIZE).setOptSaveId(optSaveId)
+              .setRefreshCargo(refreshCargo).setRefreshFuel(refreshFuel).build());
         }
       );
     }
@@ -991,7 +1003,9 @@ public class DialogManager {
 
             dialog.dismiss();
             listener.onDialogEvent(DialogID.STATION_COPY, Event.OK,
-              new SbxEditConfig(Sandbox.Mode.COPY, selected, movementMode, deltaX, deltaY));
+              new SbxEditConfig.Builder(Sandbox.Mode.COPY)
+                .setStations(selected).setPositionMode(movementMode)
+                .setPositionX(deltaX).setPositionY(deltaY).build());
           }
         );
     }
@@ -1013,7 +1027,7 @@ public class DialogManager {
     adb.setTitle(titleId);
     adb.setPositiveButton(R.string.dialogButtonOk, (dialog, which)
       -> listener.onDialogEvent(DialogID.STATION_DELETE, Event.OK,
-        new SbxEditConfig(Sandbox.Mode.DELETE, stations)));
+        new SbxEditConfig.Builder(Sandbox.Mode.DELETE).setStations(stations).build()));
     adb.setNegativeButton(R.string.dialogButtonCancel, null);
     AlertDialog dialog = adb.create();
     MyLog.d(LOG_TAG, "stationDelete dialog created");

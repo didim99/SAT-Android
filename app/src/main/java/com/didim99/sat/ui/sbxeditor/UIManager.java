@@ -3,6 +3,7 @@ package com.didim99.sat.ui.sbxeditor;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
@@ -123,6 +124,7 @@ public class UIManager {
     ((TextView) textView).setText(launchTimeStr);
   }
 
+  @AnyRes
   public int resolveAttr(@AttrRes int attr) {
     theme.resolveAttribute(attr, typedValue, true);
     return typedValue.resourceId;

@@ -13,12 +13,12 @@ public class SbxEditConfig {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SbxEditConfig";
 
   private int mode;
-  //for creating
+  //Create Sandbox
   private String fileName;
   private String sbxName;
   private Integer sbxUid;
   private boolean addMarkers;
-  //for adding
+  //Add items to Sandbox
   private int partId;
   private int count;
   private float offset;
@@ -31,7 +31,7 @@ public class SbxEditConfig {
   private int align;
   private Integer margin;
   private SBML.DistanceUnit units;
-  //for editing
+  //Edit Sandbox
   private ArrayList<Station> stations;
   private int editMode;
   private int startSaveId;
@@ -48,7 +48,7 @@ public class SbxEditConfig {
   private float movementDirection;
   private float movementSpeed;
   private float movementRotation;
-  //editable parameters
+  //Editable parameters
   private boolean changeSaveId;
   private boolean changeVisibility;
   private boolean changeAlpha;
@@ -64,116 +64,11 @@ public class SbxEditConfig {
   private boolean refreshFuel;
   private boolean extendFuel;
   private boolean optSaveId;
-  //for saving
+  //Save Sandbox
   private boolean overwrite;
   private boolean compress;
   private int verCode;
 
-  //open/copy existing file
-  public SbxEditConfig(int mode, String fileName) {
-    this.mode = mode;
-    this.fileName = fileName;
-  }
-
-  //create new sandbox
-  public SbxEditConfig(int mode, String sbxName, Integer sbxUid, boolean addMarkers) {
-    this.mode = mode;
-    this.sbxName = sbxName;
-    this.sbxUid = sbxUid;
-    this.addMarkers = addMarkers;
-  }
-
-  //save sandbox
-  public SbxEditConfig(int mode, boolean overwrite, boolean compress, int verCode) {
-    this.mode = mode;
-    this.overwrite = overwrite;
-    this.compress = compress;
-    this.verCode = verCode;
-  }
-
-  //edit/delete station
-  public SbxEditConfig(int mode, ArrayList<Station> stations) {
-    this.mode = mode;
-    this.stations = stations;
-  }
-
-  //copy station
-  public SbxEditConfig(int mode, ArrayList<Station> stations, int positionMode,
-                       float positionX, float positionY) {
-    this.mode = mode;
-    this.stations = stations;
-    this.positionMode = positionMode;
-    this.positionX = positionX;
-    this.positionY = positionY;
-  }
-
-  //add module(s)
-  public SbxEditConfig(int mode, int partId, float positionX, float positionY,
-                       int count, float offset, int inLine) {
-    this.mode = mode;
-    this.partId = partId;
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.count = count;
-    this.offset = offset;
-    this.inLine = inLine;
-  }
-
-  //add colony
-  public SbxEditConfig(int mode, int planetId, int partId, int orbitalState,
-                       int count, float orbHeight, SBML.DistanceUnit hUnits,
-                       Float gap, float rotationAnge, Float movementSpeed) {
-    this.mode = mode;
-    this.planetId = planetId;
-    this.partId = partId;
-    this.orbitalState = orbitalState;
-    this.count = count;
-    this.orbHeight = orbHeight;
-    this.units = hUnits;
-    this.gap = gap;
-    this.positionAnge = rotationAnge;
-    this.movementSpeed = movementSpeed;
-  }
-
-  //add all modules
-  public SbxEditConfig(int mode, int verCode, float positionX, float positionY,
-                       float offset, int inLine) {
-    this.mode = mode;
-    this.verCode = verCode;
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.offset = offset;
-    this.inLine = inLine;
-  }
-
-  //add text
-  public SbxEditConfig(int mode, float positionX, float positionY,
-                       String text, int align, int margin) {
-    this.mode = mode;
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.text = text;
-    this.align = align;
-    this.margin = margin;
-  }
-
-  //add all font
-  public SbxEditConfig(int mode, float positionX, float positionY, int inLine) {
-    this.mode = mode;
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.inLine = inLine;
-  }
-
-  //optimize sandbox
-  public SbxEditConfig(int mode, boolean optSaveId, boolean refreshCargo, boolean refreshFuel) {
-    this.mode = mode;
-    this.optSaveId = optSaveId;
-    this.refreshCargo = refreshCargo;
-    this.refreshFuel = refreshFuel;
-  }
-
-  //play/update NaviComp/get fuel info
   public SbxEditConfig(int mode) {
     this.mode = mode;
   }
@@ -434,14 +329,6 @@ public class SbxEditConfig {
   }
 
   //setters
-  void setText(String text) {
-    this.text = text;
-  }
-
-  void setAlign(int align) {
-    this.align = align;
-  }
-
   public void setEditMode(int editMode) {
     this.editMode = editMode;
   }
@@ -556,5 +443,161 @@ public class SbxEditConfig {
 
   public void setExtendFuel(boolean extendFuel) {
     this.extendFuel = extendFuel;
+  }
+
+  public static class Builder {
+    private SbxEditConfig config;
+
+    public Builder(int mode) {
+      config = new SbxEditConfig(mode);
+    }
+
+    public Builder(SbxEditConfig src) {
+      config = src;
+    }
+
+    public Builder setFileName(String fileName) {
+      config.fileName = fileName;
+      return this;
+    }
+
+    public Builder setSbxName(String sbxName) {
+      config.sbxName = sbxName;
+      return this;
+    }
+
+    public Builder setSbxUid(Integer sbxUid) {
+      config.sbxUid = sbxUid;
+      return this;
+    }
+
+    public Builder setAddMarkers(boolean addMarkers) {
+      config.addMarkers = addMarkers;
+      return this;
+    }
+
+    public Builder setOverwrite(boolean overwrite) {
+      config.overwrite = overwrite;
+      return this;
+    }
+
+    public Builder setCompress(boolean compress) {
+      config.compress = compress;
+      return this;
+    }
+
+    public Builder setVerCode(int verCode) {
+      config.verCode = verCode;
+      return this;
+    }
+
+    public Builder setStations(ArrayList<Station> stations) {
+      config.stations = stations;
+      return this;
+    }
+
+    public Builder setPositionMode(int positionMode) {
+      config.positionMode = positionMode;
+      return this;
+    }
+
+    public Builder setPositionX(float positionX) {
+      config.positionX = positionX;
+      return this;
+    }
+
+    public Builder setPositionY(float positionY) {
+      config.positionY = positionY;
+      return this;
+    }
+
+    public Builder setPositionAngle(float positionAnge) {
+      config.positionAnge = positionAnge;
+      return this;
+    }
+
+    public Builder setMovementSpeed(Float movementSpeed) {
+      config.movementSpeed = movementSpeed;
+      return this;
+    }
+
+    public Builder setPartId(int partId) {
+      config.partId = partId;
+      return this;
+    }
+
+    public Builder setPlanetId(int planetId) {
+      config.planetId = planetId;
+      return this;
+    }
+
+    public Builder setOrbitalState(int orbitalState) {
+      config.orbitalState = orbitalState;
+      return this;
+    }
+
+    public Builder setOrbHeight(float orbHeight) {
+      config.orbHeight = orbHeight;
+      return this;
+    }
+
+    public Builder setUnits(SBML.DistanceUnit units) {
+      config.units = units;
+      return this;
+    }
+
+    public Builder setGap(Float gap) {
+      config.gap = gap;
+      return this;
+    }
+
+    public Builder setCount(int count) {
+      config.count = count;
+      return this;
+    }
+
+    public Builder setOffset(float offset) {
+      config.offset = offset;
+      return this;
+    }
+
+    public Builder setInLine(int inLine) {
+      config.inLine = inLine;
+      return this;
+    }
+
+    public Builder setText(String text) {
+      config.text = text;
+      return this;
+    }
+
+    public Builder setAlign(int align) {
+      config.align = align;
+      return this;
+    }
+
+    public Builder setMargin(int margin) {
+      config.margin = margin;
+      return this;
+    }
+
+    public Builder setOptSaveId(boolean optSaveId) {
+      config.optSaveId = optSaveId;
+      return this;
+    }
+
+    public Builder setRefreshCargo(boolean refreshCargo) {
+      config.refreshCargo = refreshCargo;
+      return this;
+    }
+
+    public Builder setRefreshFuel(boolean refreshFuel) {
+      config.refreshFuel = refreshFuel;
+      return this;
+    }
+
+    public SbxEditConfig build() {
+      return config;
+    }
   }
 }

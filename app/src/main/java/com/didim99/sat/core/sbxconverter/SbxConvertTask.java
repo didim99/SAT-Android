@@ -7,7 +7,7 @@ import com.didim99.sat.utils.Timer;
 import com.didim99.sat.utils.Utils;
 import java.lang.ref.WeakReference;
 
-/*
+/**
  * Created by didim99 on 11.08.17.
  */
 

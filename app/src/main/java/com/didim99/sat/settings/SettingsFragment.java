@@ -312,13 +312,14 @@ public class SettingsFragment extends PreferenceFragment
     private static final String groupUrl = "https://vk.com/spaceagency";
 
     @Override
-    public void onShow(DialogInterface dialog) {
+    public void onShow(DialogInterface di) {
       MyLog.d(LOG_TAG, "Feedback dialog shown");
-      TextView tvDeveloper = ((AlertDialog) dialog).findViewById(R.id.tvDeveloper);
+      AlertDialog dialog = (AlertDialog) di;
+      TextView tvDeveloper = dialog.findViewById(R.id.tvDeveloper);
       tvDeveloper.setPaintFlags(tvDeveloper.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
       tvDeveloper.setOnClickListener(v -> openUrl(devUrl));
       tvDeveloper.setText(devUrl);
-      TextView tvGroup = ((AlertDialog) dialog).findViewById(R.id.tvGroup);
+      TextView tvGroup = dialog.findViewById(R.id.tvGroup);
       tvGroup.setPaintFlags(tvGroup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
       tvGroup.setOnClickListener(v -> openUrl(groupUrl));
       tvGroup.setText(groupUrl);

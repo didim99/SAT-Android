@@ -100,7 +100,8 @@ public class StartActivity extends BaseActivity {
           }
           MyLog.d(LOG_TAG, "File was successfully loaded from external file manager" +
             "\n  Path: " + extPath);
-          Storage.setEditConfig(new SbxEditConfig(Sandbox.Mode.OPEN, extPath));
+          Storage.setEditConfig(new SbxEditConfig
+            .Builder(Sandbox.Mode.OPEN).setFileName(extPath).build());
           startActivity(new Intent(this, SandboxActivity.class));
         }
       }
@@ -203,7 +204,8 @@ public class StartActivity extends BaseActivity {
 
           boolean addMarkers = Settings.isDbLoaded() && cbAddStdMarkers.isChecked();
           Settings.setCreateWithMarkers(addMarkers);
-          Storage.setEditConfig(new SbxEditConfig(Sandbox.Mode.CREATE, name, uid, addMarkers));
+          Storage.setEditConfig(new SbxEditConfig.Builder(Sandbox.Mode.CREATE)
+            .setSbxName(name).setSbxUid(uid).setAddMarkers(addMarkers).build());
           Intent intent = new Intent(StartActivity.this, SandboxActivity.class);
           dialogInterface.dismiss();
           startActivity(intent);

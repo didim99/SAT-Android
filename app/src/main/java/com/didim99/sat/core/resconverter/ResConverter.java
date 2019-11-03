@@ -36,7 +36,7 @@ public abstract class ResConverter {
     public static final int DIRECTORY = 1;
   }
 
-  protected static final class Error {
+  static final class Error {
     private static final int INPUT_FILE = -1;
     private static final int OUTPUT_FILE = -2;
     private static final int NO_MEMORY = -3;
@@ -44,11 +44,11 @@ public abstract class ResConverter {
     private static final int IO_ERROR = -11;
     private static final int NOT_PACKED = -12;
     private static final int ALREADY_PACKED = -13;
-    protected static final int INCORRECT_FORMAT = -14;
+    static final int INCORRECT_FORMAT = -14;
   }
 
-  protected String packedMask, unpackedMask;
-  protected byte[] unpackedSignature;
+  String packedMask, unpackedMask;
+  byte[] unpackedSignature;
 
   private Context context;
   private ProgressListener listener;
@@ -245,7 +245,7 @@ public abstract class ResConverter {
     return !Arrays.equals(buff, unpackedSignature);
   }
 
-  protected byte[] readRawData(String fileName)
+  byte[] readRawData(String fileName)
     throws IOException {
     MyLog.d(LOG_TAG, "Reading: " + fileName);
     File file = new File(fileName);

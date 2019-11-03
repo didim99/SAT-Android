@@ -410,7 +410,7 @@ public class Station implements Cloneable {
     moduleSet.add(module);
   }
 
-  public void addModules(ArrayList<Module> modules) {
+  void addModules(ArrayList<Module> modules) {
     moduleSet.addAll(modules);
   }
 
@@ -418,7 +418,7 @@ public class Station implements Cloneable {
     return moduleSet;
   }
 
-  public int getObjId() {
+  int getObjId() {
     return id;
   }
 

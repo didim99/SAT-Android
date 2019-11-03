@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by didim99 on 17.03.18.
  */
 
-public class TextGenerator {
+class TextGenerator {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_textGen";
 
   //text formatting
@@ -54,7 +54,7 @@ public class TextGenerator {
     else font = Storage.getFont();
   }
 
-  public Station createText(SbxEditConfig config, ArrayList<NCMarker> naviComp) {
+  Station createText(SbxEditConfig config, ArrayList<NCMarker> naviComp) {
     int startSaveId = config.getStartSaveId();
     String text = config.getText();
     int align = config.getAlign();
@@ -86,7 +86,7 @@ public class TextGenerator {
     return station;
   }
 
-  public Station createAllFont(SbxEditConfig config, ArrayList<NCMarker> naviComp) {
+  Station createAllFont(SbxEditConfig config, ArrayList<NCMarker> naviComp) {
     StringBuilder builder = new StringBuilder(font.size());
     int inLine = config.getInLine();
     Character[] chars = font.keySet().toArray(new Character[0]);
@@ -99,8 +99,9 @@ public class TextGenerator {
         count = 0;
       }
     }
-    config.setAlign(ALIGN_LEFT);
-    config.setText(builder.toString());
+
+    config = new SbxEditConfig.Builder(config)
+      .setAlign(ALIGN_LEFT).setText(builder.toString()).build();
     return createText(config, naviComp);
   }
 

@@ -91,16 +91,15 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
 
   @Override
   protected Void doInBackground(Void... voids) {
-    switch (mode) {
-      case Mode.CHECK_DB_UPDATES:
-        try {
-          String rawData = NetworkManager.getContentFromWeb(WebAPI.Action.GET_DB_VER);
-          statusCode = Integer.parseInt(rawData.trim());
-        } catch (Exception e) {
-          MyLog.e(LOG_TAG, "Can't check for DB updates\n  " + e.toString());
-          statusCode = Error.WEB_UNAVAILABLE;
-        }
-        return null;
+    if (mode == Mode.CHECK_DB_UPDATES) {
+      try {
+        String rawData = NetworkManager.getContentFromWeb(WebAPI.Action.GET_DB_VER);
+        statusCode = Integer.parseInt(rawData.trim());
+      } catch (Exception e) {
+        MyLog.e(LOG_TAG, "Can't check for DB updates\n  " + e.toString());
+        statusCode = Error.WEB_UNAVAILABLE;
+      }
+      return null;
     }
 
     MyLog.d(LOG_TAG, "Connecting to local database...");

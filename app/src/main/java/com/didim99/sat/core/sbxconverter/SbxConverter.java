@@ -128,9 +128,8 @@ public class SbxConverter {
     return status >= 0 ? STATUS_CODE_OK : (int) status;
   }
 
-  //Форматирует байты в 'Kb', 'Mb', 'Gb', 'Tb'
-  private String formatBytes (long bytes, int precision) {
-    String units[] = {"b", "Kb", "Mb", "Gb", "Tb"};
+  private String formatBytes(long bytes, int precision) {
+    String[] units = {"b", "Kb", "Mb", "Gb", "Tb"};
 
     if (bytes == 0) return "0 " + units[0];
 

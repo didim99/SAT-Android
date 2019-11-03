@@ -89,7 +89,8 @@ public class SandboxActivity extends BaseActivity
     if (startData != null) {
       String name = startData.getPath();
       MyLog.d(LOG_TAG, "Starting with file:\n  " + name);
-      config = new SbxEditConfig(Sandbox.Mode.OPEN, name);
+      config = new SbxEditConfig.Builder(Sandbox.Mode.OPEN)
+        .setFileName(name).build();
     } else {
       setupActionBar();
     }
@@ -230,7 +231,8 @@ public class SandboxActivity extends BaseActivity
         dialogManager.stationCopy(selected);
         return true;
       case R.id.action_staEdit:
-        Storage.setEditConfig(new SbxEditConfig(Sandbox.Mode.EDIT, selected));
+        Storage.setEditConfig(new SbxEditConfig
+          .Builder(Sandbox.Mode.EDIT).setStations(selected).build());
         Intent intent = new Intent(this, SbxEditActivity.class);
         startActivityForResult(intent, Request.EDIT_STATION);
         return true;
@@ -264,7 +266,8 @@ public class SandboxActivity extends BaseActivity
         case Request.SBX_SAVE_INTERNAL:
           Uri data = intent.getData();
           if (data != null)
-            startTask(new SbxEditConfig(Sandbox.Mode.SEND, data.getPath()));
+            startTask(new SbxEditConfig.Builder(Sandbox.Mode.SEND)
+              .setFileName(data.getPath()).build());
           break;
       }
     }
