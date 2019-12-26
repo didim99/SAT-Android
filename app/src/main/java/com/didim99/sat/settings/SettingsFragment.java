@@ -7,11 +7,11 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.EditTextPreference;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +35,7 @@ import com.google.gson.Gson;
  * Custom settings fragment
  * Created by didim99 on 30.01.18.
  */
-public class SettingsFragment extends PreferenceFragmentCompat
+public class SettingsFragment extends PreferenceFragment
   implements SharedPreferences.OnSharedPreferenceChangeListener,
   DBTask.EventListener, NetworkManager.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_setFrag";
@@ -55,8 +55,9 @@ public class SettingsFragment extends PreferenceFragmentCompat
   private DBTask task;
 
   @Override
-  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+  public void onCreate(Bundle savedInstanceState) {
     MyLog.d(LOG_TAG, "Creating new settings fragment...");
+    super.onCreate(savedInstanceState);
     addPreferencesFromResource(R.xml.settings);
     appContext = getActivity().getApplicationContext();
     toastMsg = Toast.makeText(appContext, "", Toast.LENGTH_LONG);

@@ -21,7 +21,7 @@ public class SettingsActivity extends BaseActivity {
     SettingsFragment fragment;
     if (savedInstanceState == null) {
       fragment = new SettingsFragment();
-      getSupportFragmentManager()
+      getFragmentManager()
         .beginTransaction()
         .add(R.id.prefs_content, fragment)
         .commit();
