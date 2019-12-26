@@ -3,7 +3,9 @@ package com.didim99.sat.ui;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.settings.Settings;
@@ -20,6 +22,8 @@ public abstract class BaseActivity extends AppCompatActivity
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_BaseAct";
 
   protected DialogManager dialogManager;
+  protected boolean disableBackBtn = false;
+  protected boolean uiLocked = false;
 
   @Override
   @CallSuper
@@ -27,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity
     updateUITheme();
     super.onCreate(savedInstanceState);
     dialogManager = DialogManager.getInstance();
+    setupActionBar();
   }
 
   @Override
@@ -41,6 +46,19 @@ public abstract class BaseActivity extends AppCompatActivity
   protected void onPause() {
     ((SAT) getApplication()).unregisterEventListener();
     super.onPause();
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (!uiLocked) super.onBackPressed();
+  }
+
+  @Override
+  @CallSuper
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home)
+      onBackPressed();
+    return false;
   }
 
   @Override
@@ -65,4 +83,17 @@ public abstract class BaseActivity extends AppCompatActivity
 
     UIManager.getInstance().applyTheme(getTheme());
   }
+
+  private void setupActionBar() {
+    ActionBar bar = getSupportActionBar();
+    if (bar != null) {
+      onSetupActionBar(bar);
+      if (!disableBackBtn) {
+        bar.setDisplayShowHomeEnabled(true);
+        bar.setDisplayHomeAsUpEnabled(true);
+      }
+    }
+  }
+
+  protected void onSetupActionBar(ActionBar bar) {}
 }

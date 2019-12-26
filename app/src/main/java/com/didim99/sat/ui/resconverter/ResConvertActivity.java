@@ -54,13 +54,12 @@ public class ResConvertActivity extends BaseActivity
   private int convertMode;
   private int currAction;
   private String taskResult;
-  private boolean uiLocked = false;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     MyLog.d(LOG_TAG, "ResConvertActivity starting...");
-    super.onCreate(savedInstanceState);
     convertType = Settings.ResConverter.getCurrentType();
+    super.onCreate(savedInstanceState);
 
     switch (convertType) {
       case ResConverter.Type.TEXTURES:
@@ -76,7 +75,6 @@ public class ResConvertActivity extends BaseActivity
         break;
     }
 
-    setupActionBar();
     MyLog.d(LOG_TAG, "View components init...");
     inputStartPath = findViewById(R.id.inputStartPath);
     btnChoosePath = findViewById(R.id.btnOpenFileExp);
@@ -174,31 +172,18 @@ public class ResConvertActivity extends BaseActivity
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    switch (id) {
-      case R.id.action_switch_type:
-        switch (convertType) {
-          case ResConverter.Type.TEXTURES:
-            Settings.ResConverter.setCurrentType(ResConverter.Type.SOUNDS);
-            break;
-          case ResConverter.Type.SOUNDS:
-            Settings.ResConverter.setCurrentType(ResConverter.Type.TEXTURES);
-            break;
-        }
-        recreate();
-        return true;
-      case android.R.id.home:
-        onBackPressed();
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (!uiLocked)
-      super.onBackPressed();
+    if (item.getItemId() == R.id.action_switch_type) {
+      switch (convertType) {
+        case ResConverter.Type.TEXTURES:
+          Settings.ResConverter.setCurrentType(ResConverter.Type.SOUNDS);
+          break;
+        case ResConverter.Type.SOUNDS:
+          Settings.ResConverter.setCurrentType(ResConverter.Type.TEXTURES);
+          break;
+      }
+      recreate();
+      return true;
+    } else return super.onOptionsItemSelected(item);
   }
 
   @Override
@@ -346,19 +331,15 @@ public class ResConvertActivity extends BaseActivity
     adb.create().show();
   }
 
-  private void setupActionBar() {
-    ActionBar bar = getSupportActionBar();
-    if (bar != null) {
-      bar.setDisplayShowHomeEnabled(true);
-      bar.setDisplayHomeAsUpEnabled(true);
-      switch (convertType) {
-        case ResConverter.Type.TEXTURES:
-          bar.setTitle(R.string.actLabel_texConverter);
-          break;
-        case ResConverter.Type.SOUNDS:
-          bar.setTitle(R.string.actLabel_soundConverter);
-          break;
-      }
+  @Override
+  protected void onSetupActionBar(ActionBar bar) {
+    switch (convertType) {
+      case ResConverter.Type.TEXTURES:
+        bar.setTitle(R.string.actLabel_texConverter);
+        break;
+      case ResConverter.Type.SOUNDS:
+        bar.setTitle(R.string.actLabel_soundConverter);
+        break;
     }
   }
 }

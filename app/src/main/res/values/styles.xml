@@ -66,6 +66,8 @@
 
     <item name="actionModeBackground">@color/lightBlue</item>
     <item name="android:actionModeCloseDrawable">@drawable/ic_cross_black_24dp</item>
+
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     <!-- Theme-dependent drawables -->
     <item name="ic_edit">@drawable/ic_edit_black_24dp</item>
     <item name="ic_sounds">@drawable/ic_sounds_black_24dp</item>

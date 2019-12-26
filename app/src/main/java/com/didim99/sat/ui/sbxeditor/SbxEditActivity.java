@@ -1,6 +1,5 @@
 package com.didim99.sat.ui.sbxeditor;
 
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,7 +47,6 @@ public class SbxEditActivity extends BaseActivity {
     MyLog.d(LOG_TAG, "SbxEditActivity starting...");
     super.onCreate(savedInstanceState);
     setContentView(R.layout.act_sbx_edit);
-    setupActionBar();
 
     config = Storage.getEditConfig();
     isMultiple = config.getStations().size() > 1;
@@ -306,18 +304,10 @@ public class SbxEditActivity extends BaseActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    switch (id) {
-      case android.R.id.home:
-        onBackPressed();
-        return true;
-      case R.id.action_done:
-        if (checkValues())
-          editModeDialog();
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
+    if (item.getItemId() == R.id.action_done) {
+      if (checkValues()) editModeDialog();
+      return true;
+    } else return super.onOptionsItemSelected(item);
   }
 
   @Override
@@ -456,14 +446,6 @@ public class SbxEditActivity extends BaseActivity {
     });
     MyLog.d(LOG_TAG, "Exit dialog created");
     dialog.show();
-  }
-
-  private void setupActionBar() {
-    ActionBar bar = getSupportActionBar();
-    if (bar != null) {
-      bar.setDisplayShowHomeEnabled(true);
-      bar.setDisplayHomeAsUpEnabled(true);
-    }
   }
 
   private void setConfigModified() {

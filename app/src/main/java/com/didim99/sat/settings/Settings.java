@@ -204,8 +204,7 @@ public class Settings {
       + "\n  partInfo.sortReverse: " + PartInfo.sortReverse
       + "\n  sysCacheDir: " + sysCacheDir
       + "\n  sbxTempDir: " + sbxTempDir
-      + "\n  resTempDir: " + resTempDir
-    );
+      + "\n  resTempDir: " + resTempDir);
     MyLog.d(LOG_TAG, "Settings loaded");
   }
 

@@ -41,13 +41,13 @@ public class PartInfoActivity extends BaseActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     MyLog.d(LOG_TAG, "PartInfoActivity starting...");
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.act_sbx_main);
 
     String intentAction = getIntent().getAction();
     if (intentAction != null && intentAction.equals(SAT.ACTION_PICK_MODULE))
       pickerEnabled = true;
-    setupActionBar();
+
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.act_sbx_main);
 
     boolean screenLarge = (getResources().getConfiguration().screenLayout
       & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
@@ -77,11 +77,7 @@ public class PartInfoActivity extends BaseActivity
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    switch (id) {
-      case android.R.id.home:
-        finish();
-        return true;
+    switch (item.getItemId()) {
       case R.id.action_help:
         helpDialog();
         return true;
@@ -244,13 +240,8 @@ public class PartInfoActivity extends BaseActivity
     adapter.updateSortMethod(newSortMain, newSortSecond, newReverse);
   }
 
-  private void setupActionBar() {
-    ActionBar bar = getSupportActionBar();
-    if (bar != null) {
-      bar.setDisplayShowHomeEnabled(true);
-      bar.setDisplayHomeAsUpEnabled(true);
-      if (pickerEnabled)
-        bar.setTitle(R.string.actLabel_pickModule);
-    }
+  @Override
+  protected void onSetupActionBar(ActionBar bar) {
+    if (pickerEnabled) bar.setTitle(R.string.actLabel_pickModule);
   }
 }

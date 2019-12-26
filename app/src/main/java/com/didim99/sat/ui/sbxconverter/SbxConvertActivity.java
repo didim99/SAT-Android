@@ -3,9 +3,7 @@ package com.didim99.sat.ui.sbxconverter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +23,7 @@ import java.io.File;
 public class SbxConvertActivity extends BaseActivity
   implements SbxConvertTask.EventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_SbxConvertAct";
+  private static final int GET_FILE_REQUEST = 1;
 
   //View-elements
   private EditText inputFilePath;
@@ -36,16 +35,18 @@ public class SbxConvertActivity extends BaseActivity
   //converter
   private SbxConvertTask task;
   private String taskResult;
-  //intent request codes
-  static final int GET_FILE_REQUEST = 1;
-  //Local variables;
-  private boolean uiLocked = false;
   private int verCode = 0;
 
   //methods
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     MyLog.d(LOG_TAG, "SbxConvertActivity starting...");
+
+    //Starting with Intent?
+    Intent startIntent = getIntent();
+    Uri startData = startIntent.getData();
+    disableBackBtn = startData != null;
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.act_sbx_converter);
 
@@ -74,16 +75,11 @@ public class SbxConvertActivity extends BaseActivity
       MyLog.d(LOG_TAG, "Connecting to background task completed (" + task.hashCode() + ")");
     }
 
-    //Starting with Intent?
-    Intent startIntent = getIntent();
-    Uri startData = startIntent.getData();
     if (startData != null) {
       String startPath = startData.getPath();
       MyLog.d(LOG_TAG, "Starting with file:\n  " + startPath);
       inputFilePath.setText(startPath);
       inputFilePath.setSelection(inputFilePath.getText().length());
-    } else {
-      setupActionBar();
     }
 
     btnCompress.setOnClickListener(actionClickListener);
@@ -148,24 +144,6 @@ public class SbxConvertActivity extends BaseActivity
       return task;
     } else
       return null;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    switch (id) {
-      case android.R.id.home:
-        onBackPressed();
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (!uiLocked)
-      super.onBackPressed();
   }
 
   @Override
@@ -261,14 +239,6 @@ public class SbxConvertActivity extends BaseActivity
       mainProgressBar.setVisibility(ProgressBar.INVISIBLE);
       MyLog.d(LOG_TAG, "UI unlocked");
       outMessage.setText(taskResult);
-    }
-  }
-
-  private void setupActionBar() {
-    ActionBar bar = getSupportActionBar();
-    if (bar != null) {
-      bar.setDisplayShowHomeEnabled(true);
-      bar.setDisplayHomeAsUpEnabled(true);
     }
   }
 }

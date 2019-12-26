@@ -51,13 +51,14 @@ public class SandboxActivity extends BaseActivity
   //adapter & task
   private StationListAdapter adapter;
   private SbxEditTask task;
-  private boolean uiLocked = false;
   private boolean exitRequired = false;
   private ArrayList<Station> selected;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     MyLog.d(LOG_TAG, "SandboxActivity starting...");
+    Uri startData = getIntent().getData();
+    disableBackBtn = startData != null;
     super.onCreate(savedInstanceState);
     setContentView(R.layout.act_sbx_main);
     dialogManager.updateContext(this, this);
@@ -66,8 +67,7 @@ public class SandboxActivity extends BaseActivity
     //Search saved instance
     MyLog.d(LOG_TAG, "Loading saved instance...");
     SavedState instance = (SavedState) getLastCustomNonConfigurationInstance();
-    if (instance == null)
-      instance = new SavedState();
+    if (instance == null) instance = new SavedState();
 
     //View components init
     MyLog.d(LOG_TAG, "View components init...");
@@ -85,14 +85,11 @@ public class SandboxActivity extends BaseActivity
 
     //Starting with Intent?
     config = Storage.getEditConfig();
-    Uri startData = getIntent().getData();
     if (startData != null) {
       String name = startData.getPath();
       MyLog.d(LOG_TAG, "Starting with file:\n  " + name);
       config = new SbxEditConfig.Builder(Sandbox.Mode.OPEN)
         .setFileName(name).build();
-    } else {
-      setupActionBar();
     }
 
     MyLog.d(LOG_TAG, "Trying to connect with background task...");
@@ -166,9 +163,6 @@ public class SandboxActivity extends BaseActivity
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case android.R.id.home:
-        onBackPressed();
-        return true;
       case R.id.action_sbxInfo:
         dialogManager.sandboxInfo();
         return true;
@@ -523,14 +517,6 @@ public class SandboxActivity extends BaseActivity
     MyLog.d(LOG_TAG, "UI setup completed");
   }
 
-  private void setupActionBar() {
-    ActionBar bar = getSupportActionBar();
-    if (bar != null) {
-      bar.setDisplayShowHomeEnabled(true);
-      bar.setDisplayHomeAsUpEnabled(true);
-    }
-  }
-
   private void updateActionBar() {
     if (Settings.isSbxInfoInHeader()) {
       ActionBar bar = getSupportActionBar();
@@ -546,6 +532,5 @@ public class SandboxActivity extends BaseActivity
   private static class SavedState {
     private MultiSelectAdapter.State adapterState;
     private SbxEditTask task;
-    private int viewMode;
   }
 }

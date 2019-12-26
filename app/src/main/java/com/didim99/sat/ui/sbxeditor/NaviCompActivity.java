@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.GridLayoutManager;
@@ -56,7 +55,6 @@ public class NaviCompActivity extends BaseActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.act_sbx_main);
     resources = getResources();
-    setupActionBar();
 
     boolean screenLarge = (resources.getConfiguration()
       .orientation == Configuration.ORIENTATION_LANDSCAPE);
@@ -115,9 +113,6 @@ public class NaviCompActivity extends BaseActivity
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case android.R.id.home:
-        finish();
-        return true;
       case R.id.action_addStdMarker:
         MyLog.d(LOG_TAG, "markerAddStd dialog called");
         createDialog(R.string.diaTitle_markerAddStd,
@@ -513,14 +508,6 @@ public class NaviCompActivity extends BaseActivity
     toastMsg.show();
     if (count > 0) Storage.getSandbox().setNaviCompModified();
     MyLog.d(LOG_TAG, "Markers added (" + count + ")");
-  }
-
-  private void setupActionBar() {
-    ActionBar bar = getSupportActionBar();
-    if (bar != null) {
-      bar.setDisplayShowHomeEnabled(true);
-      bar.setDisplayHomeAsUpEnabled(true);
-    }
   }
 
   private Float setDefaultIfNull(Float oldValue, Float defaultValue) {
