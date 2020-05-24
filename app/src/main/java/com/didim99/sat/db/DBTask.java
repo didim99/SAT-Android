@@ -185,6 +185,14 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
   }
 
   private void loadLocalData() throws DBDamagedException {
+    loadPartData();
+    loadPlanetData();
+    loadVersionData();
+    Settings.setDbLoaded(true);
+    MyLog.d(LOG_TAG, "Database loaded");
+  }
+
+  private void loadPartData() throws DBDamagedException {
     MyLog.d(LOG_TAG, "Loading parts info from local db...");
     Cursor cursor = db.query(DbHelper.TABLE_MODULES,
       null, null, null,
@@ -216,8 +224,11 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
       Storage.setPartInfo(partInfo);
       throw new DBDamagedException("Can't load parts data.");
     }
+  }
+
+  private void loadPlanetData() throws DBDamagedException {
     MyLog.d(LOG_TAG, "Loading planets info from local db...");
-    cursor = db.query(DbHelper.TABLE_PLANETS,
+    Cursor cursor = db.query(DbHelper.TABLE_PLANETS,
       null, null, null,
       null, null, DbHelper.KEY_ID);
     ArrayList<Planet> planetInfo = new ArrayList<>(cursor.getCount());
@@ -242,8 +253,11 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
       Storage.setPlanetInfo(planetInfo);
       throw new DBDamagedException("Can't load planets data.");
     }
+  }
+
+  private void loadVersionData() throws DBDamagedException {
     MyLog.d(LOG_TAG, "Loading SA versions info from local db...");
-    cursor = db.query(DbHelper.TABLE_VERSIONS,
+    Cursor cursor = db.query(DbHelper.TABLE_VERSIONS,
       null, null, null,
       null, null, DbHelper.KEY_VER_CODE);
     ArrayList<String> saVerNames = new ArrayList<>(cursor.getCount());
@@ -266,8 +280,6 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
       Storage.setSAVerNames(saVerNames);
       throw new DBDamagedException("Can't load versions data.");
     }
-    Settings.setDbLoaded(true);
-    MyLog.d(LOG_TAG, "Database loaded");
   }
 
   private void updateDbFromWeb() throws IOException {

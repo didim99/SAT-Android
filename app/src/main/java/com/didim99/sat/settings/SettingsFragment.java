@@ -67,68 +67,33 @@ public class SettingsFragment extends PreferenceFragment
     sbxCustomName = (EditTextPreference) findPreference(Settings.KEY_SBX_EDITOR_CUSTOM_NAME);
     language = (ListPreference) findPreference(Settings.KEY_LANGUAGE);
     theme = (ListPreference) findPreference(Settings.KEY_THEME);
+    prefUpdateDb = findPreference(Settings.KEY_UPDATE_DB);
+    prefAbout = findPreference(Settings.KEY_ABOUT);
+
     updateListPrefSummary(convType);
     updateListPrefSummary(sbxName);
     updateListPrefSummary(language);
     updateListPrefSummary(theme);
     updateSbxCustomNameState();
+    updateDbState(Settings.isHasDB());
+    updateCopyright();
 
     sbxCustomName.setOnPreferenceChangeListener((preference, newValue) ->
       InputValidator.getInstance().checkSbxName((String) newValue, true));
+    prefUpdateDb.setOnPreferenceClickListener(
+      pref -> { checkForDBUpdates(); return true; });
 
-    prefUpdateDb = findPreference(Settings.KEY_UPDATE_DB);
-    updateDbState(Settings.isHasDB());
+    if (!Settings.isDevMode())
+      prefAbout.setOnPreferenceClickListener(this::aboutClickListener);
 
-    prefUpdateDb.setOnPreferenceClickListener(pref -> {
-      task = new DBTask(appContext, SettingsFragment.this,
-        Settings.isHasDB() ? DBTask.Mode.CHECK_DB_UPDATES : DBTask.Mode.CREATE);
-      task.execute();
-      return true;
-    });
+    findPreference(Settings.KEY_FEEDBACK).setOnPreferenceClickListener(
+      preference -> { feedbackDialog(); return true; });
 
     findPreference(Settings.KEY_UPDATE_APP).setOnPreferenceClickListener(pref -> {
       new NetworkManager(SettingsFragment.this, WebAPI.Action.LAST_APP_VER).execute();
       return false;
     });
 
-    String myCopy = "© didim99, " + getString(R.string.app_years);
-    String aboutStr = getString(R.string.app_ver,
-      getString(R.string.app_name), BuildConfig.VERSION_NAME, myCopy);
-    prefAbout = findPreference(Settings.KEY_ABOUT);
-    prefAbout.setSummary(aboutStr);
-
-    if (!Settings.isDevMode()) {
-      prefAbout.setOnPreferenceClickListener(preference -> {
-        if (devModeCounter == DEV_MODE_START) {
-          devTimer = new Timer();
-          devTimer.start();
-          devModeCounter--;
-        } else if (devModeCounter > DEV_MODE_FINISH) {
-          devTimer.stop();
-          if (devTimer.getMillis() < DEV_MODE_DELAY) {
-            MyLog.d(LOG_TAG, "Developer mode: " + devModeCounter);
-            devModeCounter--;
-            devTimer.start();
-          } else
-            devModeCounter = DEV_MODE_START;
-        } else {
-          devTimer.stop();
-          if (devTimer.getMillis() < DEV_MODE_DELAY) {
-            MyLog.d(LOG_TAG, "Developer mode enabled");
-            prefAbout.setOnPreferenceClickListener(null);
-            Settings.setDevMode(true);
-            new NetworkManager(WebAPI.LogEvent.DEV_MODE).execute();
-            toastMsg.setText(R.string.devModeEnabled);
-            toastMsg.show();
-          }
-          devModeCounter = DEV_MODE_START;
-        }
-        return true;
-      });
-    }
-
-    findPreference(Settings.KEY_FEEDBACK).setOnPreferenceClickListener(
-      preference -> { feedbackDialog(); return true; });
     MyLog.d(LOG_TAG, "Settings fragment created");
   }
 
@@ -187,6 +152,34 @@ public class SettingsFragment extends PreferenceFragment
     }
   }
 
+  private boolean aboutClickListener(Preference preference) {
+    if (devModeCounter == DEV_MODE_START) {
+      devTimer = new Timer();
+      devTimer.start();
+      devModeCounter--;
+    } else if (devModeCounter > DEV_MODE_FINISH) {
+      devTimer.stop();
+      if (devTimer.getMillis() < DEV_MODE_DELAY) {
+        MyLog.d(LOG_TAG, "Developer mode: " + devModeCounter);
+        devModeCounter--;
+        devTimer.start();
+      } else
+        devModeCounter = DEV_MODE_START;
+    } else {
+      devTimer.stop();
+      if (devTimer.getMillis() < DEV_MODE_DELAY) {
+        MyLog.d(LOG_TAG, "Developer mode enabled");
+        prefAbout.setOnPreferenceClickListener(null);
+        Settings.setDevMode(true);
+        new NetworkManager(WebAPI.LogEvent.DEV_MODE).execute();
+        toastMsg.setText(R.string.devModeEnabled);
+        toastMsg.show();
+      }
+      devModeCounter = DEV_MODE_START;
+    }
+    return true;
+  }
+
   private void updateSbxCustomNameState() {
     String newName = Settings.getCustomSbxName();
     if (newName.isEmpty())
@@ -238,6 +231,12 @@ public class SettingsFragment extends PreferenceFragment
 
   private void updateListPrefSummary(ListPreference pref) {
     pref.setSummary(pref.getEntry());
+  }
+
+  private void checkForDBUpdates() {
+    task = new DBTask(appContext, SettingsFragment.this,
+      Settings.isHasDB() ? DBTask.Mode.CHECK_DB_UPDATES : DBTask.Mode.CREATE);
+    task.execute();
   }
 
   private void updateDbState(boolean hasDb) {
@@ -303,6 +302,13 @@ public class SettingsFragment extends PreferenceFragment
   private void openUrl(String url) {
     MyLog.d(LOG_TAG, "Open url: " + url);
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+  }
+
+  private void updateCopyright() {
+    String myCopy = "© didim99, " + getString(R.string.app_years);
+    String aboutStr = getString(R.string.app_ver,
+      getString(R.string.app_name), BuildConfig.VERSION_NAME, myCopy);
+    prefAbout.setSummary(aboutStr);
   }
 
   private DialogInterface.OnShowListener feedbackDialog_showListener

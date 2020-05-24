@@ -13,11 +13,18 @@ import java.util.Locale;
 public class SbxConverter {
   private static final String LOG_TAG = "SED_log_SbxConverter";
 
-  //parameters definitions
+  // Parameters definitions
   public static final int ACTION_COMPRESS = 1;
   public static final int ACTION_UNCOMPRESS = 2;
-  //status codes
+  // Status codes
   public static final int STATUS_CODE_OK = 0;
+  // Native error codes
+  private static final int ERR_INPUT_FIFE        = -1;
+  private static final int ERR_OUTPUT_FIFE       = -2;
+  private static final int ERR_NOT_ENOUGH_MEMORY = -3;
+  private static final int ERR_UNKNOWN_VER_CODE  = -4;
+  private static final int ERR_NOT_ENCRYPTED     = -5;
+  private static final int ERR_ALREADY_ENCRYPTED = -6;
 
   private Context context;
   private String inFileName;
@@ -29,7 +36,7 @@ public class SbxConverter {
   private static native long compressFile (String fileName, int verCode);
   private static native long uncompressFile (String fileName);
 
-  // Used to load the 'crypto' library.
+  // Used to load the native library.
   static {
     System.loadLibrary("app");
   }
@@ -97,22 +104,22 @@ public class SbxConverter {
       }
 
       switch ((int) status) {
-        case -1:
+        case ERR_INPUT_FIFE:
           error = context.getString(R.string.errorCode_inputFile);
           break;
-        case -2:
+        case ERR_OUTPUT_FIFE:
           error = context.getString(R.string.errorCode_outputFile);
           break;
-        case -3:
+        case ERR_NOT_ENOUGH_MEMORY:
           error = context.getString(R.string.errorCode_noMemory);
           break;
-        case -4:
+        case ERR_UNKNOWN_VER_CODE:
           error = context.getString(R.string.errorCode_versionCode);
           break;
-        case -5:
+        case ERR_NOT_ENCRYPTED:
           error = context.getString(R.string.errorCode_notEncrypted);
           break;
-        case -6:
+        case ERR_ALREADY_ENCRYPTED:
           error = context.getString(R.string.errorCode_alreadyEncrypted);
           break;
       }
