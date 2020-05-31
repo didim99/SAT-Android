@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.didim99.sat.R;
-import com.didim99.sat.SAT;
+import com.didim99.sat.system.StorageManager;
 import com.didim99.sat.core.sbxeditor.Storage;
 import com.didim99.sat.core.sbxeditor.wrapper.Part;
 import com.didim99.sat.core.sbxeditor.utils.PartComparator;
@@ -97,7 +97,7 @@ class PartListAdapter extends RecyclerView.Adapter<PartListAdapter.ViewHolder> {
     int iconId = part.getPartId();
     if (iconId == SBML.PartID.SOYUZ_SERVICE)
       iconId = SBML.PartID.LOK_SERVICE;
-    Drawable icon = Drawable.createFromPath(String.format(SAT.ICONS_PATH, iconId));
+    Drawable icon = Drawable.createFromPath(String.format(StorageManager.ICONS_PATH, iconId));
 
     if (icon != null)
       holder.ivIcon.setImageDrawable(icon);

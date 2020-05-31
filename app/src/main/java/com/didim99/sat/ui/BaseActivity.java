@@ -7,8 +7,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.didim99.sat.event.GlobalEvent;
-import com.didim99.sat.event.GlobalEventListener;
+import com.didim99.sat.system.GlobalEvent;
+import com.didim99.sat.system.GlobalEventListener;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.settings.Settings;

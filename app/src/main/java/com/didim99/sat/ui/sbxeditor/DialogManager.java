@@ -22,7 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.didim99.sat.event.GlobalEvent;
+import com.didim99.sat.system.GlobalEvent;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.db.DBTask;

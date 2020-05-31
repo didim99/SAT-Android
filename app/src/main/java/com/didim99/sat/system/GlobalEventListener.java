@@ -1,4 +1,4 @@
-package com.didim99.sat.event;
+package com.didim99.sat.system;
 
 /**
  * Application level event listener

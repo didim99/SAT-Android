@@ -1,8 +1,9 @@
-package com.didim99.sat;
+package com.didim99.sat.system;
 
 import android.content.Context;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import com.didim99.sat.BuildConfig;
 import com.didim99.sat.settings.Settings;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.utils.Utils;
@@ -11,30 +12,24 @@ import java.io.File;
 /**
  * Created by didim99 on 31.05.20.
  */
-class AppUpdateManager {
+public class AppUpdateManager {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_updateManager";
 
-  private Context context;
-
-  AppUpdateManager(Context context) {
-    this.context = context;
-  }
-
-  void checkAppVersion() {
+  public static void checkAppVersion(Context context) {
     int lastVersion = Settings.getLastAppVersion();
     int currVersion = BuildConfig.VERSION_CODE;
     if (currVersion > lastVersion) {
       MyLog.d(LOG_TAG, "Nev version installed: " + lastVersion + "-->" + currVersion);
       Settings.setLastAppVersion(currVersion);
-      firstStart(lastVersion > 0);
+      firstStart(context, lastVersion > 0);
     }
   }
 
-  private void firstStart(boolean update) {
+  private static void firstStart(Context context, boolean update) {
     if (Settings.isFirstStart()) {
       MyLog.d(LOG_TAG, "App first start");
       Settings.setFirstStart(false);
-      getDeviceInfo();
+      getDeviceInfo(context);
     }
 
     if (BuildConfig.VERSION_CODE == 12) {
@@ -52,7 +47,7 @@ class AppUpdateManager {
     }
   }
 
-  private void getDeviceInfo() {
+  private static void getDeviceInfo(Context context) {
     String uuid = Utils.genDeviceUUID();
     DisplayMetrics displaymetrics = context.getResources().getDisplayMetrics();
     String vendor = Build.MANUFACTURER;

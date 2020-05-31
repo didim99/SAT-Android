@@ -12,9 +12,10 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Base64;
 import android.util.SparseArray;
 import android.widget.Toast;
+
+import com.didim99.sat.system.StorageManager;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
-import com.didim99.sat.SAT;
 import com.didim99.sat.utils.Utils;
 import com.didim99.sat.network.NetworkManager;
 import com.didim99.sat.network.WebAPI;
@@ -359,7 +360,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
     MyLog.d(LOG_TAG, "Creating new row (" + part.getPartId() + ")");
     db.insert(DbHelper.TABLE_MODULES, null, newRow);
     if (Settings.isHasIconsDir() && part.isHasIcon()) {
-      Utils.writeFile(String.format(SAT.ICONS_PATH, part.getPartId()),
+      Utils.writeFile(String.format(StorageManager.ICONS_PATH, part.getPartId()),
         Base64.decode(part.getIcon(), Base64.DEFAULT));
     }
   }
