@@ -201,7 +201,7 @@ public abstract class ResConverter {
   }
 
   private String getTextError() {
-    switch (this.action) {
+    switch (action) {
       case PACK:
         return context.getString(R.string.resConverter_actionFailed_pack);
       case UNPACK:

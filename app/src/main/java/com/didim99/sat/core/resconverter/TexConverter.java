@@ -23,8 +23,8 @@ class TexConverter extends ResConverter {
   private static final String ambMask = ".ambbmp";
   private static final String pngMask = ".png";
   private static final String tmpMask = ".bin";
-  private static final byte[] PNG_SIGNATURE = {
-    -119, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
+  private static final byte[] PNG_SIGNATURE =
+    { -119, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
 
   private Bitmap preview;
 

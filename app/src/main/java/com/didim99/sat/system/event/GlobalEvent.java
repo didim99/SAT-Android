@@ -1,4 +1,4 @@
-package com.didim99.sat.system;
+package com.didim99.sat.system.event;
 
 /**
  * Created by didim99 on 31.05.20.
