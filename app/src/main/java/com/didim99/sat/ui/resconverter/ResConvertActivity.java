@@ -51,8 +51,8 @@ public class ResConvertActivity extends BaseActivity
   private ResConvertTask resTask;
   private int loadCount = 0;
   private int convertType;
-  private int convertMode;
-  private int currAction;
+  private ResConverter.Mode convertMode;
+  private ResConverter.Action currAction;
   private String taskResult;
 
   @Override
@@ -194,7 +194,8 @@ public class ResConvertActivity extends BaseActivity
         if (data != null) {
           String scheme = data.getScheme();
           String extPath = data.getPath();
-          if (!scheme.equals("file") && !(new File(extPath).exists())) {
+          if (scheme == null || extPath == null
+            || !scheme.equals("file") && !(new File(extPath).exists())) {
             MyLog.e(LOG_TAG, "Can't load file/dir. Unsupported scheme: " + scheme);
             if (++loadCount < MAX_LOAD_COUNT) {
               toastMsg.setText(R.string.unsupportedScheme);
@@ -236,8 +237,8 @@ public class ResConvertActivity extends BaseActivity
   public void onProgressUpdate(int max, int current) {
     int msgId = 0;
     switch (currAction) {
-      case ResConverter.Action.PACK: msgId = R.string.resProcessing_packingCnt; break;
-      case ResConverter.Action.UNPACK: msgId = R.string.resProcessing_unpackingCnt; break;
+      case PACK: msgId = R.string.resProcessing_packingCnt; break;
+      case UNPACK: msgId = R.string.resProcessing_unpackingCnt; break;
     }
     sysMsg.setText(getString(msgId, current, max));
   }

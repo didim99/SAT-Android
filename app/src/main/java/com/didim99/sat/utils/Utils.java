@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.util.Base64;
 import android.widget.Toast;
 import com.didim99.sat.BuildConfig;
@@ -203,5 +204,19 @@ public class Utils {
     PackageManager packageManager = context.getPackageManager();
     List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
     return activities.size() > 0;
+  }
+
+  public static String genDeviceUUID() {
+    String uuid = Utils.md5(
+      Build.BOARD + "\n" + Build.BOOTLOADER + "\n"
+        + Build.BRAND + "\n" + Build.DEVICE + "\n"
+        + Build.DISPLAY + "\n" + Build.FINGERPRINT + "\n"
+        + Build.getRadioVersion() + "\n" + Build.HARDWARE + "\n"
+        + Build.HOST + "\n" + Build.ID + "\n"
+        + Build.MANUFACTURER + "\n" + Build.MODEL + "\n"
+        + Build.PRODUCT + "\n" + Build.TAGS + "\n"
+        + Build.TYPE + "\n" + Build.USER );
+    MyLog.d(LOG_TAG, "Generated device UUID: " + uuid);
+    return uuid;
   }
 }

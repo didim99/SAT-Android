@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.didim99.sat.event.GlobalEvent;
+import com.didim99.sat.event.GlobalEventListener;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.settings.Settings;
@@ -18,7 +21,7 @@ import com.didim99.sat.utils.MyLog;
  * Created by didim99 on 26.07.18.
  */
 public abstract class BaseActivity extends AppCompatActivity
-  implements SAT.GlobalEventListener {
+  implements GlobalEventListener {
   private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_BaseAct";
 
   protected DialogManager dialogManager;
@@ -38,13 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity
   @CallSuper
   protected void onResume() {
     super.onResume();
-    ((SAT) getApplication()).registerEventListener(this);
+    ((SAT) getApplication()).getEventDispatcher().registerEventListener(this);
   }
 
   @Override
   @CallSuper
   protected void onPause() {
-    ((SAT) getApplication()).unregisterEventListener();
+    ((SAT) getApplication()).getEventDispatcher().unregisterEventListener();
     super.onPause();
   }
 
@@ -63,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
   @Override
   @CallSuper
-  public void onGlobalEvent(SAT.GlobalEvent event) {
+  public void onGlobalEvent(GlobalEvent event) {
     MyLog.d(LOG_TAG, "Global event received: " + event);
     switch (event) {
       case DB_DAMAGED:

@@ -437,6 +437,7 @@ public class DBTask extends AsyncTask<Void, Void, Void> {
     }
   }
 
+  @FunctionalInterface
   public interface EventListener {
     void onTaskEvent(int event, int statusCode);
   }

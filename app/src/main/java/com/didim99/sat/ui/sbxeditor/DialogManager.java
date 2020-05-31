@@ -21,6 +21,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.didim99.sat.event.GlobalEvent;
 import com.didim99.sat.R;
 import com.didim99.sat.SAT;
 import com.didim99.sat.db.DBTask;
@@ -112,12 +114,12 @@ public class DialogManager {
     adb.setTitle(R.string.oops);
     adb.setMessage(R.string.databaseDamaged);
     adb.setPositiveButton(R.string.downloadAgain, (dialog, which) ->
-      new DBTask(contextRef.get(), app, DBTask.Mode.UPDATE).execute());
+      new DBTask(contextRef.get(), app::onDBTaskEvent, DBTask.Mode.UPDATE).execute());
     adb.setNegativeButton(R.string.notUse, (dialog, which) -> {
       Settings.setDbLoaded(false);
       Settings.setIgnoreDb(true);
       Settings.setHasDB(false);
-      app.dispatchGlobalEvent(SAT.GlobalEvent.UI_RELOAD);
+      app.getEventDispatcher().dispatchGlobalEvent(GlobalEvent.UI_RELOAD);
     });
     if (Settings.isDevMode()) {
      adb.setNeutralButton(R.string.continueAnyway, (dialog, which) ->

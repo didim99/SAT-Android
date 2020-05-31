@@ -25,16 +25,8 @@ public abstract class ResConverter {
     public static final int SOUNDS = 2;
   }
 
-  public static final class Action {
-    public static final int TEST = 0;
-    public static final int PACK = 1;
-    public static final int UNPACK = 2;
-  }
-
-  public static final class Mode {
-    public static final int SINGLE_FILE = 0;
-    public static final int DIRECTORY = 1;
-  }
+  public enum Action { TEST, PACK, UNPACK }
+  public enum Mode { SINGLE_FILE, DIRECTORY }
 
   static final class Error {
     private static final int INPUT_FILE = -1;
@@ -53,8 +45,8 @@ public abstract class ResConverter {
   private Context context;
   private ProgressListener listener;
   private String startPath;
-  private int action;
-  private int mode;
+  private Action action;
+  private Mode mode;
   private long status;
   private String errMsg;
   private Timer timer;
@@ -70,86 +62,28 @@ public abstract class ResConverter {
   }
 
   final void convert() {
-    if (packedMask == null || packedMask.isEmpty())
-      throw new IllegalStateException("packedMask must be defined");
-    if (unpackedMask == null || unpackedMask.isEmpty())
-      throw new IllegalStateException("unpackedMask must be defined");
-    if (unpackedSignature == null || unpackedSignature.length == 0)
-      throw new IllegalStateException("unpackedSignature must be defined");
+    checkState();
 
     ArrayList<String> files = new ArrayList<>();
+    String mask = getFileMask();
     files.add(startPath);
-    String mask = null;
-    timer.start();
-
-    switch (action) {
-      case Action.PACK:
-        MyLog.d(LOG_TAG, "----- Packing resources... -----");
-        mask = unpackedMask;
-        break;
-      case Action.UNPACK:
-        MyLog.d(LOG_TAG, "----- Unpacking resources... -----");
-        mask = packedMask;
-        break;
-      case Action.TEST:
-        MyLog.d(LOG_TAG, "----- CONVERTER TEST STARTED -----");
-        mask = packedMask;
-        break;
-    }
 
     if (mode == Mode.DIRECTORY)
       files = scanDir(startPath, mask);
     fileList = new ArrayList<>(files.size());
+
+    logActionStart();
+    timer.start();
 
     int current = 1;
     if (!files.isEmpty()) {
       for (String name : files) {
         if (listener != null)
           listener.onConverterProgressUpdate(files.size(), current++);
-        MyLog.d(LOG_TAG, "----- " + name + " -----");
-
-        try {
-          switch (action) {
-            case Action.PACK:
-              if (name.endsWith(packedMask) || isPacked(name))
-                status = Error.ALREADY_PACKED;
-              else status = pack(name);
-              break;
-            case Action.UNPACK:
-              if (name.endsWith(unpackedMask) || !isPacked(name))
-                status = Error.NOT_PACKED;
-              else status = unPack(name);
-              break;
-            case Action.TEST:
-              status = test(name);
-              break;
-          }
-
-          if (status < 0)
-            throw new ConvertException();
-        } catch (IOException e) {
-          status = Error.IO_ERROR;
-          errMsg = e.getMessage();
-          break;
-        } catch (ConvertException e) {
-          MyLog.e(LOG_TAG, "An error occurred, stopping conversion!");
-          break;
-        }
-
-        fileList.add(new File(name).getName());
+        if (!processFile(name)) break;
       }
 
-      switch (action) {
-        case Action.PACK:
-          MyLog.d(LOG_TAG, "----- Packing completed -----");
-          break;
-        case Action.UNPACK:
-          MyLog.d(LOG_TAG, "----- Unpacking completed -----");
-          break;
-        case Action.TEST:
-          MyLog.d(LOG_TAG, "----- CONVERTER TEST COMPLETED -----");
-          break;
-      }
+      logActionEnd();
     } else {
       status = Error.NO_FILES;
     }
@@ -157,69 +91,149 @@ public abstract class ResConverter {
     timer.stop();
   }
 
-  final String getStatus() {
-    MyLog.d(LOG_TAG, "Checking status...");
-    String out, action = "", error = "";
+  private void checkState() {
+    if (packedMask == null || packedMask.isEmpty())
+      throw new IllegalStateException("packedMask must be defined");
+    if (unpackedMask == null || unpackedMask.isEmpty())
+      throw new IllegalStateException("unpackedMask must be defined");
+    if (unpackedSignature == null || unpackedSignature.length == 0)
+      throw new IllegalStateException("unpackedSignature must be defined");
+  }
 
-    switch (this.action) {
-      case Action.PACK:
-        action = context.getString(R.string.resConverter_actionSuccess_pack);
+  private String getFileMask() {
+    switch (action) {
+      case PACK: return unpackedMask;
+      case UNPACK:
+      case TEST: return packedMask;
+      default: return null;
+    }
+  }
+
+  private void logActionStart() {
+    switch (action) {
+      case PACK:
+        MyLog.d(LOG_TAG, "----- Packing resources... -----");
         break;
-      case Action.UNPACK:
-        action = context.getString(R.string.resConverter_actionSuccess_unpack);
+      case UNPACK:
+        MyLog.d(LOG_TAG, "----- Unpacking resources... -----");
+        break;
+      case TEST:
+        MyLog.d(LOG_TAG, "----- CONVERTER TEST STARTED -----");
         break;
     }
+  }
+
+  private void logActionEnd() {
+    switch (action) {
+      case PACK:
+        MyLog.d(LOG_TAG, "----- Packing completed -----");
+        break;
+      case UNPACK:
+        MyLog.d(LOG_TAG, "----- Unpacking completed -----");
+        break;
+      case TEST:
+        MyLog.d(LOG_TAG, "----- CONVERTER TEST COMPLETED -----");
+        break;
+    }
+  }
+
+  private boolean processFile(String name) {
+    MyLog.d(LOG_TAG, "----- " + name + " -----");
+
+    try {
+      performAction(name);
+      if (status < 0)
+        throw new ConvertException();
+    } catch (IOException e) {
+      status = Error.IO_ERROR;
+      errMsg = e.getMessage();
+      return false;
+    } catch (ConvertException e) {
+      MyLog.e(LOG_TAG, "An error occurred, stopping conversion!");
+      return false;
+    }
+
+    fileList.add(new File(name).getName());
+    return true;
+  }
+
+  private void performAction(String name) throws IOException {
+    switch (action) {
+      case PACK:
+        if (name.endsWith(packedMask) || isPacked(name))
+          status = Error.ALREADY_PACKED;
+        else status = pack(name);
+        break;
+      case UNPACK:
+        if (name.endsWith(unpackedMask) || !isPacked(name))
+          status = Error.NOT_PACKED;
+        else status = unPack(name);
+        break;
+      case TEST:
+        status = test(name);
+        break;
+    }
+  }
+
+  final String getStatus() {
+    MyLog.d(LOG_TAG, "Checking status...");
+    String out;
 
     if (status >= 0) {
-      out = context.getString(R.string.resConverter_actionSuccess, action, timer.getStr());
+      out = context.getString(R.string.resConverter_actionSuccess,
+        getTextAction(), timer.getStr());
     } else {
-      String mask = "";
-      switch (this.action) {
-        case Action.PACK:
-          action = context.getString(R.string.resConverter_actionFailed_pack);
-          mask = unpackedMask;
-          break;
-        case Action.UNPACK:
-          action = context.getString(R.string.resConverter_actionFailed_unpack);
-          mask = packedMask;
-          break;
-      }
-
-      switch ((int) status) {
-        case Error.INPUT_FILE:
-          error = context.getString(R.string.errorCode_inputFile);
-          break;
-        case Error.OUTPUT_FILE:
-          error = context.getString(R.string.errorCode_outputFile);
-          break;
-        case Error.NO_MEMORY:
-          error = context.getString(R.string.errorCode_noMemory);
-          break;
-        case Error.NO_FILES:
-          error = context.getString(R.string.errorCode_no_files, mask);
-          break;
-        case Error.IO_ERROR:
-          error = errMsg;
-          break;
-        case Error.NOT_PACKED:
-          error = context.getString(R.string.errorCode_not_packed);
-          break;
-        case Error.ALREADY_PACKED:
-          error = context.getString(R.string.errorCode_already_packed);
-          break;
-        case Error.INCORRECT_FORMAT:
-          error = context.getString(R.string.errorCode_incorrect_format);
-          break;
-      }
-
-      out = context.getString(R.string.errorFrom, action, error);
+      String error = getNativeError(getFileMask());
+      out = context.getString(R.string.errorFrom, getTextError(), error);
     }
 
     MyLog.d(LOG_TAG, "Current status: " + out);
     return out;
   }
 
-  private ArrayList<String> scanDir (String dirName, String mask) {
+  private String getTextAction() {
+    switch (action) {
+      case PACK:
+        return context.getString(R.string.resConverter_actionSuccess_pack);
+      case UNPACK:
+        return context.getString(R.string.resConverter_actionSuccess_unpack);
+      default: return null;
+    }
+  }
+
+  private String getTextError() {
+    switch (this.action) {
+      case PACK:
+        return context.getString(R.string.resConverter_actionFailed_pack);
+      case UNPACK:
+        return context.getString(R.string.resConverter_actionFailed_unpack);
+      default: return null;
+    }
+  }
+
+  private String getNativeError(String mask) {
+    switch ((int) status) {
+      case Error.INPUT_FILE:
+        return context.getString(R.string.errorCode_inputFile);
+      case Error.OUTPUT_FILE:
+        return context.getString(R.string.errorCode_outputFile);
+      case Error.NO_MEMORY:
+        return context.getString(R.string.errorCode_noMemory);
+      case Error.NO_FILES:
+        return context.getString(R.string.errorCode_no_files, mask);
+      case Error.IO_ERROR:
+        return errMsg;
+      case Error.NOT_PACKED:
+        return context.getString(R.string.errorCode_not_packed);
+      case Error.ALREADY_PACKED:
+        return context.getString(R.string.errorCode_already_packed);
+      case Error.INCORRECT_FORMAT:
+        return context.getString(R.string.errorCode_incorrect_format);
+      default: return null;
+    }
+  }
+
+  private ArrayList<String> scanDir(String dirName, String mask) {
     MyLog.d(LOG_TAG, "Searching for \"" + mask + "\" files in:\n  " + dirName);
     ArrayList<String> files = new ArrayList<>();
     File[] dir = new File(dirName).listFiles();
@@ -240,7 +254,8 @@ public abstract class ResConverter {
     throws IOException {
     byte[] buff = new byte[unpackedSignature.length];
     DataInputStream src = new DataInputStream(new FileInputStream(fileName));
-    src.read(buff);
+    if (src.read(buff) < buff.length)
+      throw new IOException("Unexpected end of file");
     src.close();
     return !Arrays.equals(buff, unpackedSignature);
   }
@@ -268,10 +283,10 @@ public abstract class ResConverter {
    */
   public static class Config {
     private String path;
-    private int action;
-    private int mode;
+    private Action action;
+    private Mode mode;
 
-    public Config(String path, int mode, int action) {
+    public Config(String path, Mode mode, Action action) {
       this.path = path;
       this.mode = mode;
       this.action = action;
@@ -286,5 +301,5 @@ public abstract class ResConverter {
     void onConverterProgressUpdate(int max, int current);
   }
 
-  private class ConvertException extends IllegalStateException {}
+  private static class ConvertException extends IllegalStateException {}
 }

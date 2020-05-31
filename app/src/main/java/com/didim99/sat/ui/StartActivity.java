@@ -219,7 +219,7 @@ public class StartActivity extends BaseActivity {
     adb.setMessage(R.string.diaMsg_needDB);
     adb.setPositiveButton(R.string.dialogButtonOk, (dialog, which) -> {
       Context appContext = getApplicationContext();
-      new DBTask(appContext, (SAT) appContext, DBTask.Mode.CREATE).execute();
+      new DBTask(appContext, ((SAT) appContext)::onDBTaskEvent, DBTask.Mode.CREATE).execute();
     });
     adb.setNeutralButton(R.string.noAskMore, (dialog, which) -> {
       new NetworkManager(WebAPI.LogEvent.DB_IGNORE).execute();

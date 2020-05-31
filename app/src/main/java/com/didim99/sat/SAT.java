@@ -3,19 +3,18 @@ package com.didim99.sat;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.DisplayMetrics;
 import android.widget.Toast;
-import com.didim99.sat.db.DBTask;
 import com.didim99.sat.core.sbxeditor.utils.InputValidator;
 import com.didim99.sat.core.sbxeditor.wrapper.SBML;
+import com.didim99.sat.db.DBTask;
+import com.didim99.sat.event.GlobalEvent;
+import com.didim99.sat.event.GlobalEventDispatcher;
 import com.didim99.sat.settings.Settings;
 import com.didim99.sat.ui.sbxeditor.UIManager;
 import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.utils.RootShell;
-import com.didim99.sat.utils.Utils;
 import java.io.File;
 import java.util.Locale;
 
@@ -24,10 +23,8 @@ import java.util.Locale;
  * Created by didim99 on 17.02.18.
  */
 
-public class SAT extends Application implements DBTask.EventListener {
-  public static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_root";
-
-  public enum GlobalEvent { DB_DAMAGED, UI_RELOAD }
+public class SAT extends Application {
+  private static final String LOG_TAG = MyLog.LOG_TAG_BASE + "_root";
 
   public static final String ACTION_PICK_MODULE = "com.didim99.sat.pickModule";
   public static final String EXTRA_PART_ID = "com.didim99.sat.partId";
@@ -36,14 +33,14 @@ public class SAT extends Application implements DBTask.EventListener {
   private static final String ICONS_MASK = "/%s.png";
   public static String ICONS_DIR_PATH, ICONS_PATH;
 
-  private GlobalEventListener globalEventListener;
-  private GlobalEvent lastPendingEvent;
+  private GlobalEventDispatcher eventDispatcher;
 
   @Override
   public void onCreate() {
     super.onCreate();
     MyLog.d(LOG_TAG, "App starting...");
     AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    eventDispatcher = new GlobalEventDispatcher();
 
     Context appContext = getApplicationContext();
     UIManager.getInstance().init(appContext);
@@ -55,9 +52,10 @@ public class SAT extends Application implements DBTask.EventListener {
       Toast.makeText(appContext, R.string.systemErr_cacheDirsNotCreated,
         Toast.LENGTH_LONG).show();
 
-    checkAppVersion();
+    new AppUpdateManager(appContext).checkAppVersion();
+
     if (Settings.isHasDB())
-      new DBTask(this, this, DBTask.Mode.LOAD).execute();
+      new DBTask(this, this::onDBTaskEvent, DBTask.Mode.LOAD).execute();
     if (Settings.getRequestRoot()) {
       MyLog.d(LOG_TAG, "Need Root access");
       RootShell.init(appContext);
@@ -82,30 +80,6 @@ public class SAT extends Application implements DBTask.EventListener {
     updateLanguage();
   }
 
-  @Override
-  public void onTaskEvent(int event, int statusCode) {
-    if (event == DBTask.Event.TASK_FAILED && statusCode == DBTask.Error.DB_DAMAGED)
-      dispatchGlobalEvent(GlobalEvent.DB_DAMAGED);
-  }
-
-  public void registerEventListener(GlobalEventListener listener) {
-    globalEventListener = listener;
-    if (lastPendingEvent != null) {
-      listener.onGlobalEvent(lastPendingEvent);
-      lastPendingEvent = null;
-    }
-  }
-
-  public void unregisterEventListener() {
-    globalEventListener = null;
-  }
-
-  public void dispatchGlobalEvent(GlobalEvent event) {
-    if (globalEventListener != null)
-      globalEventListener.onGlobalEvent(event);
-    else lastPendingEvent = event;
-  }
-
   private void updateLanguage() {
     String lang = Settings.getLanguage();
     if (!lang.equals(Settings.DEFVALUE_LANGUAGE)) {
@@ -115,6 +89,15 @@ public class SAT extends Application implements DBTask.EventListener {
       config.locale = locale;
       getBaseContext().getResources().updateConfiguration(config, null);
     }
+  }
+
+  public void onDBTaskEvent(int event, int statusCode) {
+    if (event == DBTask.Event.TASK_FAILED && statusCode == DBTask.Error.DB_DAMAGED)
+      eventDispatcher.dispatchGlobalEvent(GlobalEvent.DB_DAMAGED);
+  }
+
+  public GlobalEventDispatcher getEventDispatcher() {
+    return eventDispatcher;
   }
 
   private static boolean findSystemDirs(Context context) {
@@ -159,89 +142,7 @@ public class SAT extends Application implements DBTask.EventListener {
         + "\n  resTempDir: " + resTempDir
       );
     }
+
     return success;
-  }
-
-  private void checkAppVersion() {
-    int lastVersion = Settings.getLastAppVersion();
-    int currVersion = BuildConfig.VERSION_CODE;
-    if (currVersion > lastVersion) {
-      MyLog.d(LOG_TAG, "Nev version installed: " + lastVersion + "-->" + currVersion);
-      Settings.setLastAppVersion(currVersion);
-      firstStart(lastVersion > 0);
-    }
-  }
-
-  private void firstStart(boolean update) {
-    if (Settings.isFirstStart()) {
-      MyLog.d(LOG_TAG, "App first start");
-      Settings.setFirstStart(false);
-      genDeviceUuid();
-      getDeviceInfo();
-    }
-
-    if (BuildConfig.VERSION_CODE == 12) {
-      boolean cleared = true;
-      File cacheDir = new File(Settings.getSysCacheDir());
-      for (File file : cacheDir.listFiles()) {
-        if (!file.isDirectory())
-          cleared &= file.delete();
-      }
-
-      if (cleared)
-        MyLog.d(LOG_TAG, "Cache directory cleaned");
-      else
-        MyLog.w(LOG_TAG, "Can't clean cache directory");
-    }
-  }
-
-  private void getDeviceInfo() {
-    DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
-    String vendor = Build.MANUFACTURER;
-    String model = Build.MODEL;
-    String resolution = displaymetrics.widthPixels + "x" + displaymetrics.heightPixels;
-    String osVersion = Build.VERSION.RELEASE;
-    String abi;
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-      abi = Utils.joinStr(", ", Build.SUPPORTED_ABIS);
-    } else {
-      abi = Utils.joinStr(", ", Build.CPU_ABI, Build.CPU_ABI2);
-    }
-
-    MyLog.d(LOG_TAG, "Device info:"
-      + "\n  vendor: " + vendor
-      + "\n  model: " + model
-      + "\n  resolution: " + resolution
-      + "\n  osVersion: " + osVersion
-      + "\n  abi: " + abi
-    );
-
-    Settings.setDevVendor(Utils.base64Encode(vendor));
-    Settings.setDevModel(Utils.base64Encode(model));
-    Settings.setDevRes(Utils.base64Encode(resolution));
-    Settings.setDevOsVer(Utils.base64Encode(osVersion));
-    Settings.setDevAbi(Utils.base64Encode(abi));
-  }
-
-  private void genDeviceUuid() {
-    String uuid = Utils.md5(
-      Build.BOARD + "\n" + Build.BOOTLOADER + "\n"
-        + Build.BRAND + "\n" + Build.DEVICE + "\n"
-        + Build.DISPLAY + "\n" + Build.FINGERPRINT + "\n"
-        + Build.getRadioVersion() + "\n" + Build.HARDWARE + "\n"
-        + Build.HOST + "\n" + Build.ID + "\n"
-        + Build.MANUFACTURER + "\n" + Build.MODEL + "\n"
-        + Build.PRODUCT + "\n" + Build.TAGS + "\n"
-        + Build.TYPE + "\n" + Build.USER );
-    MyLog.d(LOG_TAG, "Generated device UUID:\n  " + uuid);
-    Settings.setDevId(Utils.base64Encode(uuid));
-  }
-
-  /**
-   * Application level event listener
-   * Created by didim99 on 26.07.18.
-   */
-  public interface GlobalEventListener {
-    void onGlobalEvent(GlobalEvent event);
   }
 }
