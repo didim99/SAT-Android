@@ -1,10 +1,9 @@
 package com.didim99.sat.core.resconverter;
 
 import android.content.Context;
-import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.R;
+import com.didim99.sat.utils.MyLog;
 import com.didim99.sat.utils.Timer;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,29 +64,29 @@ public abstract class ResConverter {
     checkState();
 
     ArrayList<String> files = new ArrayList<>();
+    fileList = new ArrayList<>();
     String mask = getFileMask();
-    files.add(startPath);
 
     if (mode == Mode.DIRECTORY)
       files = scanDir(startPath, mask);
-    fileList = new ArrayList<>(files.size());
+    else files.add(startPath);
 
-    logActionStart();
-    timer.start();
-
-    int current = 1;
-    if (!files.isEmpty()) {
-      for (String name : files) {
-        if (listener != null)
-          listener.onConverterProgressUpdate(files.size(), current++);
-        if (!processFile(name)) break;
-      }
-
-      logActionEnd();
-    } else {
+    if (files.isEmpty()) {
       status = Error.NO_FILES;
+      return;
     }
 
+    timer.start();
+    logActionStart();
+    
+    int current = 1;
+    for (String name : files) {
+      if (listener != null)
+        listener.onConverterProgressUpdate(files.size(), current++);
+      if (!processFile(name)) break;
+    }
+
+    logActionEnd();
     timer.stop();
   }
 
