@@ -1,6 +1,6 @@
 package com.didim99.sat.ui.resconverter;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,26 +15,18 @@ import java.util.ArrayList;
  */
 class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
 
-  private final LayoutInflater inflater;
   private ArrayList<String> fileList;
 
-  FileListAdapter(Context context) {
-    this.inflater = LayoutInflater.from(context);
-  }
-
+  @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     return new ViewHolder(inflater.inflate(R.layout.item_sound, parent, false));
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder holder, int position) {
-    //Enable top divider for first item
-    if (position == 0)
-      holder.topDivider.setVisibility(ImageView.VISIBLE);
-    else
-      holder.topDivider.setVisibility(ImageView.INVISIBLE);
-
+  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    holder.setupDivider(position);
     holder.fileName.setText(fileList.get(position));
   }
 
@@ -56,6 +48,11 @@ class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
       super(itemView);
       topDivider = itemView.findViewById(R.id.ivTopDivider);
       fileName = itemView.findViewById(R.id.tvName);
+    }
+
+    void setupDivider(int position) {
+      topDivider.setVisibility(position == 0
+        ? View.VISIBLE : View.INVISIBLE);
     }
   }
 }

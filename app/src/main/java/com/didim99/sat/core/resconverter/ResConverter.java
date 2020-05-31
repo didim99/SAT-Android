@@ -78,7 +78,7 @@ public abstract class ResConverter {
 
     timer.start();
     logActionStart();
-    
+
     int current = 1;
     for (String name : files) {
       if (listener != null)

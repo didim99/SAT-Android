@@ -68,7 +68,7 @@ public class ResConvertActivity extends BaseActivity
         break;
       case ResConverter.Type.SOUNDS:
         setContentView(R.layout.act_sound_converter);
-        fileListAdapter = new FileListAdapter(this);
+        fileListAdapter = new FileListAdapter();
         RecyclerView fileList = findViewById(R.id.soundList);
         fileList.setLayoutManager(new LinearLayoutManager(this));
         fileList.setAdapter(fileListAdapter);

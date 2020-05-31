@@ -2,6 +2,7 @@ package com.didim99.sat.ui.dirpicker;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +17,21 @@ import java.util.List;
  */
 class DirListAdapter extends RecyclerView.Adapter<DirListAdapter.ViewHolder> {
 
-  private OnItemClickListener listener;
-  private LayoutInflater inflater;
   private Resources resources;
+  private OnItemClickListener listener;
   private List<DirPickerActivity.DirEntry> files;
 
   DirListAdapter(Context context, OnItemClickListener listener,
                  List<DirPickerActivity.DirEntry> files) {
-    this.inflater = LayoutInflater.from(context);
     this.resources = context.getResources();
     this.listener = listener;
     this.files = files;
   }
 
+  @NonNull
   @Override
-  public DirListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     View view = inflater.inflate(R.layout.item_dir_picker, parent, false);
     return new ViewHolder(view);
   }
@@ -38,12 +39,7 @@ class DirListAdapter extends RecyclerView.Adapter<DirListAdapter.ViewHolder> {
   @Override
   public void onBindViewHolder(DirListAdapter.ViewHolder holder, int position) {
     DirPickerActivity.DirEntry file = files.get(position);
-
-    //Enable top divider for first item
-    if (position == 0)
-      holder.topDivider.setVisibility(ImageView.VISIBLE);
-    else
-      holder.topDivider.setVisibility(ImageView.INVISIBLE);
+    holder.setupDivider(position);
 
     holder.itemView.setOnClickListener(view ->
       listener.onItemClick(holder.getAdapterPosition(), file.isDir()));
@@ -73,6 +69,11 @@ class DirListAdapter extends RecyclerView.Adapter<DirListAdapter.ViewHolder> {
       topDivider = view.findViewById(R.id.ivTopDivider);
       folderIcon = view.findViewById(R.id.ivFolderIcon);
       name = view.findViewById(R.id.tvFileName);
+    }
+
+    void setupDivider(int position) {
+      topDivider.setVisibility(position == 0
+        ? View.VISIBLE : View.INVISIBLE);
     }
   }
 
